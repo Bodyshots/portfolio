@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
+
+/* Colour palette: https://coolors.co/fae8bc-f9c9a2-4e313a-291d22-9d5550 */
+
+@media screen and (max-width: 992px) {
+    #navbar-items {
+        margin-left: 0.3em!important;
+    }
+    #navbar_dropdown {
+        margin-left: 0.5em!important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    #navbar-items {
+        margin-left: 0.3em!important;
+    }
+    #navbar_dropdown {
+        margin-left: 0.5em!important;
+    }
+    #globalnavbar {
+        flex-flow: column!important;
+    }
+}
+
+.navbar-toggler {
+    margin-right: 0.5em!important;
+}
+
+.me-auto {
+    margin-left: 0.5em!important;
+}
+
+.nav-link.navbar-brand {
+    font-family: 'PixelFont', sans-serif;
+    font-size: 30px!important;
+    display: flex!important;
+    flex-flow: column nowrap!important;
+    /* background: linear-gradient(-218deg, rgb(228, 217, 202), rgb(236, 192, 133) 30.71%)!important; */
+    margin: 0!important;
+    padding-right: 0.5em!important;
+    padding-left: 0.4em!important;
+}
+
+.container-fluid {
+    margin: 0!important;
+    padding: 0!important;
+}
+
+#nav-brand {
+    margin-left: 0em!important;
+}
+
+.navbar-brand:hover {opacity: 1}
+
+#navbar-container {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.nav-link {
+    color: #8d494d!important;
+    margin-left: 0.5em!important;
+    font-family: 'PixelFont', sans-serif;
+}
+
+.nav-link:hover, .active#popular:hover {
+    color: white!important;
+}
+
+.active {
+    color: white!important;
+}
+
+#globalnavbar {
+    background-color: rgba(255, 255, 255, 0.1);
+    background: rgba(185, 147, 124, 0)!important;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    transition: all 0.5s ease-in-out;
+}
+
+.active.navbar#globalnavbar{
+    background: rgba(229, 221, 172, 0.8)!important;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    transition: all 0.5s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+#slogan {
+    font-size: 15px!important;
+}
+
+#right_end {
+    display: flex;
+    flex-flow: column;
+    margin-right: 1em;
+    margin-bottom: 0.4em;
+}

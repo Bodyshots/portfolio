@@ -1,0 +1,41 @@
+.progress_container {
+    background-color: rgba(229, 221, 172, 0);
+    height: 3.5px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: all 0.5s ease-in-out,
+    width 0s ease-in-out;
+}
+
+.progress_style {
+    height: 3.5px;
+    background-color: #72393d;
+    opacity: 0.6;
+    transition: all 0.5s ease-in-out,
+    width 0s ease-in-out;
+}
+
+.progress_container.active {
+    background-color: rgba(229, 221, 172, 0.8);
+    height: 3.5px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: all 0.5s ease-in-out,
+                width 0s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+.progress_style.active {
+    height: 3.5px;
+    background-color: #72393d;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out,
+    width 0s ease-in-out;
+    backdrop-filter: blur(5px);
+}

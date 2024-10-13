@@ -1,0 +1,21 @@
+@keyframes fade-in-out {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0;}
+}
+
+#changer_container {
+    font-family: 'PixelFont', sans-serif;
+    
+    display: flex;
+    flex-flow: column;
+}
+
+#changer_container .subtitle {
+    font-size: 0.4em;
+    /* animation: fade-in-out 1000ms infinite; */
+    /* transition: all 1s ease-in-out; */
+}
+
+#changer_container #name {
+    font-size: 1.5em
+}
