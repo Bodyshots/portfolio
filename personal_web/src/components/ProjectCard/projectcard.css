@@ -1,0 +1,112 @@
+/* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
+
+.card_title {
+    margin: 0.75em!important;
+    margin-bottom: 0!important;
+    text-align: left;
+    justify-content: center;
+    font-size: 17px!important;
+    color: #790000;
+}
+
+.card_short_desc {
+  margin: 0.75em!important;
+  margin-left: 0.9em!important;
+  font-size: 14px!important;
+  text-align: left;
+  color: #790000;
+}
+
+.projectcard {
+    border: 1px solid #61001d!important;
+    border-radius: 8px!important;
+    overflow: hidden!important;
+    margin: 2em;
+
+    height: 350px!important;
+    color: #fff!important;
+    cursor: pointer!important;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    font-family: 'PixelFont', sans-serif!important;
+    transition: all 0.15s;
+}
+
+
+/* gradient css from https://keithjgrant.com/posts/2017/07/transitioning-gradients/ */
+.gradient {
+    position: relative;
+    min-height: 200px;
+    background-image: linear-gradient(
+      to right,
+      hsl(41, 56%, 70%),
+      hsl(356, 0%, 92%)
+    );
+    z-index: 1;
+  }
+  
+.gradient::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to bottom,
+    hsla(0, 0%, 100%, 0.664),
+    hsl(41, 52%, 73%)
+
+  );
+  z-index: -1;
+  transition: opacity 0.15s linear;
+  opacity: 0;
+}
+
+.gradient:hover::before {
+  opacity: 1;
+}
+
+.projectcard:hover {
+    transition: all 0.15s;
+    background: linear-gradient(-11deg, #cc9663, #e7c596 37.71%);
+}
+
+.projectcard::before {
+  transition: all 0.15s;
+  color: white!important;
+}
+
+.projectcard:hover .card_info .card_title {
+  transition: all 0.2s ease-in-out;
+  color: white!important;
+}
+
+.projectcard:hover .card_short_desc {
+  transition: all 0.2s ease-in-out;
+  color: white!important;
+}
+
+.projectcard-top > img {
+    width: 100%!important;
+    height: 225px!important;
+    object-fit: cover;
+    background: black!important;
+}
+
+.projectcard-bottom {
+    margin: 10px 20px!important;
+}
+
+.projectcat {
+    position: relative!important;
+}
+
+.projectcat::before {
+    content: ''!important;
+    background: rgb(235, 201, 107)!important;
+    position: absolute!important;
+    top: calc(100% + 10px)!important;
+    left: 0!important;
+    right: 0!important;
+    height: 2px!important;
+}

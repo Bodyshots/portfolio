@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
 
 #largesearch {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,11 +12,13 @@
   }
   
 #largesearch_input {
+    position: relative;
+
     font-family: inherit;
     font-size: 35px;
     background-color: #f4f2f2;
     border: none;
-    color: #646464;
+    color: black;
     padding: 0.7rem 1rem;
     border-radius: 30px;
     width: 12em;
@@ -39,4 +42,13 @@
 
 #largesearch_input:focus {
     background-color: #f0eeee;
+}
+
+#placeholder_text {
+    position: absolute;
+    left: 35px;
+    top: 12px;
+    font-size: 35px;
+    color: #71717a;
+    pointer-events: none;
 }

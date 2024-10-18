@@ -3,13 +3,15 @@
 
 /* Colour palette */
 
-/* #61001d - Dark Red
-#8d494d - Lighter red
-#b9937c - Brownish red
-#dec796 - Beige
-#e5ddac - Light beige
-#efe9cd - Very light beige
-#ffffff - White */
+/* 
+#61001d, HSL: (342, 100, 19), RGB (97, 0, 29, 1) - Dark Red
+#8d494d, HSL: (356, 32, 42), RGB (141, 73, 77, 1) - Lighter red
+#b9937c, HSL: (23, 30, 61), RGB (185, 147, 124, 1) - Brownish red
+#dec796, HSL: (41, 52, 73), RGB (222, 199, 150, 1) - Beige
+#e5ddac, HSL: (52, 52, 79), RGB (229, 221, 172, 1) - Light beige
+#efe9cd, HSL: (49, 52, 87), RGB (239, 233, 205, 1) - Very light beige
+#ffffff, HSL: (0, 0, 100), RGB (255, 255, 255, 1) - White
+*/
 
 /* Define custom font */
 @font-face {

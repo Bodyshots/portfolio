@@ -7,13 +7,26 @@ import React, { useEffect, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import HomeCube from '../../components/HomeCube';
 import NameChanger from '../../components/NameChanger';
+import supabase from '../../config/supabaseClient';
+import ProjectCard from '../../components/ProjectCard';
+import ProjectCarousel from '../../components/ProjectCarousel';
+import Button from 'react-bootstrap/Button';
+import HoriScroll from '../../components/HoriScroll';
+
+import { IoLogoLinkedin } from "react-icons/io";
+import { IoLogoGithub } from "react-icons/io";
+import { IoMdMail } from "react-icons/io";
 
 const Home = () => {
 
+    // console.log(supabase)
+
     const { setLoading } = useContext(UserContext);
+    const [fetchError, setFetchError] = useState(null);
+    const [projects, setProjects] = useState(null);
 
     const projects_ref = useRef(null);
     const about_ref = useRef(null);
@@ -22,14 +35,42 @@ const Home = () => {
     };
 
     useEffect(() => {
+        // Set to True to initialize everything
         setLoading(true);
+
+        const fetchProjects = async () => {
+            // Get database from supabase
+            // Has to be its exact name
+            const { data, error } = await supabase
+                .from('Projects')
+                .select()
+
+                if (error) {
+                    setFetchError("Could not fetch projects");
+                    setProjects(null);
+                    console.log(error)
+                }
+
+                if (data) {
+                    setProjects(data);
+                    setFetchError(null);
+                }
+        }
+
+        // Initialize animation library
         AOS.init({ duration: 1000 });
+        // Get projects from database
+        fetchProjects();
+        // Set new title
         document.title = "Lanz Angeles | Homepage";
+        
+        // Everything's done (ie. done loading)
         setLoading(false);
     }, [setLoading]);
 
   return (
     <AnimatePage>
+        {fetchError && (<p>{fetchError}</p>)}
         <div className="home_page" id='home_page_container'>
             <title>Home Page</title>
             <div id='landing_sec'>
@@ -37,7 +78,6 @@ const Home = () => {
                     <div id='landing_overlay'>
                         <div id='landing_text_overlay'>
                             <div id="landing_mid_container">
-                                <span data-aos="fade-right" className="text_highlight" id='landing_text_left'>yo</span>
                                 <span id="landing_cube" data-aos="fade-down"><HomeCube data-aos="fade-right"/></span>
                                 <span data-aos="fade-left" id="landing_namechanger"><NameChanger/></span>
                             </div>
@@ -45,68 +85,52 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="text-divider-sec">
-                <div className="text-divider-scroll">
-                    <div className="text-divider-scroll-item-right projects item1 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item2 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item3 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item4 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item5 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item6 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item7 text_shadow">Projects -</div>
-                    <div className="text-divider-scroll-item-right projects item8 text_shadow">Projects -</div>
-                </div>
+            {HoriScroll(true, "Projects", "projects")}
+            <div id='projects' data-aos="fade-right">
+                {ProjectCarousel(projects)}
+                <Button id="all_proj_btn">View all projects</Button>
             </div>
-            <div data-aos="fade-right" id='home_anecdote'>
-                <p>
-                <span id='home_quote_text'>"I have traveled the world, tasted the finest cuisines, 
-                and yet I have never encountered such a remarkable collection of culinary ingenuity
-                as I have found on easy chef."</span><br />
-                <span id='home_quote_person'>- Renowned Chef and Restaurateur, Pierre Gagnaire</span>
-                </p>
-            </div>
-            <div className="text-divider-sec">
-                <div className="text-divider-scroll">
-                    <div className="text-divider-scroll-item-left about text_shadow item1">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item2">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item3">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item4">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item5">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item6">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item7">About -</div>
-                    <div className="text-divider-scroll-item-left about text_shadow item8">About -</div>
-                </div>
-            </div>
+            {HoriScroll(false, "About", "about")}
             <div id='about'>
                 <AboutUs/>
             </div>
-            <div className="text-divider-sec">
-                <div className="text-divider-scroll">
-                    <div className="text-divider-scroll-item-right contact text_shadow item1">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item2">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item3">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item4">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item5">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item6">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item7">Contact -</div>
-                    <div className="text-divider-scroll-item-right contact text_shadow item8">Contact -</div>
-                </div>
-            </div>
-            <div id="contact_sec">
+            {HoriScroll(true, "Contact", "contact")}
+            <div id="contact">
                 <div id="contact_container">
-                    <div id="contact_map"> {/* map maybe */}
-                        test
+                    <div id="contact_map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d369107.52433834237!2d-79.70700198668911!3d43.717769540554514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1729226408850!5m2!1sen!2sca"
+                            width="600px"
+                            height="250px"
+                            styles={"border:0;"}
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">   
+                    </iframe>
                     </div>
-                    <div id="contact_info_container"> {/*actual contact info*/}
-                        <div id="contact_info"> {/*name, email, phone_num*/}
+                    <div id="contact_info_container">
+                        <div id="contact_info">
                             <span>Lanz Angeles</span>
                             <span>lanzangeles100@gmail.com</span>
-                            <span>(226)-627-5219</span>
-                            <div id="contact_links"> {/*links (icons)*/}
-                                Links
-                                <div id="link1"></div>
-                                <div id="link2"></div>
-                                <div id="link3"></div>
+                            <span>226-627-5219</span>
+                            <div id="contact_links">
+                                <div id="contact_link_title">Links</div>
+                                <div id="links">
+                                    <a className="contact_link" 
+                                       href={"https://github.com/Bodyshots"}
+                                       id="github_icon">
+                                        <IoLogoGithub/>
+                                    </a>
+                                    <a className="contact_link" 
+                                       href={"https://www.linkedin.com/in/lanzangeles/"}
+                                       id="linkedin_icon">
+                                        <IoLogoLinkedin/>
+                                    </a>
+                                    <a className="contact_link"
+                                       href={"mailto:lanzangeles100@gmail.com?subject=sup nerd"}
+                                       id="email_icon">
+                                        <IoMdMail/>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

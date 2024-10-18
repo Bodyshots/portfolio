@@ -1,0 +1,136 @@
+:root {
+    --scroll_time: 80s;
+    --item_num: 8;
+    --item_scroll1_width: 350.5px;
+}
+
+@keyframes scrollLeft{
+    to {
+        left: -500px;
+    }
+}
+
+@keyframes scrollRight{
+    to {
+        right: -500px;
+    }
+}
+
+.text-divider-sec {
+    background-color: #e5ddac;
+}
+
+.text-divider-scroll {
+    border-top: 3px solid #61001d;
+    border-bottom: 3px solid #61001d;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    position: relative;
+    height: 125px;
+
+    /* make items disappear once leaving section */
+    overflow: hidden;
+
+    box-shadow: 3px 3px 3px rgba(97, 0, 29, 0.5)!important;
+
+    /* fade-in, fade-out items */
+    /* mask-image: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 1) 20%,
+        rgba(0, 0, 0, 1) 80%,
+        rgba(0, 0, 0, 0)
+    ); */
+}
+
+.text-divider-scroll-item-right {
+    font-family: "PixelFont", sans-serif;
+    width: var(--item_scroll1_width);
+    height: auto;
+    background-color: #e5ddac;
+    position: absolute;
+    font-size: 80px;
+    color: #61001d;
+    width: 500px;
+    
+    right: max(calc(var(--item_scroll1_width) * var(--item_num)), 100%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    vertical-align: middle;
+
+    /* animation for scrolling direction */
+    animation-name: scrollRight;
+
+    animation-duration: var(--scroll_time);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.text-divider-scroll-item-left {
+    font-family: "PixelFont", sans-serif;
+    width: var(--item_scroll1_width);
+    height: auto;
+    background-color: #e5ddac;
+    position: absolute;
+    font-size: 80px;
+    color: #61001d;
+    padding: auto;
+    margin: auto;
+    /* width: 40%; */
+
+    /* <direction>: max(calc(<width> * <item_count>)) */
+    /* <width > spacing b/w blocks (typically actual width of block)*/
+
+    left: max(calc(var(--item_scroll1_width) * var(--item_num)), 100%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    vertical-align: middle;
+
+    /* animation for scrolling direction */
+    animation-name: scrollLeft;
+
+    animation-duration: var(--scroll_time);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.item1 {
+    /* Duration * Delay * -1 */
+    /* Explicitly, calc((<item_dur> / <item_count>) * (<item_count> - <specific_item_num>) * -1) */
+    /* -1 to show all items initially in their positions (not start from the beginning) */
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 1) * -1)
+}
+.item2 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 2) * -1)
+}
+
+.item3 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 3) * -1)
+}
+
+.item4 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 4) * -1)
+}
+
+.item5 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 5) * -1)
+}
+
+.item6 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 6) * -1)
+}
+
+.item7 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 7) * -1)
+}
+
+.item8 {
+    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 8) * -1)
+}

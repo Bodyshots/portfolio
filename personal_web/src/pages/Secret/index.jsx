@@ -8,9 +8,18 @@ import "aos/dist/aos.css";
 import { UserContext } from '../../App';
 import { useContext, useEffect } from 'react';
 import LargeSearch from '../../components/LargeSearch';
+import { PlaceholdersAndVanishInput } from '../../components/ui/placeholders-and-vanish-input';
 
 function Secret() {
 
+    const placeholders = [
+        "What's the first rule of Fight Club?",
+        "Who is Tyler Durden?",
+        "Where is Andrew Laeddis Hiding?",
+        "Write a Javascript method to reverse a string",
+        "How to assemble your own PC?",
+      ];
+     
     const { setLoading } = useContext(UserContext);
 
     useEffect(() => {

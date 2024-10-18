@@ -25,6 +25,7 @@ function AnimatedRoutes() {
                 <Route exact path="/" element={<Home/>}/>
                 <Route exact path="/home" element={<Home/>}/>
                 <Route exact path="/macGabriel100" element={<MacGabriel100/>}/>
+                <Route exact path="/macgabriel100" element={<MacGabriel100/>}/>
                 <Route exact path="/secret" element={<Secret/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
 
-:root {
-    --scroll_time: 100s;
-    --item_num: 8;
-    --item_scroll1_width: 438.2px;
-}
-
 #home_page_container{
     min-height: 100vh;
 }
@@ -22,7 +16,7 @@
     width: 100%;
     max-width: 100%;
     font-size: 30px;
-    height: 32.5em;
+    height: 30.5em;
     text-align: center;
 
     background-color: #e5ddac;
@@ -56,7 +50,7 @@
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #landing_text_left {
@@ -74,7 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 0.8em;
+    margin-left: 2.5em;
 }
 
 #landing_text_right {
@@ -175,15 +169,30 @@
     linear-gradient(336deg, rgba(244, 175, 109,.8), rgba(0,0,255,0) 70.71%);
 }
 
-#home_anecdote {
+#projects {
     display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
     justify-content: center;
     text-align: center;
-    padding: 1.5em 1.5em;
-    font-family: 'PixelFont', sans-serif;
-    font-size: calc(1.375rem + 1.5vw);
-    margin-bottom: 1em;
+    align-items: center;
+    font-family: 'PixelFont', sans-serif; */
 }
+
+#all_proj_btn {
+    margin-top: -1.5em;
+    margin-bottom: 2em;
+}
+
 #home_quote_text {
     margin-bottom: 1em;
     padding-bottom: 1em;
@@ -194,12 +203,15 @@
     font-size: 1.25rem;
 }
 
-#contact_sec {
+#contact {
     width: 100%;
     min-height: 100%;
-    padding: 6em 0;
-    background-color: black;
-    color: red;
+    padding: 2em 0;
+    background-color: #e5ddac;
+    font-family: 'PixelFont', sans-serif;
+    color: #61001d;
+    border-bottom: 3px solid #61001d;
+    box-shadow: 3px 3px 3px rgba(97, 0, 29, 0.5)!important;
 }
 
 #contact_container {
@@ -212,6 +224,7 @@
 }
 
 #contact_info {
+    font-size: 1.25em;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -220,9 +233,38 @@
 }
 
 #contact_links {
+    font-size: 1.5em;
+    margin-top: 1em;
     display: flex;
     flex-flow: column;
     justify-content: center;
+}
+
+#contact_link_title {
+    margin-bottom: 0.5em;
+}
+
+#links {
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+}
+
+.contact_link svg{
+    margin-left: 1em;
+    margin-right: 1em;
+    height: 60px;
+    width: 60px;
+}
+
+a.contact_link {
+    color: #61001d;
+}
+
+a.contact_link:hover {
+    color: white;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* #about{
@@ -235,154 +277,3 @@
     linear-gradient(127deg, rgba(204, 155, 101,.8), rgba(0,255,0,0) 70.71%),
     linear-gradient(336deg, rgba(244, 175, 109,.8), rgba(0,0,255,0) 70.71%);
 } */
-
-@keyframes scrollLeft{
-    to {
-        left: -500px;
-    }
-}
-
-@keyframes scrollRight{
-    to {
-        right: -500px;
-    }
-}
-
-.text-divider-sec {
-    background-color: #e5ddac;
-}
-
-.text-divider-scroll {
-    border: 1px solid #61001d;
-    width: 100%;
-    max-width: 100%;
-    margin-inline: auto;
-    position: relative;
-    height: 200px;
-
-    /* make items disappear once leaving section */
-    overflow: hidden;
-
-    box-shadow: 3px 3px 3px rgba(97, 0, 29, 0.5)!important;
-
-    /* fade-in, fade-out items */
-    /* mask-image: linear-gradient(
-        to left,
-        rgba(0, 0, 0, 0),
-        rgba(0, 0, 0, 1) 20%,
-        rgba(0, 0, 0, 1) 80%,
-        rgba(0, 0, 0, 0)
-    ); */
-}
-
-.text-divider-scroll-item-right {
-    font-family: "PixelFont", sans-serif;
-    /* Define width separately in another class*/
-    height: 200px;
-    background-color: #e5ddac;
-    position: absolute;
-    font-size: 110px;
-    color: #61001d;
-    
-    /* Define right in another class*/
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    vertical-align: middle;
-
-    /* animation for scrolling direction */
-    animation-name: scrollRight;
-
-    animation-duration: var(--scroll_time);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.text-divider-scroll-item-right.projects {
-    /* <direction>: max(calc(<width> * <item_count>)) */
-    /* <width > spacing b/w blocks (typically actual width of block)*/
-    width: 500px;
-    right: max(calc(462.5px * var(--item_num)), 100%);
-}
-
-.text-divider-scroll-item-right.contact {
-    /* <direction>: max(calc(<width> * <item_count>)) */
-    /* <width > spacing b/w blocks (typically actual width of block)*/
-    width: 500px;
-    right: max(calc(453.5px * var(--item_num)), 100%);
-}
-
-
-.text-divider-scroll-item-left {
-    font-family: "PixelFont", sans-serif;
-    /* Define width in another class*/
-    height: 200px;
-    background-color: #e5ddac;
-    position: absolute;
-    font-size: 110px;
-    color: #61001d;
-    padding: auto;
-    margin: auto;
-    /* width: 40%; */
-
-    /* <direction>: max(calc(<width> * <item_count>)) */
-    /* <width > spacing b/w blocks (typically actual width of block)*/
-
-    /* Define left in another section*/
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    vertical-align: middle;
-
-    /* animation for scrolling direction */
-    animation-name: scrollLeft;
-
-    animation-duration: var(--scroll_time);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.text-divider-scroll-item-left.about {
-    /* <direction>: max(calc(<width> * <item_count>)) */
-    /* <width > spacing b/w blocks (typically actual width of block)*/
-    width: 400px;
-    left: max(calc(348.5px * var(--item_num)), 100%);
-}
-
-.item1 {
-    /* Duration * Delay * -1 */
-    /* Explicitly, calc((<item_dur> / <item_count>) * (<item_count> - <specific_item_num>) * -1) */
-    /* -1 to show all items initially in their positions (not start from the beginning) */
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 1) * -1)
-}
-.item2 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 2) * -1)
-}
-
-.item3 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 3) * -1)
-}
-
-.item4 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 4) * -1)
-}
-
-.item5 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 5) * -1)
-}
-
-.item6 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 6) * -1)
-}
-
-.item7 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 7) * -1)
-}
-
-.item8 {
-    animation-delay: calc(var(--scroll_time) / var(--item_num) * (var(--item_num) - 8) * -1)
-}
