@@ -16,6 +16,8 @@ body {
     font-family: 'Baloo 2', cursive;
     text-align: center;
     position: relative;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 #footer {

@@ -1,0 +1,45 @@
+:root {
+    --gradient: linear-gradient(10deg, #ffaa00, #ff6a00);
+}
+
+#test_pg {
+    height: 30.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: auto;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.save-button {
+    padding: 0 1rem;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(10deg, #fa0, #ff6a00);
+    background: var(--gradient)
+}
+
+button {
+    width: auto;
+    height: 3rem;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 1.25px;
+    cursor: default;
+    font-family: "Montserrat", sans-serif;
+    overflow: visible;
+    text-transform: none;
+}
+
+.backdrop, .modal {
+    display: flex;
+    align-items: center;
+}

@@ -28,9 +28,9 @@ function ProjectCard(item) {
             {/* <h3 className='card_text'>{project.name.length > 15 ? project.name.substring(0, 15) + '...' : project.name}</h3>
             <span className="projectcat card_text">Cooking time: {project.cook_time}</span> */}
         </div>
-        <p className='card_short_desc'>{SHORT_DESC.length > 25 ? DESC + '...'
+        <p className='card_short_desc'>{SHORT_DESC.length > 25 ? SHORT_DESC.substring(0, 25) + '...'
                                                 : SHORT_DESC.length === 0
-                                                ? 'No description' 
+                                                ? 'No short description' 
                                                 : SHORT_DESC}</p>
         </div>
     </div>

@@ -1,21 +1,26 @@
-/* .modal {
-    {/* Width => Tries 700px,
+.projectModal {
+    /* {Width => Tries 700px,
     goes 90% if small or 50% if too big */
-    /* width: clamp(50%, 700px, 90%);
-    height: min(50%, 300px);
+    width: clamp(50%, 700px, 90%)!important;
+    height: min(50%, 300px)!important;
 
-    margin: auto;
-    padding: 0 2rem;
-    border-radius: 12px;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-} */
+    margin: auto!important;
+    padding: 0 2rem!important;
+    border-radius: 12px!important;
+    display: flex!important;
+    flex-flow: column!important;
+    align-items: center!important;
+    vertical-align: auto!important;
+}
+
+.orange-gradient {
+    background: var(--gradient);
+  }
 
 /* Some Popup code from:
 https://github.com/Ziratsu/React-modal-yt/blob/main/src/Components/Modal/Modal.js */
 
-#add_card {
+/* #add_card {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,7 +41,7 @@ body.active_addshopitem_popup {
     max-width: none;
     margin: auto;
     margin-top: 2em;
-    /* margin: var(--bs-modal-margin); */
+    margin: var(--bs-modal-margin);
     width: 60%;
     display: flex;
     justify-content: center;
@@ -51,4 +56,4 @@ body.active_addshopitem_popup {
 .addshoprecipe_content {
     background-color: white!important;
     background: linear-gradient(24deg, rgba(230, 221, 171, 1), rgb(255, 255, 255) 100.3%)!important;
-}
+} */
