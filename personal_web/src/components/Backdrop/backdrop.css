@@ -13,4 +13,5 @@
     align-items: center;
     justify-content: center;
     overflow-y: hidden;
+    backdrop-filter: blur(2.5px);
 }

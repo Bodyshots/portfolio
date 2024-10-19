@@ -1,8 +1,13 @@
 .projectModal {
     /* {Width => Tries 700px,
     goes 90% if small or 50% if too big */
-    width: clamp(50%, 700px, 90%);
-    height: min(50%, 300px);
+    width: clamp(50%, 1000px, 90%);
+    background: linear-gradient(
+        135deg,
+        hsl(41, 46%, 70%),
+        rgba(229, 221, 172)
+      );
+    height: auto;
     position: relative;
     z-index: 99999999;
 
@@ -12,8 +17,69 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     vertical-align: auto;
+    color: rgba(141, 73, 77, 1)
+}
+
+.projectModalBody {
+    /* height: 100%; */
+    width: 100%;
+    margin: 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.projectModalText {
+    /* position: relative; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    /* height: 25em; */
+    width: 50%;
+    min-height: 100%;
+}
+
+.projectModalTitle {
+    margin-top: 0.5em;
+    font-size: 25px;
+    /* text-shadow: 1px 1px 3px black; */
+}
+
+.projectModalDesc {
+    width: 100%;
+    height: 50%;
+}
+
+.project_media {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+iframe.project_video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.project_imgs {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    /* height: auto; */
+    object-fit: contain;
+}
+
+.projectModalCloseBtn {
+    margin: 1em;
 }
 
 .backdrop, .modal {
@@ -21,47 +87,36 @@
     align-items: center;
 }
 
-.orange-gradient {
-    background: var(--gradient);
-  }
-
-/* Some Popup code from:
-https://github.com/Ziratsu/React-modal-yt/blob/main/src/Components/Modal/Modal.js */
-
-/* #add_card {
+.projectCloseContainer {
+    position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.15s;
-    opacity: 0.8;
+    justify-content: right;
+    width: 100%;
 }
 
-.btn-primary#add_card:hover {
-    background-color: black;
+#close_item {
+    width: 1.25em!important;
+    height: 1.25em!important;
+    background:
+      conic-gradient(from 90deg at var(--b) var(--b),rgba(0, 0, 0, 0) 90deg, grey 0) 
+      calc(100% + var(--b)/2) calc(100% + var(--b)/2)/ /*Vertical line*/
+      calc(50%  + var(--b))   calc(50%  + var(--b))!important; /*Horizontal line*/
+    transform: rotate(45deg)!important;
+    border: 0!important;
+    margin-top: 0.5em!important;
+    margin-right: 0.5em!important;
+    transition: all 0.15s;
     opacity: 0.5;
 }
 
-body.active_addshopitem_popup {
-    overflow-y: hidden!important;
-}
+#close_btn #close_item:hover, #close_btn:hover #close_item { opacity: 0.8; }
 
-#addshoprecipe_modal {
-    max-width: none;
-    margin: auto;
-    margin-top: 2em;
-    margin: var(--bs-modal-margin);
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Baloo 2', cursive!important;
+#close_btn {
+    min-height: 33px;
+    height: 33px;
+    width: auto;
+    /* width: .3%; */
+    /* min-width: 24.63px; */
+    /* padding: 0!important; */
+    margin-right: 0.2em;
 }
-
-#addshoprecipe_modal_footer {
-    justify-content: center;
-}
-
-.addshoprecipe_content {
-    background-color: white!important;
-    background: linear-gradient(24deg, rgba(230, 221, 171, 1), rgb(255, 255, 255) 100.3%)!important;
-} */

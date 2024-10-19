@@ -6,7 +6,7 @@ import './horiscroll.css'
 
 function HoriScroll(right, text, section_nme) {
 
-    const ITEM_NUM = 32;
+    const ITEM_NUM = 8;
 
     const scrollItem = (right, text, section_nme, i) => {
         const scroll_type = right ? "right" : "left"

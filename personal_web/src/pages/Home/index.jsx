@@ -12,7 +12,6 @@ import HomeCube from '../../components/HomeCube';
 import NameChanger from '../../components/NameChanger';
 import supabase from '../../config/supabaseClient';
 import ProjectCarousel from '../../components/ProjectCarousel';
-import Button from 'react-bootstrap/Button';
 import HoriScroll from '../../components/HoriScroll';
 import Backdrop from '../../components/Backdrop';
 import ProjectModal from '../../components/ProjectModal';
@@ -92,16 +91,17 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {HoriScroll(true, "Projects", "projects")}
-            <div id='projects' data-aos="fade-right">
+            {HoriScroll(true, "Major Projects", "projects")}
+            <div id='projects'>
                 {/* {console.log("project_lst: " + project_lst)}
                 {console.log("project_dict: " + projects)} */}
                 {ProjectCarousel(project_lst, modalOpen, open, close, isActive)}
-                <Button id="all_proj_btn">View all projects</Button>
+                <button id="all_proj_btn" data-aos="fade-left">View all projects</button>
             </div>
             {HoriScroll(false, "About", "about")}
             <div id='about'>
-                <AboutUs/>
+                <span>dighdsljsndfkfm</span>
+                {/* <AboutUs/> */}
             </div>
             {HoriScroll(true, "Contact", "contact")}
             <div id="contact">

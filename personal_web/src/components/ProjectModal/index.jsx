@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import noimage from '../../images/noimageavailable.png'
 
 import "./projectmodal.css"
 import  "../globals.css"
@@ -30,6 +31,9 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
 
     const target_item = project_lst.find(item => item.id === id)
     const LONG_DESC = target_item.long_desc
+    const ITEM_VID = target_item.video;
+    const ITEM_IMAGE = target_item.image;
+    const ITEM_NAME = target_item.name;
 
     return (
         <motion.div
@@ -40,10 +44,32 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
             animate="visible"
             exit="exit"
             >
-            <div className="projectModalText">
-                {LONG_DESC}
+            <div className="projectCloseContainer">
+              <button id="close_btn" onClick={() => handleClose()}>
+                <span id='close_item' className='plus'/>
+              </button>
             </div>
-            <button onClick={handleClose}>Close</button>
+            <div className="projectModalBody">
+                <div className="projectModalText">
+                  <span className="projectModalTitle">{ITEM_NAME}</span>
+                  <span className="projectModalDesc">{LONG_DESC ? LONG_DESC : "No long description available."}</span>
+                </div>
+                <div className="project_media">
+                  <img
+                    src={ITEM_IMAGE ? ITEM_IMAGE : noimage}
+                    alt={ITEM_NAME}
+                    className="project_imgs"
+                  />
+                <iframe className="project_video"
+                        src="https://www.youtube.com/embed/qs9S1hxnApU?si=3fbCC5jekQAq-Y26"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                </iframe>
+                </div>
+            </div>
         </motion.div>
     );
   };

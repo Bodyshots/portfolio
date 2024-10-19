@@ -1,7 +1,7 @@
 :root {
     --scroll_time: 80s;
     --item_num: 8;
-    --item_scroll1_width: 350.5px;
+    --item_scroll1_width: 480.5px;
 }
 
 @keyframes scrollLeft{
@@ -50,9 +50,11 @@
     height: auto;
     background-color: #e5ddac;
     position: absolute;
-    font-size: 80px;
+    font-size: 70px;
     color: #61001d;
-    width: 500px;
+    width: 600px;
+    top: 0;
+    bottom: 0;
     
     right: max(calc(var(--item_scroll1_width) * var(--item_num)), 100%);
 

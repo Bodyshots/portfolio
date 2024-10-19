@@ -2,15 +2,9 @@
 
 #home_page_container{
     min-height: 100vh;
+    /* background: linear-gradient(0deg, rgba(255, 226, 165, 0.8) 10%, rgba(141,73,77,0.65) 70%),
+            url('../../components/fractal_noise.svg'); */
 }
-
-.home_page {
-    background: linear-gradient(217deg, #b9937c, #b9937c 70.71%),
-    linear-gradient(127deg, #8d494d, #b9937c 70.71%),
-    linear-gradient(336deg, #e5ddac, #efe9cd 70.71%);
-    /* background-color: #e8e4ce!important; */
-}
-
 
 #landing_sec {
     width: 100%;
@@ -157,35 +151,28 @@
     font-size: calc(1rem + 0.2vw)!important; /*Original (h5): 1.25rem - not responsive */
 }
 
-#about{
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    /* position: absolute; */
-    min-height: 100%;
-    padding: 2em 0;
-    background: linear-gradient(217deg, rgba(156, 100, 60,.8), rgba(255,0,0,0) 70.71%),
-    linear-gradient(127deg, rgba(204, 155, 101,.8), rgba(0,255,0,0) 70.71%),
-    linear-gradient(336deg, rgba(244, 175, 109,.8), rgba(0,0,255,0) 70.71%);
-}
-
 #projects {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
 
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 90%;
-    margin: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    background:
+            linear-gradient(107deg, rgba(255, 226, 165, 0.719), rgba(141,73,77,0.65)),
+            url('../../components/fractal_noise.svg'),
+            radial-gradient(circle at 50%, rgba(255,226,165,0.8), rgba(141,73,77,0.65)), 
+            url('../../components/fractal_noise.svg');
+}
 
+#about{
+    display: flex;
     justify-content: center;
-    text-align: center;
-    align-items: center;
-    font-family: 'PixelFont', sans-serif; */
+    margin: auto;
+    height: 50em;
+    min-height: 100%;
+    padding: 2em 0;
+    background: radial-gradient(circle at 95%, rgba(141,73,77,0.65), 40%, rgba(255, 226, 165, 0.61) 55%, rgba(255, 226, 165, 0.8) 65%);
+                /* url('../../components/fractal_noise.svg'); */
 }
 
 #all_proj_btn {
@@ -266,14 +253,3 @@ a.contact_link:hover {
     transition: all 0.15s ease-in-out;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 }
-
-/* #about{
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    min-height: 100%;
-    padding: 2em 0;
-    background: linear-gradient(217deg, rgba(156, 100, 60,.8), rgba(255,0,0,0) 70.71%),
-    linear-gradient(127deg, rgba(204, 155, 101,.8), rgba(0,255,0,0) 70.71%),
-    linear-gradient(336deg, rgba(244, 175, 109,.8), rgba(0,0,255,0) 70.71%);
-} */

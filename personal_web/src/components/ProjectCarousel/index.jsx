@@ -15,25 +15,28 @@ import { useState } from 'react';
 function ProjectCarousel(project_lst, modalOpen, open,
                          close, isActive) {
 
-      const settings = {
-        className: "center",
-        centerMode: true,
-        infinite: true,
-        centerPadding: "5px",
-        slidesToShow: Math.min(3, project_lst.length),
-        speed: 500,
-      };
+  const major_projects = project_lst.map((item) => {if (item.major) return item}).filter(item => item)
+
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "5px",
+    slidesToShow: Math.min(3, major_projects.length),
+    speed: 500,
+  };
 
   return (
     <>
-        {(project_lst && project_lst.length > 0) ? <div className="projectcarousel">
-        <Slider {...settings}>
-            {project_lst.map((item) => (
-              <div>
-                {ProjectCard(item, modalOpen, open, close, isActive)}
-              </div>
-            ))}
-        </Slider>
+        {(major_projects && major_projects.length > 0) ? 
+        <div className="projectcarousel">
+          <Slider {...settings}>
+              {major_projects.map((item) => (
+                <div>
+                  {item && ProjectCard(item, modalOpen, open, close, isActive)}
+                </div>
+              ))}
+          </Slider>
         </div> : <div id='none_projectcarousel'>Hmmm... There are no projects here!</div>}
     </>
   );

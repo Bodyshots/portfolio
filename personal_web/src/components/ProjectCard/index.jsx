@@ -9,15 +9,19 @@ import noimage from '../../images/noimageavailable.png'
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
 function ProjectCard(item, modalOpen, open, close, isActive) {
+    const SHORT_DESC = item.short_desc
+    const SHORT_DESC_LIMIT = 65;
 
-    const NAME = item['name']
-    const SHORT_DESC = item['short_desc']
-    const MAJOR = item['major']
-    const IMG_URL = item['image']
-    const VID = item['video']
+    const NAME = item.name
+    const MAJOR = item.major
+    const IMG_URL = item.image
+    const VID = item.video
 
     return (
-    <div className="projectcard gradient" key={item.id} onClick={() => (modalOpen ? close() : open(item.id))}>
+    <div className="projectcard gradient"
+         key={item.id}
+         onClick={() => (modalOpen ? close() : open(item.id))}
+         data-aos="fade-right">
         <div className="projectcard-top img_wrap">
             <img
                 src={IMG_URL ? IMG_URL : noimage}
@@ -31,7 +35,8 @@ function ProjectCard(item, modalOpen, open, close, isActive) {
             {/* <h3 className='card_text'>{project.name.length > 15 ? project.name.substring(0, 15) + '...' : project.name}</h3>
             <span className="projectcat card_text">Cooking time: {project.cook_time}</span> */}
         </div>
-        <p className='card_short_desc'>{SHORT_DESC.length > 25 ? SHORT_DESC.substring(0, 25) + '...'
+        <p className='card_short_desc'>{SHORT_DESC.length > SHORT_DESC_LIMIT 
+                                                ? SHORT_DESC.substring(0, SHORT_DESC_LIMIT) + '...'
                                                 : SHORT_DESC.length === 0
                                                 ? 'No short description' 
                                                 : SHORT_DESC}</p>
