@@ -1,11 +1,14 @@
-import React from 'react';
-import noimage from '../../images/noimageavailable.png'
 import '../globals.css'
 import './projectcard.css'
 
+import React from 'react';
+import ProjectModal from '../ProjectModal';
+import { motion, AnimatePresence } from 'framer-motion';
+import noimage from '../../images/noimageavailable.png'
+
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
-function ProjectCard(item) {
+function ProjectCard(item, modalOpen, open, close, isActive) {
 
     const NAME = item['name']
     const SHORT_DESC = item['short_desc']
@@ -14,7 +17,7 @@ function ProjectCard(item) {
     const VID = item['video']
 
     return (
-    <div className="projectcard gradient" key={item.id}>
+    <div className="projectcard gradient" key={item.id} onClick={() => (modalOpen ? close() : open(item.id))}>
         <div className="projectcard-top img_wrap">
             <img
                 src={IMG_URL ? IMG_URL : noimage}
@@ -33,6 +36,16 @@ function ProjectCard(item) {
                                                 ? 'No short description' 
                                                 : SHORT_DESC}</p>
         </div>
+        {/* <AnimatePresence
+            initial={false}
+            mode="wait"
+            onExitComplete={() => null}
+        >
+            {console.log("modal open: " + modalOpen)}
+            {console.log("isActive: " + isActive)}
+            {console.log("index: " + index)}
+            {modalOpen && (isActive === index) && <ProjectModal modalOpen={modalOpen} handleClose={close} text={"test"}/>}
+        </AnimatePresence> */}
     </div>
     );
 }

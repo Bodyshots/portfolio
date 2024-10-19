@@ -12,35 +12,30 @@ import { useState } from 'react';
 // Most carousel code from: https://www.youtube.com/watch?v=FLt2TveqHQM
 // and https://react-slick.neostack.com/docs/example/custom-arrows
 
-function ProjectCarousel(project_dict) {
+function ProjectCarousel(project_lst, modalOpen, open,
+                         close, isActive) {
 
-    let projects = [];
-    const [modalOpen, setModalOpen] = useState(false);
-    const open = () => setModalOpen(true);
-    const close = () => setModalOpen(false);
-
-      for (let key in project_dict) {
-        projects.push(project_dict[key]);
-      }
+      // if (projects[0]) {
+      //   console.log(projects)
+      //   console.log(projects[0].id)
+      // }
 
       const settings = {
         className: "center",
         centerMode: true,
         infinite: true,
         centerPadding: "5px",
-        slidesToShow: Math.min(3, projects.length),
+        slidesToShow: Math.min(3, project_lst.length),
         speed: 500,
-        autoplay: false,
-        autoplaySpeed: 3000,
       };
 
   return (
     <>
-        {(projects && projects.length > 0) ? <div className="projectcarousel">
+        {(project_lst && project_lst.length > 0) ? <div className="projectcarousel">
         <Slider {...settings}>
-            {projects.map((item) => (
+            {project_lst.map((item) => (
               <div>
-                {ProjectCard(item)}
+                {ProjectCard(item, modalOpen, open, close, isActive)}
               </div>
             ))}
         </Slider>

@@ -38,7 +38,7 @@ const Test = () => {
             mode="wait"
             onExitComplete={() => null}
         >
-            {modalOpen && <ProjectModal modalOpen={modalOpen} handleClose={close} text={modalText()}/>}
+            {modalOpen && (isActive === index) && <ProjectModal modalOpen={modalOpen} handleClose={close} text={modalText()}/>}
         </AnimatePresence>
         <div className="w-full relative flex justify-between flex-wrap gap-3">
         <p className="text-lg m-6 group relative w-max">

@@ -38,8 +38,3 @@ button {
     overflow: visible;
     text-transform: none;
 }
-
-.backdrop, .modal {
-    display: flex;
-    align-items: center;
-}

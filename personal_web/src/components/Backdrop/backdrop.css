@@ -1,15 +1,15 @@
 .backdrop {
-    position: absolute;
+    position: fixed!important;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    overflow: auto;
+    height: 100vh;
+    width: 100vw;
     max-width: 100%;
     min-width: 100%;
     background: #000000e1;
     display: flex;
-    margin: auto;
-    padding: auto;
+    background-size: cover;
     align-items: center;
     justify-content: center;
     overflow-y: hidden;

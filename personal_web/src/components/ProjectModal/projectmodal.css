@@ -1,16 +1,24 @@
 .projectModal {
     /* {Width => Tries 700px,
     goes 90% if small or 50% if too big */
-    width: clamp(50%, 700px, 90%)!important;
-    height: min(50%, 300px)!important;
+    width: clamp(50%, 700px, 90%);
+    height: min(50%, 300px);
+    position: relative;
+    z-index: 99999999;
 
-    margin: auto!important;
-    padding: 0 2rem!important;
-    border-radius: 12px!important;
-    display: flex!important;
-    flex-flow: column!important;
-    align-items: center!important;
-    vertical-align: auto!important;
+    margin: auto;
+    padding: 0 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    vertical-align: auto;
+}
+
+.backdrop, .modal {
+    display: flex;
+    align-items: center;
 }
 
 .orange-gradient {

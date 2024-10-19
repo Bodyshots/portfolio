@@ -70,3 +70,12 @@ body {
 .text_shadow {
   text-shadow: 3px 3px 3px rgba(97, 0, 29, 0.2);
 }
+
+.modal_container {
+  height: inherit;
+  width: inherit;
+  display: static;
+  justify-content: center;
+  align-items: center;
+  bottom: 1000px;
+}

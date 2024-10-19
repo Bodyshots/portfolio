@@ -11,10 +11,11 @@ import { useContext, useState } from 'react';
 import HomeCube from '../../components/HomeCube';
 import NameChanger from '../../components/NameChanger';
 import supabase from '../../config/supabaseClient';
-import ProjectCard from '../../components/ProjectCard';
 import ProjectCarousel from '../../components/ProjectCarousel';
 import Button from 'react-bootstrap/Button';
 import HoriScroll from '../../components/HoriScroll';
+import Backdrop from '../../components/Backdrop';
+import ProjectModal from '../../components/ProjectModal';
 
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
@@ -23,16 +24,18 @@ import { IoMdMail } from "react-icons/io";
 const Home = () => {
 
     // console.log(supabase)
-
+    let project_lst = [];
     const { setLoading } = useContext(UserContext);
     const [fetchError, setFetchError] = useState(null);
     const [projects, setProjects] = useState(null);
-
-    const projects_ref = useRef(null);
-    const about_ref = useRef(null);
-    const handleClick = (e) => {
-        e.current?.scrollIntoView({behavior : 'smooth'});
-    };
+    const [modalOpen, setModalOpen] = useState(false);
+    const [isActive, setIsActive] = useState(-1);
+    
+    const open = (id) => {
+      setIsActive(id);
+      setModalOpen(true);
+    }
+    const close = () => setModalOpen(false);
 
     useEffect(() => {
         // Set to True to initialize everything
@@ -68,6 +71,10 @@ const Home = () => {
         setLoading(false);
     }, [setLoading]);
 
+    for (let key in projects) {
+        project_lst.push(projects[key]);
+    }
+
   return (
     <AnimatePage>
         {fetchError && (<p>{fetchError}</p>)}
@@ -87,7 +94,9 @@ const Home = () => {
             </div>
             {HoriScroll(true, "Projects", "projects")}
             <div id='projects' data-aos="fade-right">
-                {ProjectCarousel(projects)}
+                {console.log("project_lst: " + project_lst)}
+                {console.log("project_dict: " + projects)}
+                {ProjectCarousel(project_lst, modalOpen, open, close, isActive)}
                 <Button id="all_proj_btn">View all projects</Button>
             </div>
             {HoriScroll(false, "About", "about")}
@@ -135,6 +144,13 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+            {modalOpen && (<div className="modal_container">
+                <Backdrop onClick={close}>
+                <ProjectModal handleClose={close} 
+                              project_lst={project_lst}
+                              id={isActive}/>
+                </Backdrop>
+                </div>)}
             </div>
         </div>
     </AnimatePage>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Backdrop from "../Backdrop";
 import { motion } from "framer-motion";
 
 import "./projectmodal.css"
@@ -27,11 +26,13 @@ const dropIn = {
   };
   
 
-const ProjectModal = ({ handleClose, text }) => {
+const ProjectModal = ({ handleClose, project_lst, id }) => {
+
+    const target_item = project_lst.find(item => item.id === id)
+    const LONG_DESC = target_item.long_desc
 
     return (
-      <Backdrop onClick={handleClose}>
-          <motion.div
+        <motion.div
             onClick={(e) => e.stopPropagation()}  
             className="projectModal orange-gradient"
             // className="projectModal"
@@ -39,57 +40,14 @@ const ProjectModal = ({ handleClose, text }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-          >
+            >
             <div className="projectModalText">
-                {text}
+                {LONG_DESC}
             </div>
             <button onClick={handleClose}>Close</button>
-          </motion.div>
-      </Backdrop>
+        </motion.div>
     );
   };
 
   
 export default ProjectModal;
-
-//     const [popup, setPopup] = useState(false);
-//     const togglePopup = () => setPopup(!popup);
-
-//     if (popup) document.body.classList.add('active_addshopitem_popup');
-//     else document.body.classList.remove('active_addshopitem_popup');
-
-//     return (
-//         <div className='shop_item_container'>
-//             <Button className="btn card shop_item" id="add_card" onClick={togglePopup}>
-//                 <div className="plus radius" id='add_btn'>
-//                 </div>
-//             </Button>
-//             <Modal 
-//                 show={popup} 
-//                 onHide={togglePopup} 
-//                 id='addshoprecipe_modal'
-//                 contentClassName = 'addshoprecipe_content'
-//             >
-//                 <Modal.Header closeButton>
-//                     <Modal.Title>Add a recipe to your shopping list</Modal.Title>
-//                 </Modal.Header>
-//                 <Modal.Body id='addshoprecipe_content'>
-//                     <Form className="d-flex" role="search" id="shop_search">
-//                         <Form.Control
-//                             type="search"
-//                             placeholder = "What recipes do you want to add?"
-//                             aria-label="Add Shopping List Recipe"
-//                             id="add_shoplstrecipe"
-//                         />
-//                     </Form>
-//                 </Modal.Body>
-//                 <Modal.Footer id='addshoprecipe_modal_footer'>
-//                     <Button variant="primary" onClick={togglePopup} className='shop_lst_btn'>
-//                         Save Changes
-//                     </Button>
-//                 </Modal.Footer>
-//             </Modal>
-//             {children}
-//         </div>
-//     );
-// }
