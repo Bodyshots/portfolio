@@ -16,6 +16,7 @@ import Button from 'react-bootstrap/Button';
 import HoriScroll from '../../components/HoriScroll';
 import Backdrop from '../../components/Backdrop';
 import ProjectModal from '../../components/ProjectModal';
+import { AnimatePresence } from 'framer-motion';
 
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
@@ -23,7 +24,6 @@ import { IoMdMail } from "react-icons/io";
 
 const Home = () => {
 
-    // console.log(supabase)
     let project_lst = [];
     const { setLoading } = useContext(UserContext);
     const [fetchError, setFetchError] = useState(null);
@@ -94,8 +94,8 @@ const Home = () => {
             </div>
             {HoriScroll(true, "Projects", "projects")}
             <div id='projects' data-aos="fade-right">
-                {console.log("project_lst: " + project_lst)}
-                {console.log("project_dict: " + projects)}
+                {/* {console.log("project_lst: " + project_lst)}
+                {console.log("project_dict: " + projects)} */}
                 {ProjectCarousel(project_lst, modalOpen, open, close, isActive)}
                 <Button id="all_proj_btn">View all projects</Button>
             </div>
@@ -144,13 +144,20 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            {modalOpen && (<div className="modal_container">
-                <Backdrop onClick={close}>
-                <ProjectModal handleClose={close} 
-                              project_lst={project_lst}
-                              id={isActive}/>
-                </Backdrop>
-                </div>)}
+                <AnimatePresence
+                    initial={false}
+                    mode="wait"
+                    onExitComplete={() => null}
+                >
+                {modalOpen && 
+                    (<div className="modal_container">
+                        <Backdrop onClick={close}>
+                            <ProjectModal handleClose={close} 
+                                          project_lst={project_lst}
+                                          id={isActive}/>
+                        </Backdrop>
+                    </div>)}
+                </AnimatePresence>
             </div>
         </div>
     </AnimatePage>

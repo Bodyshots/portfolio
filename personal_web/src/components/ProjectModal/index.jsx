@@ -35,7 +35,6 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
         <motion.div
             onClick={(e) => e.stopPropagation()}  
             className="projectModal orange-gradient"
-            // className="projectModal"
             variants={dropIn}
             initial="hidden"
             animate="visible"

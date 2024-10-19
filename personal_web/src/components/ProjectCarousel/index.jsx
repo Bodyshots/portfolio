@@ -15,11 +15,6 @@ import { useState } from 'react';
 function ProjectCarousel(project_lst, modalOpen, open,
                          close, isActive) {
 
-      // if (projects[0]) {
-      //   console.log(projects)
-      //   console.log(projects[0].id)
-      // }
-
       const settings = {
         className: "center",
         centerMode: true,
