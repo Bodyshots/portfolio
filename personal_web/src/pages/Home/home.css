@@ -157,11 +157,7 @@
     justify-content: center;
     align-items: center;
 
-    background:
-            linear-gradient(107deg, rgba(255, 226, 165, 0.719), rgba(141,73,77,0.65)),
-            url('../../components/fractal_noise.svg'),
-            radial-gradient(circle at 50%, rgba(255,226,165,0.8), rgba(141,73,77,0.65)), 
-            url('../../components/fractal_noise.svg');
+    background: linear-gradient(to bottom, rgba(141,73,77,0.65) -95%, transparent);
 }
 
 #about{
@@ -171,13 +167,37 @@
     height: 50em;
     min-height: 100%;
     padding: 2em 0;
-    background: radial-gradient(circle at 95%, rgba(141,73,77,0.65), 40%, rgba(255, 226, 165, 0.61) 55%, rgba(255, 226, 165, 0.8) 65%);
-                /* url('../../components/fractal_noise.svg'); */
+    background: radial-gradient(circle at 85%, rgba(141,73,77,0.55) 15%, #e5ddac 65%, #e5ddac 65%);
+	            /* radial-gradient(circle at 15% 20%, rgba(141,73,77,0.65), rgba(255,226,165,1)),
+                url('../../components/fractal_noise.svg'); */
 }
 
 #all_proj_btn {
     margin-top: -1.5em;
     margin-bottom: 2em;
+    font-size: 17.5px;
+    background: transparent;
+    font-family: 'PixelFont', sans-serif;
+    width: 11.5%;
+    color:#e5ddac;
+    background-color: #61001d;
+    border-radius: 8px;
+    padding: 0.1em;
+    box-shadow: 1px 1px 1px #0000001f!important;
+
+}
+
+#all_proj_btn:hover {
+    /* background: white; */
+    color: white;
+    background-color: #8d494d;
+    transition: all 0.1s ease-in-out;
+    transform: scale(1.05);
+    box-shadow: -1px -1px -1px #0000001f!important;
+}
+
+#all_proj_text {
+    margin: 0.2em;
 }
 
 #home_quote_text {
@@ -208,6 +228,13 @@
     align-items: center;
     text-align: center;
     width: 100%;
+}
+
+#personal_info {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding-left: 0.3em;
 }
 
 #contact_info {

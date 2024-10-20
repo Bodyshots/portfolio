@@ -44,11 +44,21 @@
     background-color: #f0eeee;
 }
 
+#placeholder_container {
+    position: absolute;
+    color: #71717a;
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    pointer-events: none;
+}
+
 #placeholder_text {
     position: absolute;
-    left: 35px;
-    top: 12px;
+    left: 20px;
+    bottom: -0.15em;
+    width: 100%;
+    min-width: 100%;
     font-size: 35px;
-    color: #71717a;
-    pointer-events: none;
+    padding: 0;
 }

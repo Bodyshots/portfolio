@@ -1,8 +1,5 @@
-import './macgabriel100.css';
+import './allprojects.css';
 import '../../components/globals.css';
-import AboutUs from '../../components/AboutUs';
-// import Button from 'react-bootstrap/Button';
-// import homepic from '../../images/homeimage.jpg';
 import AnimatePage from '../../components/AnimatePage';
 import React, { useEffect, useRef } from "react";
 import AOS from "aos";
@@ -10,7 +7,7 @@ import "aos/dist/aos.css";
 import { UserContext } from '../../App';
 import { useContext } from 'react';
 
-const MacGabriel100 = () => {
+const AllProjects = () => {
 
     const { setLoading } = useContext(UserContext);
 
@@ -41,5 +38,5 @@ const MacGabriel100 = () => {
   );
 }
 
-export default MacGabriel100;
+export default AllProjects;
 

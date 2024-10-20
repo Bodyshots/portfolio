@@ -1,7 +1,6 @@
 import './home.css';
 import '../../components/globals.css';
 import AboutUs from '../../components/AboutUs';
-// import Button from 'react-bootstrap/Button';
 import AnimatePage from '../../components/AnimatePage';
 import React, { useEffect, useRef } from "react";
 import AOS from "aos";
@@ -96,7 +95,9 @@ const Home = () => {
                 {/* {console.log("project_lst: " + project_lst)}
                 {console.log("project_dict: " + projects)} */}
                 {ProjectCarousel(project_lst, modalOpen, open, close, isActive)}
-                <button id="all_proj_btn" data-aos="fade-left">View all projects</button>
+                <button id="all_proj_btn">
+                    <span id="all_proj_text">View all projects</span>
+                </button>
             </div>
             {HoriScroll(false, "About", "about")}
             <div id='about'>
@@ -118,9 +119,11 @@ const Home = () => {
                     </div>
                     <div id="contact_info_container">
                         <div id="contact_info">
-                            <span>Lanz Angeles</span>
-                            <span>lanzangeles100@gmail.com</span>
-                            <span>226-627-5219</span>
+                            <div id="personal_info">
+                                <span>Lanz Angeles</span>
+                                <span>lanzangeles100@gmail.com</span>
+                                <span>226-627-5219</span>
+                            </div>
                             <div id="contact_links">
                                 <div id="contact_link_title">Links</div>
                                 <div id="links">

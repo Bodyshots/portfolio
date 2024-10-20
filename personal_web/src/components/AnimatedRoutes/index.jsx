@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes, useLocation} from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { UserContext } from '../../App';
+import AllProjects from '../../pages/AllProjects';
 import Home from '../../pages/Home';
 import Secret from '../../pages/Secret';
 import NotFound from '../../pages/NotFound';
@@ -27,6 +27,7 @@ function AnimatedRoutes() {
                 <Route exact path="/home" element={<Home/>}/>
                 <Route exact path="/macGabriel100" element={<MacGabriel100/>}/>
                 <Route exact path="/macgabriel100" element={<MacGabriel100/>}/>
+                <Route exact path="allprojects" element={<AllProjects/>}/>
                 <Route exact path="/secret" element={<Secret/>}/>
                 <Route exact path="test" element={<Test/>}/>
                 <Route path="*" element={<NotFound/>}/>

@@ -174,8 +174,8 @@ function LargeSearch() {
               )}
         />
         <div
-        className="dark:text-zinc-500 absolute inset-0 flex items-center rounded-full pointer-events-none"
-        id="placeholder_text">
+        className="inset-0 flex"
+        id="placeholder_container">
             <AnimatePresence mode="wait">
             {!value && (
                 <motion.p
@@ -196,7 +196,8 @@ function LargeSearch() {
                     duration: 0.3,
                     ease: "linear",
                 }}
-                className="pointer-events-none dark:text-zinc-500 text-sm sm:text-base font-normal text-neutral-500 pl-4 sm:pl-12 text-left w-[calc(100%-2rem)] truncate">
+                className="pointer-events-none dark:text-zinc-500 text-neutral-500 pl-4 sm:pl-12 text-left w-[calc(100%-2rem)]"
+                id="placeholder_text">
                 {placeholders[currentPlaceholder]}
                 </motion.p>
             )}
