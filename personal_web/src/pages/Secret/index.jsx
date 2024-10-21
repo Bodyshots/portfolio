@@ -11,14 +11,14 @@ import LargeSearch from '../../components/LargeSearch';
 
 function Secret() {
      
-    const { setLoading } = useContext(UserContext);
+    const { loading, setLoading } = useContext(UserContext);
 
     useEffect(() => {
         setLoading(true);
         AOS.init({ duration: 1000 });
         document.title = "shhhhhhhhh";
         setLoading(false);
-    }, [setLoading]);
+    }, [loading]);
 
     return (
         <AnimatePage>

@@ -15,7 +15,7 @@ function NameChanger() {
         const interval = setInterval(() => {
             const newRole = currIndex + 1;
             setCurrIndex(newRole);
-        }, 1000)
+        }, 2000)
 
         return () => clearInterval(interval);
     }, [currIndex])

@@ -70,7 +70,7 @@ body {
 }
 
 .text_highlight {
-  -webkit-text-stroke-width: 1.2px;
+  -webkit-text-stroke-width: 0.65px;
   -webkit-text-stroke-color: #72393d;
 }
 

@@ -23,7 +23,7 @@ import HomeCube from '../../components/HomeCube';
 const Home = () => {
 
     let project_lst = [];
-    const { setLoading } = useContext(UserContext);
+    const { loading, setLoading } = useContext(UserContext);
     const [fetchError, setFetchError] = useState(null);
     const [projects, setProjects] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
@@ -67,7 +67,7 @@ const Home = () => {
         
         // Everything's done (ie. done loading)
         setLoading(false);
-    }, [setLoading]);
+    }, [loading]);
 
     for (let key in projects) {
         project_lst.push(projects[key]);
@@ -83,7 +83,7 @@ const Home = () => {
                     <div id='landing_overlay'>
                         <div id='landing_text_overlay'>
                             <div id="landing_mid_container">
-                                <span id="landing_cube" data-aos="fade-down"><HomeCube data-aos="fade-right"/></span>
+                                <span id="landing_cube" data-aos="fade-down"><HomeCube project_lst={project_lst} data-aos="fade-right"/></span>
                                 <span data-aos="fade-left" id="landing_namechanger"><NameChanger/></span>
                             </div>
                         </div>

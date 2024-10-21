@@ -60,9 +60,6 @@ canvas {
 
 #landing_cube {
     margin-left: 2.5em;
-    margin-right: 1.5em;
-    /* width: 40%; */
-    width: 500px!important;
 
     position: relative;
     display: flex;
