@@ -7,7 +7,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';
 import { useContext, useState } from 'react';
-import HomeCube from '../../components/HomeCube';
 import NameChanger from '../../components/NameChanger';
 import supabase from '../../config/supabaseClient';
 import ProjectCarousel from '../../components/ProjectCarousel';
@@ -19,6 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
 import { IoMdMail } from "react-icons/io";
+import HomeCube from '../../components/HomeCube';
 
 const Home = () => {
 
@@ -101,7 +101,6 @@ const Home = () => {
             </div>
             {HoriScroll(false, "About", "about")}
             <div id='about'>
-                <span>dighdsljsndfkfm</span>
                 {/* <AboutUs/> */}
             </div>
             {HoriScroll(true, "Contact", "contact")}

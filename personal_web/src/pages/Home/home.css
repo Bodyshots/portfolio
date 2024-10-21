@@ -21,7 +21,7 @@
 }
 
 #landing_container {
-    height: 90%;
+    height: 100%;
     max-height: 100%;
     text-align: center;
     position: relative;
@@ -40,11 +40,16 @@
     justify-content: center;
 }
 
+canvas {
+    overflow: visible;
+}
+
 #landing_mid_container {
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
     justify-content: center;
+    height: 100%;
 }
 
 #landing_text_left {
@@ -55,14 +60,23 @@
 
 #landing_cube {
     margin-left: 2.5em;
-    margin-right: 2.5em;
-}
+    margin-right: 1.5em;
+    /* width: 40%; */
+    width: 500px!important;
 
-#landing_namechanger {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 2.5em;
+}
+
+#landing_namechanger {
+    width: 30%;
+    margin-right: 2.5em;
+    margin-left: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #landing_text_right {
