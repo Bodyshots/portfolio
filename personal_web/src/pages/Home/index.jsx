@@ -13,7 +13,10 @@ import ProjectCarousel from '../../components/ProjectCarousel';
 import HoriScroll from '../../components/HoriScroll';
 import Backdrop from '../../components/Backdrop';
 import ProjectModal from '../../components/ProjectModal';
+import { FocusCards } from '../../components/ui/focus-cards';
 import { AnimatePresence } from 'framer-motion';
+import noimage from '../../images/noimageavailable.png'
+import HomeCoin from '../../components/HomeCoin';
 
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
@@ -73,24 +76,28 @@ const Home = () => {
         project_lst.push(projects[key]);
     }
 
+    // const cardData = [
+    //     { title: "Card 1", src: noimage },
+    //     { title: "Card 2", src: noimage },
+    //     { title: "Card 3", src: noimage },
+    //   ];
+
   return (
     <AnimatePage>
         {fetchError && (<p>{fetchError}</p>)}
         <div className="home_page" id='home_page_container'>
             <title>Home Page</title>
             <div id='landing_sec'>
-                <div id='landing_container'>
-                    <div id='landing_overlay'>
-                        <div id='landing_text_overlay'>
-                            <div id="landing_mid_container">
-                                <span id="landing_cube" data-aos="fade-down"><HomeCube project_lst={project_lst} data-aos="fade-right"/></span>
-                                <span data-aos="fade-left" id="landing_namechanger"><NameChanger/></span>
-                            </div>
-                        </div>
+                <div id='landing_overlay'>
+                    <div id="landing_mid_container">
+                        <span id="landing_cube" data-aos="fade-down"><HomeCube project_lst={project_lst} data-aos="fade-right"/></span>
+                        <span data-aos="fade-left" id="landing_namechanger"><NameChanger/></span>
                     </div>
                 </div>
             </div>
+            <div>
             {HoriScroll(true, "Major Projects", "projects")}
+            </div>
             <div id='projects'>
                 {/* {console.log("project_lst: " + project_lst)}
                 {console.log("project_dict: " + projects)} */}
@@ -101,7 +108,32 @@ const Home = () => {
             </div>
             {HoriScroll(false, "About", "about")}
             <div id='about'>
+                <div id="about_text">
+                    <div id="about_texttitle">
+                        xdgdfgdsgsdgfd
+                    </div>
+                    <div id="about_textbody">
+                        <div>
+                            Hi! I'm [Your Name], a recent Computer Science graduate with a passion 
+                            for building efficient, scalable software solutions. With a strong foundation
+                            in [languages/technologies you specialize in] and hands-on experience through
+                            projects and internships, I'm eager to apply my skills to real-world challenges.
+                            I love solving complex problems, learning new technologies, and collaborating
+                            with others to create impactful digital experiences.
+                            <br/>
+                            <br/>
+                            <div style={{ display: "flex",
+                                          textAlign: "center" }}>
+                                Welcome to my portfolio—take a look around and let’s connect!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* <FocusCards cards={cardData}/> */}
                 {/* <AboutUs/> */}
+                <div id="about_coin">
+                    <HomeCoin/>
+                </div>
             </div>
             {HoriScroll(true, "Contact", "contact")}
             <div id="contact">

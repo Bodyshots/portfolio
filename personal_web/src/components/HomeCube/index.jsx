@@ -25,8 +25,8 @@ const countProjects = (projectList, keywords) => {
     // Iterate through each project
     projectList.forEach(project => {
       keywords.forEach(keyword => {
-        // Check if the project includes the keyword in languages or tools
-        if (project.languages.includes(keyword) || project.tools.includes(keyword)) {
+        // Check if the project includes the keyword in tools
+        if (project.tools.includes(keyword)) {
           counts[keyword] += 1; // Increment the count for that keyword
         }
       });
@@ -48,7 +48,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         "SQLite3": new THREE.Vector3(0, 0, 1),  // Z+ direction (front)
         "React": new THREE.Vector3(0, 0, -1),  // Z- direction (back)
         "Python": new THREE.Vector3(-1, 0, 0),  // X- direction (left)
-        "Javascript": new THREE.Vector3(1, 0, 0),  // X+ direction (right)
+        "JavaScript": new THREE.Vector3(1, 0, 0),  // X+ direction (right)
         "Java": new THREE.Vector3(0, 1, 0),    // Y+ direction (top)
         "C/C++": new THREE.Vector3(0, -1, 0) // Y- direction (bottom)
     };
@@ -139,12 +139,12 @@ const HomeCube = ({project_lst}) => {
         setIsLoaded(true);
     }
 
-    const keywords = ["SQLite3", "Javascript", "React", "C/C++", "Java", "Python"];
+    const keywords = ["SQLite3", "JavaScript", "React", "C/C++", "Java", "Python"];
     const projectCounts = countProjects(project_lst, keywords);
 
     const projects_used_in = ( tool ) => {
         const count = projectCounts[tool]
-        return ((count> 1) ?
+        return ((count > 1) ?
         <div id="face_subtitle" data-aos="fade-up">
             Used in {count} projects
         </div> :
@@ -156,7 +156,7 @@ const HomeCube = ({project_lst}) => {
     return (        
         <div className="cube_container">
             {!isLoaded && <Spinner id="cube_spinner"/>}
-            <div style={{ width: "7em", height: "6em"}}>
+            <div style={{ width: "5.5em", height: "5.5em"}}>
                 <Canvas>
                     <CubeThreeJS 
                     cubeRef={cubeRef}

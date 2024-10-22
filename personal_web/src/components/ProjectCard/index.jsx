@@ -2,8 +2,6 @@ import '../globals.css'
 import './projectcard.css'
 
 import React from 'react';
-import ProjectModal from '../ProjectModal';
-import { motion, AnimatePresence } from 'framer-motion';
 import noimage from '../../images/noimageavailable.png'
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */

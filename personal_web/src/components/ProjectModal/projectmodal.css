@@ -7,9 +7,9 @@
         hsl(41, 46%, 70%),
         rgba(229, 221, 172)
       );
-    height: auto;
+    width: clamp(50%, 1000px, 90%);
     position: relative;
-    z-index: 99999999;
+    z-index: 10;
 
     margin: auto;
     padding: 0 2rem;
@@ -38,7 +38,7 @@
     flex-flow: column nowrap;
     justify-content: space-between;
     /* height: 25em; */
-    width: 50%;
+    width: 52.5%;
     min-height: 100%;
 }
 
@@ -55,7 +55,6 @@
 
 .project_media {
     width: 45%;
-    height: 100%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -119,4 +118,43 @@ iframe.project_video {
     /* min-width: 24.63px; */
     /* padding: 0!important; */
     margin-right: 0.2em;
+}
+
+.projectModalRest {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: left;
+    height: 15%;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.projectModalBotTitle {
+    font-size: 17.5px;
+    margin-bottom: 0.5em;
+}
+
+.projectModalTools {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.projectModalTool {
+    font-size: 15.5px;
+    /* margin-left: 1em; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em!important;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    background: transparent;
+    font-family: 'PixelFont', sans-serif;
+    /* width: 20.5%; */
+    color:#e5ddac;
+    background-color: #61001d;
+    border-radius: 8px;
+    padding: 0.3em;
+    box-shadow: 1px 1px 1px #0000001f!important;
 }

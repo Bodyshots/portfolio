@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
 
 /* Colour palette: https://coolors.co/fae8bc-f9c9a2-4e313a-291d22-9d5550 */
-/* Alt? https://coolors.co/335c67-fff3b0-e09f3e-9e2a2b-540b0e */
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
     #navbar-items {
         margin-left: 0.3em!important;
     }

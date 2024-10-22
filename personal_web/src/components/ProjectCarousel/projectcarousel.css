@@ -17,6 +17,7 @@
 }
 
 .slick-list {
+    overflow: hidden;
     mask-image: linear-gradient(
         to left,
         rgba(0, 0, 0, 0),
@@ -24,6 +25,10 @@
         rgba(0, 0, 0, 1) 95%,
         rgba(0, 0, 0, 0)
     );
+}
+
+.slick-track {
+    overflow: hidden;
 }
 
 .slick-prev { left: -2.7rem; }

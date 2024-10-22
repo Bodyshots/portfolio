@@ -34,6 +34,18 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
     const ITEM_VID = target_item.video;
     const ITEM_IMAGE = target_item.image;
     const ITEM_NAME = target_item.name;
+    const TOOLS = target_item.tools;
+
+    const card_tools = () => {
+      return (
+        <div className="projectModalTools">
+          {TOOLS.map((tool) =>
+            <div className="projectModalTool">
+              {tool}
+            </div>
+          )}
+        </div>);
+    }
 
     return (
         <motion.div
@@ -53,6 +65,12 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                 <div className="projectModalText">
                   <span className="projectModalTitle">{ITEM_NAME}</span>
                   <span className="projectModalDesc">{LONG_DESC ? LONG_DESC : "No long description available."}</span>
+                  <div className="projectModalRest">
+                    <span className="projectModalBotTitle">Development tools</span>
+                    <div className="projectModalTools">
+                    <span styles={{width: "100%"}}>{card_tools()}</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="project_media">
                   <img

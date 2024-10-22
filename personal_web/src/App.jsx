@@ -8,7 +8,6 @@ import { useState } from 'react';
 import LoadingComp from './components/Loading';
 import ErrorPopup from './components/ErrorPopup';
 import SuccessPopup from './components/SuccessPopup';
-import ScrollIndicator from './components/ScrollIndicator';
 import "./input.css"
 import "./index.css"
 
