@@ -1,6 +1,5 @@
 import './home.css';
 import '../../components/globals.css';
-import AboutUs from '../../components/AboutUs';
 import AnimatePage from '../../components/AnimatePage';
 import React, { useEffect, useRef } from "react";
 import AOS from "aos";
@@ -15,8 +14,8 @@ import Backdrop from '../../components/Backdrop';
 import ProjectModal from '../../components/ProjectModal';
 import { FocusCards } from '../../components/ui/focus-cards';
 import { AnimatePresence } from 'framer-motion';
-import noimage from '../../images/noimageavailable.png'
 import HomeCoin from '../../components/HomeCoin';
+import { useNavigate } from 'react-router-dom';
 
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
@@ -31,6 +30,7 @@ const Home = () => {
     const [projects, setProjects] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [isActive, setIsActive] = useState(-1);
+    const navigate = useNavigate();
     
     const open = (id) => {
       setIsActive(id);
@@ -99,10 +99,8 @@ const Home = () => {
             {HoriScroll(true, "Major Projects", "projects")}
             </div>
             <div id='projects'>
-                {/* {console.log("project_lst: " + project_lst)}
-                {console.log("project_dict: " + projects)} */}
-                {ProjectCarousel(project_lst, modalOpen, open, close, isActive)}
-                <button id="all_proj_btn">
+                {ProjectCarousel(project_lst, modalOpen, open, close)}
+                <button id="all_proj_btn" onClick={() => navigate("/allprojects")}>
                     <span id="all_proj_text">View all projects</span>
                 </button>
             </div>
@@ -110,7 +108,7 @@ const Home = () => {
             <div id='about'>
                 <div id="about_text">
                     <div id="about_texttitle">
-                        xdgdfgdsgsdgfd
+                        Welcome to my website!
                     </div>
                     <div id="about_textbody">
                         <div>
@@ -139,7 +137,8 @@ const Home = () => {
             <div id="contact">
                 <div id="contact_container">
                     <div id="contact_map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d369107.52433834237!2d-79.70700198668911!3d43.717769540554514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1729226408850!5m2!1sen!2sca"
+                    <iframe id="google_maps"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d369107.52433834237!2d-79.70700198668911!3d43.717769540554514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1729226408850!5m2!1sen!2sca"
                             width="600px"
                             height="250px"
                             styles={"border:0;"}

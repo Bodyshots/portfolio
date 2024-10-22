@@ -7,9 +7,8 @@
         hsl(41, 46%, 70%),
         rgba(229, 221, 172)
       );
-    width: clamp(50%, 1000px, 90%);
     position: relative;
-    z-index: 10;
+    z-index: 99;
 
     margin: auto;
     padding: 0 2rem;
@@ -45,12 +44,14 @@
 .projectModalTitle {
     margin-top: 0.5em;
     font-size: 25px;
+    text-align: left;
     /* text-shadow: 1px 1px 3px black; */
 }
 
 .projectModalDesc {
     width: 100%;
     height: 50%;
+    text-align: left;
 }
 
 .project_media {
@@ -130,6 +131,7 @@ iframe.project_video {
 }
 
 .projectModalBotTitle {
+    text-align: left;
     font-size: 17.5px;
     margin-bottom: 0.5em;
 }

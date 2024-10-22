@@ -1,33 +1,33 @@
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
 .card_title {
-    margin: 0.75em!important;
+    margin: 0.75em;
     margin-bottom: 0!important;
     text-align: left;
     justify-content: center;
-    font-size: 17px!important;
+    font-size: 17px;
     color: #790000;
 }
 
 .card_short_desc {
-  margin: 0.75em!important;
-  margin-left: 0.9em!important;
-  font-size: 14px!important;
+  margin: 0.75em;
+  margin-left: 0.9em;
+  font-size: 14px;
   text-align: left;
   color: #790000;
 }
 
 .projectcard {
-    border: 1px solid #61001d!important;
+    border: 1px solid #61001d;
     border-radius: 8px!important;
     overflow: hidden!important;
     margin: 2em;
 
-    height: 350px!important;
-    color: #fff!important;
-    cursor: pointer!important;
+    height: 22.5rem;
+    color: #fff;
+    cursor: pointer;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-    font-family: 'PixelFont', sans-serif!important;
+    font-family: 'PixelFont', sans-serif;
     transition: all 0.15s;
 }
 
@@ -109,4 +109,10 @@
     left: 0!important;
     right: 0!important;
     height: 2px!important;
+}
+
+@media screen and (max-width: 991px) {
+  .projectcard {
+    height: auto;
+  }
 }

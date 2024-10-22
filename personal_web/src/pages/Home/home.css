@@ -1,64 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
 
-@media screen and (max-width: 991px) {
-    
-    #landing_sec {
-        width: 100%;
-        max-width: 100%;
-        font-size: 30px;
-        height: 38.5em!important;
-        text-align: center;
-        align-items: center!important;
-        justify-content: center!important;
-        overflow: hidden!important;
-    
-        background-color: #e5ddac;
-        /* margin-bottom: 3em; */
-        object-fit: fill;
-    
-        box-shadow: inset 0.8em 0.8em 10em rgba(185, 147, 124, 1);
-    }
-
-    #landing_overlay {
-        /* background: rgba(0, 0, 0, 0.6); */
-        text-align: center;
-        width: 100%!important;
-        max-width: 100%;
-        display: flex;
-        overflow: hidden!important;
-    }
-    
-    #landing_mid_container {
-        display: flex;
-        flex-flow: column-reverse nowrap!important;
-        justify-content: center;
-        width: 100%!important;
-        height: 30em!important;
-        overflow: visible!important;
-    }
-
-    #landing_namechanger {
-        width: 100%!important;
-        margin: 1em 0 0 0!important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #landing_cube {
-        margin-left: 0!important;
-        width: 100%;
-    
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* margin: 0 5em 0 0!important; */
-    }
-    
-}
-
-
 #home_page_container{
     min-height: 100vh;
     /* background: linear-gradient(0deg, rgba(255, 226, 165, 0.8) 10%, rgba(141,73,77,0.65) 70%),
@@ -76,7 +17,7 @@
     /* margin-bottom: 3em; */
     object-fit: fill;
 
-    box-shadow: inset 0.8em 0.8em 10em rgba(185, 147, 124, 1);
+    box-shadow: inset 0.8em 0.8em 10em rgba(185, 147, 124, 0.5);
 }
 
 #landing_overlay {
@@ -219,12 +160,9 @@ canvas {
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    height: 50em;
     min-height: 100%;
     padding: 2em 0;
     background: radial-gradient(circle at 85%, rgba(141,73,77,0.55) 15%, #e5ddac 65%, #e5ddac 65%);
-	            /* radial-gradient(circle at 15% 20%, rgba(141,73,77,0.65), rgba(255,226,165,1)),
-                url('../../components/fractal_noise.svg'); */
 }
 
 #about_text {
@@ -234,6 +172,7 @@ canvas {
     flex-flow: column nowrap;
     height: 100%;
     width: 55%;
+    color: #61001d;
 }
 
 #about_texttitle {
@@ -252,10 +191,10 @@ canvas {
     font-size: 25px;
     padding: 0.75em;
     font-family: "PixelFont", "sans-serif";
-    margin-top: 0.75em;
+    /* margin-top: 0.75em; */
     color: #61001d;
     border-radius: 5px;
-    box-shadow: black 3px 3px 3px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
     background-color: #e5ddac;
 }
 
@@ -288,7 +227,7 @@ canvas {
     background-color: #61001d;
     border-radius: 8px;
     padding: 0.1em;
-    box-shadow: 1px 1px 1px #0000001f!important;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)!important;
 }
 
 #all_proj_btn:hover {
@@ -297,7 +236,7 @@ canvas {
     background-color: #8d494d;
     transition: all 0.1s ease-in-out;
     transform: scale(1.05);
-    box-shadow: -1px -1px -1px #0000001f!important;
+    box-shadow: -1px -1px -1px rgba(0, 0, 0, 0.5)!important;
 }
 
 #all_proj_text {
@@ -341,6 +280,24 @@ canvas {
     padding-left: 0.3em;
 }
 
+#contact_info_container {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contact_map {
+    /* {Width => Tries 700px,
+    goes 90% if small or 50% if too big */
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: clamp(40em, 2.5em, 2.5em)!important; */
+}
+
+
 #contact_info {
     font-size: 1.25em;
     display: flex;
@@ -383,4 +340,134 @@ a.contact_link:hover {
     color: white;
     transition: all 0.15s ease-in-out;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+#google_maps {
+    /* {Width => Tries 700px,
+    goes 90% if small or 50% if too big */
+    /* position: relative!important; */
+    /* width: clamp(40em, 2.5em, 2.5em)!important; */
+}
+
+@media screen and (max-width: 991px) {
+    
+    .slick_track {
+        width: 100%!important;
+    }
+
+    #landing_sec {
+        width: 100%;
+        max-width: 100%;
+        font-size: 30px;
+        height: 38.5em!important;
+        text-align: center;
+        align-items: center!important;
+        justify-content: center!important;
+        overflow: hidden!important;
+    
+        background-color: #e5ddac;
+        /* margin-bottom: 3em; */
+        object-fit: fill;
+    
+        box-shadow: inset 0.8em 0.8em 10em rgba(185, 147, 124, 1);
+    }
+
+    #landing_overlay {
+        /* background: rgba(0, 0, 0, 0.6); */
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        overflow: hidden;
+    }
+    
+    #landing_mid_container {
+        display: flex;
+        flex-flow: column-reverse nowrap;
+        justify-content: center;
+        width: 100%;
+        height: 30em;
+        overflow: visible;
+    }
+
+    #landing_namechanger {
+        width: 100%;
+        margin: 1em 0 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #landing_cube {
+        margin-left: 0;
+        width: 100%;
+    
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin: 0 5em 0 0!important; */
+    }
+
+    #contact_container {
+        flex-flow: column wrap;
+    }
+
+    #contact_info {
+        margin: 2em 0 0 0;
+    }
+
+    #contact_info_container {
+    width: 100%;
+    }
+
+    #personal_info {
+        padding: 0 0 0 0.30em;
+    }
+
+    #contact_map {
+        width: clamp(10em, 100%, 25em);
+    }
+
+    #google_maps {
+        width: clamp(10em, 100%, 25em);
+    }
+
+    #about {
+        flex-flow: column wrap;
+        background: radial-gradient(circle at 60% 80%, rgba(141,73,77,0.55) 15%, #e5ddac 65%, #e5ddac 65%);
+    }
+
+    #about_text {
+        width: 90%;
+        margin: 0 0 3em 0;
+    }
+
+    #about_texttitle {
+        font-size: 3.75em;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #about_coin {
+        margin: 0;
+        width: 100%;
+    }
+    
+    #all_proj_btn {
+        margin-top: -1.5em;
+        margin-bottom: 2em;
+        font-size: 17.5px;
+        background: transparent;
+        font-family: 'PixelFont', sans-serif;
+        width: 30.5%;
+        color:#e5ddac;
+        background-color: #61001d;
+        border-radius: 8px;
+        padding: 0.1em;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)!important;
+    }
 }

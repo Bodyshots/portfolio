@@ -13,7 +13,7 @@ import { useState } from 'react';
 // and https://react-slick.neostack.com/docs/example/custom-arrows
 
 function ProjectCarousel(project_lst, modalOpen, open,
-                         close, isActive) {
+                         close) {
 
   const major_projects = project_lst.map((item) => {if (item.major) return item}).filter(item => item)
 
@@ -24,6 +24,14 @@ function ProjectCarousel(project_lst, modalOpen, open,
     centerPadding: "5px",
     slidesToShow: Math.min(3, major_projects.length),
     speed: 500,
+    responsive: [
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: Math.min(1, major_projects.length),
+        }
+      }
+    ]
   };
 
   return (
@@ -33,7 +41,7 @@ function ProjectCarousel(project_lst, modalOpen, open,
           <Slider {...settings}>
               {major_projects.map((item) => (
                 <div>
-                  {item && ProjectCard(item, modalOpen, open, close, isActive)}
+                  {item && ProjectCard(item, modalOpen, open, close)}
                 </div>
               ))}
           </Slider>

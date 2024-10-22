@@ -6,7 +6,7 @@ import noimage from '../../images/noimageavailable.png'
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
-function ProjectCard(item, modalOpen, open, close, isActive) {
+function ProjectCard(item, modalOpen, open, close) {
     const SHORT_DESC = item.short_desc
     const SHORT_DESC_LIMIT = 65;
 

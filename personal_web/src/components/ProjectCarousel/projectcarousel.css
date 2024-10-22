@@ -28,16 +28,17 @@
 }
 
 .slick-track {
+    width: 100%;
     overflow: hidden;
 }
 
-.slick-prev { left: -2.7rem; }
+.slick-prev { left: -0.7rem; }
 
 .slick-prev:before {
     font-size: 35px;
 }
 
-.slick-next {right: -1.5rem; }
+.slick-next {right: 0rem; }
 
 .slick-next:before { font-size: 35px; }
 

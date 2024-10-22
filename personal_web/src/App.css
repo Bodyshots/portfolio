@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Baloo+2&family=Courgette&family=Dancing+Script&family=Lobster+Two&display=swap');
 body {
-    min-width: 992px;
+    min-width: 320px;
     width: 100%!important;
     height: 100%!important;
 }
