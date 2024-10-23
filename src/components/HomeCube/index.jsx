@@ -8,7 +8,7 @@ import "../globals.css"
 import { Spinner } from "react-bootstrap";
 
 import pythonimg from "../../images/faces/python_face.png"
-import htmlimg from "../../images/faces/HTML_CSS_JS_face.png"
+import htmlimg from "../../images/faces/javascript.png"
 import cimg from "../../images/faces/C_face.png"
 import javaimg from "../../images/faces/java_face.png"
 import reactimg from "../../images/faces/react_face.png"
