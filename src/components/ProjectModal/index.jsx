@@ -87,7 +87,6 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                         allowfullscreen>
                 </iframe> :
                 <div id="no_project_vid">No video available... Maybe I'm working on one right now?</div>}
-                
                 </div>
             </div>
         </motion.div>
