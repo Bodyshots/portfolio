@@ -40,6 +40,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "vite",
     "start": "vite",
     "build": "tsx && vite build"
   },
@@ -67,6 +68,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
+    "tsx": "^4.19.1",
     "vite": "^5.4.9"
   }
 }
