@@ -112,23 +112,22 @@ const Home = () => {
                     </div>
                     <div id="about_textbody">
                         <div>
-                            Hi! I'm [Your Name], a recent Computer Science graduate with a passion 
-                            for building efficient, scalable software solutions. With a strong foundation
-                            in [languages/technologies you specialize in] and hands-on experience through
-                            projects and internships, I'm eager to apply my skills to real-world challenges.
-                            I love solving complex problems, learning new technologies, and collaborating
-                            with others to create impactful digital experiences.
+                            Hi! I'm Lanz, a new grad that's majored in Computer Science and Applied
+                            Statistics (and a minor in Mathematics)!
+                            <br/>
+                            <br/>With a strong foundation
+                            in many programming languages, such as Python and JavaScript, and my previous
+                            experiences as a Research Assistant, I'm eager to make my mark on the industry.
                             <br/>
                             <br/>
                             <div style={{ display: "flex",
                                           textAlign: "center" }}>
-                                Welcome to my portfolio—take a look around and let’s connect!
+                                Want to connect? Scroll down below to take a look at my socials. Hope to
+                                chat with you soon!
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <FocusCards cards={cardData}/> */}
-                {/* <AboutUs/> */}
                 <div id="about_coin">
                     <HomeCoin/>
                 </div>

@@ -2,6 +2,7 @@
     /* {Width => Tries 700px,
     goes 90% if small or 50% if too big */
     width: clamp(50%, 1000px, 90%);
+    height: auto;
     background: linear-gradient(
         135deg,
         hsl(41, 46%, 70%),
@@ -50,7 +51,7 @@
 
 .projectModalDesc {
     width: 100%;
-    height: 50%;
+    height: 30%;
     text-align: left;
 }
 
@@ -125,9 +126,9 @@ iframe.project_video {
     display: flex;
     flex-flow: column nowrap;
     justify-content: left;
-    height: 15%;
+    height: 25%;
     width: 100%;
-    margin-bottom: 3em;
+    /* margin-bottom: 3em; */
 }
 
 .projectModalBotTitle {
@@ -139,6 +140,7 @@ iframe.project_video {
 .projectModalTools {
     display: flex;
     flex-flow: row wrap;
+    height: 100%;
 }
 
 .projectModalTool {
@@ -159,4 +161,14 @@ iframe.project_video {
     border-radius: 8px;
     padding: 0.3em;
     box-shadow: 1px 1px 1px #0000001f!important;
+}
+
+#no_project_vid {
+    text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+    .projectModal {
+        height: auto;
+    }
 }

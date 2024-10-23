@@ -68,7 +68,7 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                   <div className="projectModalRest">
                     <span className="projectModalBotTitle">Development tools</span>
                     <div className="projectModalTools">
-                    <span styles={{width: "100%"}}>{card_tools()}</span>
+                    <span styles={{width: "100%", marginBottom: "2em"}}>{card_tools()}</span>
                     </div>
                   </div>
                 </div>
@@ -78,14 +78,16 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                     alt={ITEM_NAME}
                     className="project_imgs"
                   />
-                <iframe className="project_video"
+                  {(!ITEM_VID) ? <iframe className="project_video"
                         src="https://www.youtube.com/embed/qs9S1hxnApU?si=3fbCC5jekQAq-Y26"
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen>
-                </iframe>
+                </iframe> :
+                <div id="no_project_vid">No video available... Maybe I'm working on one right now?</div>}
+                
                 </div>
             </div>
         </motion.div>

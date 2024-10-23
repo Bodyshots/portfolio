@@ -1,10 +1,7 @@
 import './macgabriel100.css';
 import '../../components/globals.css';
-import AboutUs from '../../components/AboutUs';
-// import Button from 'react-bootstrap/Button';
-// import homepic from '../../images/homeimage.jpg';
 import AnimatePage from '../../components/AnimatePage';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';

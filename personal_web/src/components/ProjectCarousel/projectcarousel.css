@@ -32,15 +32,25 @@
     overflow: hidden;
 }
 
-.slick-prev { left: -0.7rem; }
 
-.slick-prev:before {
+button.slick-arrow::before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 35px;
+    width: 1em;
+    height: 1em;
+    transition: all 0.1s ease-in-out;
+    color: #61001d;
+}
+
+button.slick-arrow:hover {
+    color: white!important;
 }
 
 .slick-next {right: 0rem; }
 
-.slick-next:before { font-size: 35px; }
+/* .slick-next:before { font-size: 35px; } */
 
 #none_projectcarousel {
     text-align: center;
