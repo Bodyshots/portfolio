@@ -148,7 +148,6 @@ iframe.project_video {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1em!important;
     margin-right: 1em;
     margin-bottom: 1em;
     text-align: center;
@@ -169,4 +168,25 @@ iframe.project_video {
     .projectModal {
         height: auto;
     }
+
+    .projectModalTool {
+        font-size: 15.5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1em!important;
+        margin-right: 1em;
+        height: auto;
+        margin-bottom: 1em;
+        text-align: center;
+        background: transparent;
+        font-family: 'PixelFont', sans-serif;
+        color:#e5ddac;
+        background-color: #61001d;
+        border-radius: 8px;
+        padding: 0.3em;
+        box-shadow: 1px 1px 1px #0000001f!important;
+    }
+
+    
 }

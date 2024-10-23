@@ -78,8 +78,8 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                     alt={ITEM_NAME}
                     className="project_imgs"
                   />
-                  {(!ITEM_VID) ? <iframe className="project_video"
-                        src="https://www.youtube.com/embed/qs9S1hxnApU?si=3fbCC5jekQAq-Y26"
+                  {(ITEM_VID) ? <iframe className="project_video"
+                        src={ITEM_VID}
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
