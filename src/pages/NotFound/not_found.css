@@ -8,9 +8,9 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    font-family: 'Baloo 2', cursive!important;
     text-align: center;
     flex-flow: column;
+    font-family: "PixelFont", "sans-serif";
 }
 
 #not_found_title {

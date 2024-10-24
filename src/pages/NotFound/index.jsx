@@ -1,4 +1,5 @@
 import './not_found.css';
+import '../../components/globals.css';
 import Container from 'react-bootstrap/Container';
 import AnimatePage from '../../components/AnimatePage';
 import AOS from "aos";

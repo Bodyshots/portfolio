@@ -6,8 +6,6 @@ import Home from '../../pages/Home';
 import Secret from '../../pages/Secret';
 import NotFound from '../../pages/NotFound';
 import MacGabriel100 from "../../pages/MacGabriel100"
-// import Loading from '../../pages/Loading';
-import Test from '../../pages/Test';
 
 // Idea of separating AnimatedRoutes from App.js from:
 // https://www.youtube.com/watch?v=FdrEjwymzdY
@@ -29,7 +27,6 @@ function AnimatedRoutes() {
                 <Route exact path="/macgabriel100" element={<MacGabriel100/>}/>
                 <Route exact path="/allprojects" element={<AllProjects/>}/>
                 <Route exact path="/secret" element={<Secret/>}/>
-                <Route exact path="test" element={<Test/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </AnimatePresence>
