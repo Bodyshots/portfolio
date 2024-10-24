@@ -4,10 +4,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import './projectcarousel.css';
 import ProjectCard from '../ProjectCard';
-import { AnimatePresence, motion } from 'framer-motion';
-import ProjectModal from '../ProjectModal';
-import { useState } from 'react';
-
 
 // Most carousel code from: https://www.youtube.com/watch?v=FLt2TveqHQM
 // and https://react-slick.neostack.com/docs/example/custom-arrows
@@ -15,11 +11,9 @@ import { useState } from 'react';
 function ProjectCarousel(project_lst, modalOpen, open,
                          close) {
 
-  const major_projects = project_lst.map((item) => {if (item.major) return item}).filter(item => item)
+  const major_projects = project_lst.map((item) => {if (item.major) return item}).filter(item => item).sort((a, b) => a.priority - b.priority);
 
   const settings = {
-    className: "center",
-    centerMode: true,
     infinite: true,
     centerPadding: "5px",
     slidesToShow: Math.min(3, major_projects.length),

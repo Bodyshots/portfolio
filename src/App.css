@@ -13,9 +13,8 @@ body {
     display: flex;
     justify-content: center;
     background-image: linear-gradient(7deg, #dec796 15%, #e5ddac 90%);
-    /* box-shadow: inset 1em 1em 1em #dec796; */
     color: #61001d;
-    font-family: 'Baloo 2', cursive;
+    font-family: 'PixelFont', 'sans-serif';
     text-align: center;
     position: relative;
     max-width: 100%;

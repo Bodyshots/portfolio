@@ -11,9 +11,7 @@ function ProjectCard(item, modalOpen, open, close) {
     const SHORT_DESC_LIMIT = 65;
 
     const NAME = item.name
-    const MAJOR = item.major
-    const IMG_URL = item.image
-    const VID = item.video
+    const COVER_URL = item.cover_img;
 
     return (
     <div className="projectcard gradient"
@@ -22,7 +20,7 @@ function ProjectCard(item, modalOpen, open, close) {
          data-aos="fade-right">
         <div className="projectcard-top img_wrap">
             <img
-                src={IMG_URL ? IMG_URL : noimage}
+                src={COVER_URL ? COVER_URL : noimage}
                 alt={NAME}
                 id='projectcard_img'
             />

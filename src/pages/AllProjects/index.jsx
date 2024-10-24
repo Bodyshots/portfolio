@@ -69,7 +69,8 @@ const AllProjects = ({ }) => {
   return (
     <AnimatePage>
         <div id="all_projects_page">
-            {project_lst.map((project) => ProjectCard(project, modalOpen, open, close))}
+            {project_lst.sort((a, b) => a.priority - b.priority)
+                        .map((project) => ProjectCard(project, modalOpen, open, close))}
             <AnimatePresence
                 initial={false}
                 mode="wait"
