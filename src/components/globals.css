@@ -38,6 +38,7 @@ body {
   background-color: #e5ddac!important;
   height: 100%;
   width: 100%;
+  top: 0;
 }
 
 /* Plus icon from https://stackoverflow.com/questions/55281672/make-plus-symbol-in-css */
