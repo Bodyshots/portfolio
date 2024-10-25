@@ -89,8 +89,16 @@
 .projectcard-top > img {
     width: 100%!important;
     height: 225px!important;
-    object-fit: cover;
-    background: black!important;
+    object-fit: contain;
+    background: transparent;
+}
+
+#missing_img_cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 225px;
 }
 
 .projectcard-bottom {

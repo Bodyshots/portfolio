@@ -12,7 +12,6 @@ import ProjectCarousel from '../../components/ProjectCarousel';
 import HoriScroll from '../../components/HoriScroll';
 import Backdrop from '../../components/Backdrop';
 import ProjectModal from '../../components/ProjectModal';
-import { FocusCards } from '../../components/ui/focus-cards';
 import { AnimatePresence } from 'framer-motion';
 import HomeCoin from '../../components/HomeCoin';
 import { useNavigate } from 'react-router-dom';
@@ -75,12 +74,6 @@ const Home = () => {
     for (let key in projects) {
         project_lst.push(projects[key]);
     }
-
-    // const cardData = [
-    //     { title: "Card 1", src: noimage },
-    //     { title: "Card 2", src: noimage },
-    //     { title: "Card 3", src: noimage },
-    //   ];
 
   return (
     <AnimatePage>

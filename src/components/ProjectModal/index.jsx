@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import noimage from '../../images/noimageavailable.png'
+import { MdOutlineImageNotSupported } from "react-icons/md";
+import { MdOutlineVideocamOff } from "react-icons/md";
 
 import "./projectmodal.css"
 import  "../globals.css"
@@ -73,11 +74,12 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                   </div>
                 </div>
                 <div className="project_media">
+                  {ITEM_IMAGE ?
                   <img
-                    src={ITEM_IMAGE ? ITEM_IMAGE : noimage}
+                    src={ITEM_IMAGE}
                     alt={ITEM_NAME}
                     className="project_imgs"
-                  />
+                  /> : <MdOutlineImageNotSupported id="missing_img_modal"/>}
                   {(ITEM_VID) ? <iframe className="project_video"
                         src={ITEM_VID}
                         title="YouTube video player"
@@ -86,7 +88,7 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                         referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen>
                 </iframe> :
-                <div id="no_project_vid">No video available... Maybe I'm working on one right now?</div>}
+                <MdOutlineVideocamOff id="missing_video_modal"/>}
                 </div>
             </div>
         </motion.div>

@@ -59,7 +59,8 @@ const App = () => {
             {success && SuccessPopup(success, setSuccess)}
             <Container id='footer_container'>
                 <p id='footer'>  
-                    Copyright © 2024 Lanz Angeles. All Rights Reserved.
+                    Copyright © 2024 Lanz Angeles. Coffee and musketeer icons created by Chanut-is-Industries and Flat Icons - Flaticon respectively.
+                    <br/>All other rights reserved.
                 </p>  
             </Container>
         </>
