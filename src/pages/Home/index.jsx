@@ -105,12 +105,11 @@ const Home = () => {
                     </div>
                     <div id="about_textbody">
                         <div>
-                            Hi! I'm Lanz, a new grad that's majored in Computer Science and Applied
-                            Statistics (and a minor in Mathematics)!
+                            Hi! I'm Lanz, an aspiring full-stack developer that's recently graduated with a Computer Science (CS) and Applied
+                            Statistics major (and a minor in Mathematics)!
                             <br/>
-                            <br/>With a strong foundation
-                            in many programming languages, such as Python and JavaScript, and my previous
-                            experiences as a Research Assistant, I'm eager to make my mark on the industry.
+                            <br/>I've previously worked as a Research Assistant, teaching hundreds of 1st and 2nd year students foundational skills to help them on their journey through CS.
+                            Currently, I've been working on creating web applications while dabbling a little bit into AI, being eager to make my mark on the industry.
                             <br/>
                             <br/>
                             <div style={{ display: "flex",
