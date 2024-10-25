@@ -27,7 +27,7 @@ function NavBar() {
     
     // From https://github.com/rafgraph/react-router-hash-link/issues/25#issuecomment-536688104
     const scrollWithOffset = (el) => {
-      const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+      const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
       const yOffset = -120; 
       window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
   }
@@ -42,9 +42,9 @@ function NavBar() {
   return (
     <Navbar bg='dark' variant='dark' expand="lg" id="globalnavbar" className={navbar ? "active": ""}>
       <Container fluid>
-        <LinkContainer to='/'>
-            <Nav.Link as={Link} active={location.pathname === '/'} id='nav-brand'>
-                <Navbar.Brand className='nav-link'>
+        <LinkContainer to='/' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Nav.Link as={Link} id='nav-brand'>
+                <Navbar.Brand>
                     Lanz Angeles{/* <span id="slogan">someone please hire me</span> */}
                 </Navbar.Brand>
             </Nav.Link>
@@ -52,7 +52,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <LinkContainer to='/'>
+            <LinkContainer smooth to='/' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <Nav.Link as={Link} active={location.pathname === '/'}>home</Nav.Link>
             </LinkContainer>
             <HashLink smooth to="/#projects" scroll={e => scrollWithOffset(e)} className="nav-link">

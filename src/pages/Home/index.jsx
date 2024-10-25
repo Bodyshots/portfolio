@@ -40,6 +40,7 @@ const Home = () => {
     useEffect(() => {
         // Set to True to initialize everything
         setLoading(true);
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth' });
 
         const fetchProjects = async () => {
             // Get database from supabase
