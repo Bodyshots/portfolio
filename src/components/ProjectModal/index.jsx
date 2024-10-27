@@ -34,8 +34,10 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
     const LONG_DESC = target_item.long_desc
     const ITEM_VID = target_item.video;
     const ITEM_IMAGE = target_item.image;
+    const IMAGE_ATT = target_item.image_att;
     const ITEM_NAME = target_item.name;
     const TOOLS = target_item.tools;
+    const GITHUB_LINK = target_item.github;
 
     const card_tools = () => {
       return (
@@ -80,15 +82,18 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                     alt={ITEM_NAME}
                     className="project_imgs"
                   /> : <MdOutlineImageNotSupported id="missing_img_modal"/>}
+                  {ITEM_IMAGE && <span className="modal_image_att">{IMAGE_ATT}</span>}
                   {(ITEM_VID) ? <iframe className="project_video"
                         src={ITEM_VID}
                         title="YouTube video player"
                         frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" 
                         allowfullscreen>
-                </iframe> :
-                <MdOutlineVideocamOff id="missing_video_modal"/>}
+                  </iframe> :
+                  <MdOutlineVideocamOff id="missing_video_modal"/>}
+                  {(GITHUB_LINK) ? <a className="modal_github_link" href={GITHUB_LINK}>See the GitHub repo here</a> :
+                  <span className="missing_github_link">No GitHub link available. Feel free to ask me about this project though!</span>}
                 </div>
             </div>
         </motion.div>

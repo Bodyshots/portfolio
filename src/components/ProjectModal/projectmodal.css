@@ -46,12 +46,21 @@
     margin-top: 0.5em;
     font-size: 25px;
     text-align: left;
-    /* text-shadow: 1px 1px 3px black; */
+    color: #61001d;
+}
+
+.modal_image_att {
+    display: flex;
+    flex-flow: row wrap;
+    text-align: center;
+    margin: 0 2em 0 2em;
+    /* padding: 0 2em 0 2em; */
+    margin-top: -1em;
+    font-size: 10px;
 }
 
 .projectModalDesc {
     width: 100%;
-    height: 30%;
     text-align: left;
 }
 
@@ -102,6 +111,21 @@ iframe.project_video {
     margin-bottom: 1em;
     z-index: -1;
     object-fit: contain;
+}
+
+a.modal_github_link {
+    color: #8d494d;
+    transition: 0.05s all linear;
+}
+
+a.modal_github_link:hover {
+    color: white;
+    transition: 0.05s all linear;
+}
+
+.missing_github_link {
+    display: flex;
+    text-align: center;
 }
 
 .projectModalCloseBtn {
@@ -160,6 +184,7 @@ iframe.project_video {
     text-align: left;
     font-size: 17.5px;
     margin-bottom: 0.5em;
+    color: #61001d;
 }
 
 .projectModalTools {
