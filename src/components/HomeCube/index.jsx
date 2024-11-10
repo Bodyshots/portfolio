@@ -12,7 +12,7 @@ import htmlimg from "../../images/faces/javascript.png"
 import cimg from "../../images/faces/C_face.png"
 import javaimg from "../../images/faces/java_face.png"
 import reactimg from "../../images/faces/react_face.png"
-import sqlliteimg from "../../images/faces/SQLite_face.png"
+import nextjsimg from '../../images/faces/nextjs_face.png'
 
 const countProjects = (projectList, keywords) => {
     const counts = {};
@@ -45,7 +45,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
 
     // Define the faces of the cube and their corresponding normal vectors
     const faces = {
-        "SQLite3": new THREE.Vector3(0, 0, 1),  // Z+ direction (front)
+        "Next.js": new THREE.Vector3(0, 0, 1),  // Z+ direction (front)
         "React": new THREE.Vector3(0, 0, -1),  // Z- direction (back)
         "Python": new THREE.Vector3(-1, 0, 0),  // X- direction (left)
         "JavaScript": new THREE.Vector3(1, 0, 0),  // X+ direction (right)
@@ -92,7 +92,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
     const texture_3 = useLoader(TextureLoader, cimg);
     const texture_4 = useLoader(TextureLoader, javaimg);
     const texture_5 = useLoader(TextureLoader, reactimg);
-    const texture_6 = useLoader(TextureLoader, sqlliteimg);
+    const texture_6 = useLoader(TextureLoader, nextjsimg);
 
     useEffect(() => {
         const checkTexturesLoaded = () => {
@@ -139,7 +139,7 @@ const HomeCube = ({project_lst}) => {
         setIsLoaded(true);
     }
 
-    const keywords = ["SQLite3", "JavaScript", "React", "C/C++", "Java", "Python"];
+    const keywords = ["Next.js", "JavaScript", "React", "C/C++", "Java", "Python"];
     const projectCounts = countProjects(project_lst, keywords);
 
     const projects_used_in = ( tool ) => {

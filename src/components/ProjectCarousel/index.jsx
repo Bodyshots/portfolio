@@ -16,11 +16,11 @@ function ProjectCarousel(project_lst, modalOpen, open,
   const settings = {
     infinite: true,
     centerPadding: "5px",
-    slidesToShow: Math.min(3, major_projects.length),
+    slidesToShow: Math.min(2, major_projects.length),
     speed: 500,
     responsive: [
       {
-        breakpoint: 991,
+        breakpoint: 1384,
         settings: {
           slidesToShow: Math.min(1, major_projects.length),
         }

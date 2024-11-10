@@ -12,6 +12,18 @@ function ProjectCard(item, modalOpen, open, close) {
 
     const NAME = item.name
     const COVER_URL = item.cover_img;
+    const TOOLS = item.tools;
+
+    const card_tools = () => {
+        return (
+          <div className="projectCardTools">
+            {TOOLS.slice(0, 5).map((tool) =>
+              <div className="projectCardTool">
+                {tool}
+              </div>
+            )}
+          </div>);
+      }
 
     return (
     <div className="projectcard gradient"
@@ -35,6 +47,7 @@ function ProjectCard(item, modalOpen, open, close) {
                                                 ? 'No short description' 
                                                 : SHORT_DESC}</p>
         </div>
+        <span className="flex flex-col">{card_tools()}</span>
     </div>
     );
 }

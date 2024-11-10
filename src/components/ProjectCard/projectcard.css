@@ -119,8 +119,35 @@
     height: 2px!important;
 }
 
-@media screen and (max-width: 991px) {
+.projectCardTools {
+  display: flex;
+  flex-flow: row wrap;
+  height: 100%;
+  margin: 0.5em;
+}
+
+.projectCardTool {
+  font-size: 15.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1em;
+  text-align: center;
+  background: transparent;
+  font-family: 'PixelFont', sans-serif;
+  color:#e5ddac;
+  background-color: #61001d;
+  border-radius: 8px;
+  padding: 0.3em;
+  box-shadow: 1px 1px 1px #0000001f!important;
+}
+
+@media screen and (max-width: 1278px) {
   .projectcard {
     height: auto;
+  }
+  
+  .projectCardTool {
+    margin: 0 0.5em 0.5em 0.5em;
   }
 }
