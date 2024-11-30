@@ -14,7 +14,7 @@ import { HashLink } from 'react-router-hash-link';
 function NavBar() {
     const location = useLocation();
     const [navbar, setNavBar] = useState(false);
-    const resume_link = 'https://drive.google.com/file/d/1_yZNUNJS9qVqkB8xW_xGcATTfDX1KLAv/view?usp=drive_link'
+    const resume_link = 'https://drive.google.com/file/d/1Acfb1ePGQTSuQguVEOcBJKZjGdgHBTIG/view?usp=drive_link'
 
     const handleScroll = () => {
       if (window.scrollY >= 700) {
