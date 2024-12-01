@@ -33,8 +33,8 @@ function ProjectCarousel(project_lst, modalOpen, open,
         {(major_projects && major_projects.length > 0) ? 
         <div className="projectcarousel">
           <Slider {...settings}>
-              {major_projects.map((item) => (
-                <div>
+              {major_projects.map((item, i) => (
+                <div key={i}>
                   {item && ProjectCard(item, modalOpen, open, close)}
                 </div>
               ))}
