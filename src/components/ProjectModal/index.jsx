@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { MdOutlineVideocamOff } from "react-icons/md";
+import { CustomImg } from "../CustomImg/customimg";
 
 import "./projectmodal.css"
 import  "../globals.css"
@@ -42,8 +43,8 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
     const card_tools = () => {
       return (
         <div className="projectModalTools">
-          {TOOLS.map((tool) =>
-            <div className="projectModalTool">
+          {TOOLS.map((tool, i) =>
+            <div className="projectModalTool" key={i}>
               {tool}
             </div>
           )}
@@ -77,12 +78,7 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                 </div>
                 <div className="project_media">
                   {ITEM_IMAGE ?
-                  <img
-                    src={ITEM_IMAGE}
-                    alt={ITEM_NAME}
-                    className="project_imgs"
-                  /> : <MdOutlineImageNotSupported id="missing_img_modal"/>}
-                  {ITEM_IMAGE && <span className="modal_image_att">{IMAGE_ATT}</span>}
+                  <CustomImg caption={IMAGE_ATT} alt={ITEM_NAME} src={ITEM_IMAGE}/> : <MdOutlineImageNotSupported id="missing_img_modal"/>}
                   {(ITEM_VID) ? <iframe className="project_video"
                         src={ITEM_VID}
                         title="YouTube video player"
