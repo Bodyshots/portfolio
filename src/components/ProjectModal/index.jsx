@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { MdOutlineVideocamOff } from "react-icons/md";
 import { CustomImg } from "../CustomImg/customimg";
+import { Carousel } from "react-bootstrap";
 
 import "./projectmodal.css"
 import  "../globals.css"
@@ -34,8 +35,8 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
     const target_item = project_lst.find(item => item.id === id)
     const LONG_DESC = target_item.long_desc
     const ITEM_VID = target_item.video;
-    const ITEM_IMAGE = target_item.image;
-    const IMAGE_ATT = target_item.image_att;
+    const ITEM_IMAGES = target_item.images;
+    const IMAGE_ATTS = target_item.image_atts;
     const ITEM_NAME = target_item.name;
     const TOOLS = target_item.tools;
     const GITHUB_LINK = target_item.github;
@@ -77,8 +78,16 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
                   </div>
                 </div>
                 <div className="project_media">
-                  {ITEM_IMAGE ?
-                  <CustomImg caption={IMAGE_ATT} alt={ITEM_NAME} src={ITEM_IMAGE}/> : <MdOutlineImageNotSupported id="missing_img_modal"/>}
+                  {ITEM_IMAGES ?
+                    ((ITEM_IMAGES.length > 1) ?
+                      (<Carousel data-bs-theme="dark" indicators={false}>
+                        {ITEM_IMAGES.map((image, i) => (
+                          <Carousel.Item key={i}>
+                            <CustomImg caption={IMAGE_ATTS[i]} alt={ITEM_NAME} src={image}/>
+                          </Carousel.Item>
+                        ))}
+                      </Carousel>) : <CustomImg caption={IMAGE_ATTS[0]} alt={ITEM_NAME} src={ITEM_IMAGES[0]}/>) :
+                    <MdOutlineImageNotSupported id="missing_img_modal"/>}
                   {(ITEM_VID) ? <iframe className="project_video"
                         src={ITEM_VID}
                         title="YouTube video player"

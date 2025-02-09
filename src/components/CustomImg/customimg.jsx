@@ -2,8 +2,6 @@ import Zoom from 'react-medium-image-zoom'
 import { useState, useLayoutEffect } from 'react'
 import '../globals.css'
 
-// box-shadow: 0 0 8px 8px white inset;
-
 export const CustomImg = ({ caption, src, alt }) => (
   <>
     {/* <Zoom ZoomContent={(props) => <CustomZoomContent {...props} caption={caption} />}> */}
@@ -14,7 +12,7 @@ export const CustomImg = ({ caption, src, alt }) => (
         className="project_imgs"
       />
     </Zoom>
-    {src && <span className="modal_image_att">{caption}</span>}
+    {src && <span className="modal_image_att text-sm">{caption}</span>}
   </>
 )
 
