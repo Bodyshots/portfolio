@@ -11,11 +11,6 @@ import MacGabriel100 from "../../pages/MacGabriel100"
 // https://www.youtube.com/watch?v=FdrEjwymzdY
 function AnimatedRoutes() {
     const location = useLocation();
-    // const { pageLoading } = useContext(UserContext);
-
-    // if (pageLoading) {
-    //     return <Loading />
-    // }
 
     return (
         <AnimatePresence mode="wait" initial={ false }>

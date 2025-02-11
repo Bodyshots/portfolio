@@ -4,6 +4,8 @@
     width: 90%;
     margin: auto;
     margin-bottom: 1em;
+    min-height: 100vh;
+    min-height: 100dvh;
 
     justify-content: center;
     text-align: center;
