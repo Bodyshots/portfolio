@@ -1,5 +1,4 @@
-import React from 'react';
-import { Route, Routes, useLocation} from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import AllProjects from '../../pages/AllProjects';
 import Home from '../../pages/Home';
@@ -13,16 +12,16 @@ function AnimatedRoutes() {
     const location = useLocation();
 
     return (
-        <AnimatePresence mode="wait" initial={ false }>
+        <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
-                <Route exact path="" element={<Home/>}/>
-                <Route exact path="/" element={<Home/>}/>
-                <Route exact path="/home" element={<Home/>}/>
-                <Route exact path="/macGabriel100" element={<MacGabriel100/>}/>
-                <Route exact path="/macgabriel100" element={<MacGabriel100/>}/>
-                <Route exact path="/allprojects" element={<AllProjects/>}/>
-                <Route exact path="/secret" element={<Secret/>}/>
-                <Route path="*" element={<NotFound/>}/>
+                <Route exact path="" element={<Home />} />
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/home" element={<Home />} />
+                <Route exact path="/macGabriel100" element={<MacGabriel100 />} />
+                <Route exact path="/macgabriel100" element={<MacGabriel100 />} />
+                <Route exact path="/allprojects" element={<AllProjects />} />
+                <Route exact path="/secret" element={<Secret />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </AnimatePresence>
     );

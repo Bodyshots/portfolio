@@ -9,8 +9,8 @@ const ScrollIndicator = () => {
     const handleScroll = () => {
         const winScroll = document.documentElement.scrollTop;
         const height = (document.documentElement.scrollHeight -
-                        document.documentElement.clientHeight);
-        
+            document.documentElement.clientHeight);
+
         const scrolled = (winScroll / height) * 100;
 
         setScrollTop(scrolled)
@@ -33,7 +33,7 @@ const ScrollIndicator = () => {
         <div className={indicator ? "progress_container active" : "progress_container"}>
             <div
                 className={indicator ? "progress_style active" : "progress_style"}
-                style={{ width: `${scrollTop}%`}}>
+                style={{ width: `${scrollTop}%` }}>
             </div>
         </div>
     )

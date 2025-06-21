@@ -4,7 +4,7 @@ import './loadingcomp.css'
 function LoadingComp() {
     return (
         <div id='loading_container'>
-            <Spinner animation="border" role="status" id='load_spinner' variant='warning'/>
+            <Spinner animation="border" role="status" id='load_spinner' variant='warning' />
         </div>
     )
 }

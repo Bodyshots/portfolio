@@ -1,12 +1,12 @@
 import './namechanger.css'
 import '../globals.css'
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 function NameChanger() {
-    
+
     const [currIndex, setCurrIndex] = useState(0);
-    const roleNames = ["a developer", "an engineer", "an architect", "a designer", 
-                       "an innovator", "a planner", "an inventor", "a researcher"];
+    const roleNames = ["a developer", "an engineer", "an architect", "a designer",
+        "an innovator", "a planner", "an inventor", "a researcher"];
 
     useEffect(() => {
         if (currIndex == roleNames.length - 1) {

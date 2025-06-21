@@ -38,7 +38,7 @@ const CustomZoomContent = ({
 
   return (
     <figure>
-    {buttonUnzoom}
+      {buttonUnzoom}
       {img}
       <figcaption className={classCaption}>
         {caption}

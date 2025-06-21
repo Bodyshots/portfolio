@@ -9,9 +9,9 @@ import ProjectCard from '../ProjectCard';
 // and https://react-slick.neostack.com/docs/example/custom-arrows
 
 function ProjectCarousel(project_lst, modalOpen, open,
-                         close) {
+  close) {
 
-  const major_projects = project_lst.map((item) => {if (item.major) return item}).filter(item => item).sort((a, b) => a.priority - b.priority);
+  const major_projects = project_lst.map((item) => { if (item.major) return item }).filter(item => item).sort((a, b) => a.priority - b.priority);
 
   const settings = {
     infinite: true,
@@ -30,14 +30,14 @@ function ProjectCarousel(project_lst, modalOpen, open,
 
   return (
     <>
-        {(major_projects && major_projects.length > 0) ? 
+      {(major_projects && major_projects.length > 0) ?
         <div className="projectcarousel">
           <Slider {...settings}>
-              {major_projects.map((item, i) => (
-                <div key={i}>
-                  {item && ProjectCard(item, modalOpen, open, close)}
-                </div>
-              ))}
+            {major_projects.map((item, i) => (
+              <div key={i}>
+                {item && ProjectCard(item, modalOpen, open, close)}
+              </div>
+            ))}
           </Slider>
         </div> : <div id='none_projectcarousel'>Hmmm... There are no projects here!</div>}
     </>

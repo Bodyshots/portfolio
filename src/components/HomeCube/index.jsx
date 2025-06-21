@@ -16,24 +16,24 @@ import nextjsimg from '../../images/faces/nextjs_face.png'
 
 const countProjects = (projectList, keywords) => {
     const counts = {};
-    
+
     // Initialize counts for each keyword
     keywords.forEach(keyword => {
-      counts[keyword] = 0;
+        counts[keyword] = 0;
     });
-  
+
     // Iterate through each project
     projectList.forEach(project => {
-      keywords.forEach(keyword => {
-        // Check if the project includes the keyword in tools
-        if (project.tools.includes(keyword)) {
-          counts[keyword] += 1; // Increment the count for that keyword
-        }
-      });
+        keywords.forEach(keyword => {
+            // Check if the project includes the keyword in tools
+            if (project.tools.includes(keyword)) {
+                counts[keyword] += 1; // Increment the count for that keyword
+            }
+        });
     });
-  
+
     return counts;
-  };
+};
 
 const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
     const { camera } = useThree();
@@ -70,12 +70,12 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         for (const [faceName, faceNormal] of Object.entries(faces)) {
             const worldNormal = faceNormal.clone().applyMatrix4(matrix).normalize(); // Transform face normal to world space
             const dotProduct = cameraDirection.dot(worldNormal);
-      
+
             if (dotProduct > maxDot || dotProduct >= threshold) {
-              maxDot = dotProduct;
-              closestFace = faceName;
+                maxDot = dotProduct;
+                closestFace = faceName;
             }
-          }
+        }
 
         handleFaceChange(closestFace)
     };
@@ -98,8 +98,8 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         const checkTexturesLoaded = () => {
             if (texture_1 && texture_2 && texture_3 &&
                 texture_4 && texture_5 && texture_6) {
-                    handleLoadingDone(); // All textures loaded, set isLoaded to true
-                }
+                handleLoadingDone(); // All textures loaded, set isLoaded to true
+            }
         };
 
         checkTexturesLoaded();
@@ -107,32 +107,32 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
 
     return (
         <>
-        {/* Settings of cube */}
-        <OrbitControls enableZoom={false} enablePan={false}/>
-        <ambientLight intensity={3.19} color={'#efe9cf'}/>
+            {/* Settings of cube */}
+            <OrbitControls enableZoom={false} enablePan={false} />
+            <ambientLight intensity={3.19} color={'#efe9cf'} />
             {/* Cube Object */}
             <mesh ref={cubeRef}>
-                <boxGeometry args={[3, 3, 3]}/>
-                <meshStandardMaterial map={texture_1} attach="material-0"/>
-                <meshStandardMaterial map={texture_2} attach="material-1"/>
-                <meshStandardMaterial map={texture_3} attach="material-2"/>
-                <meshStandardMaterial map={texture_4} attach="material-3"/>
-                <meshStandardMaterial map={texture_5} attach="material-4"/>
-                <meshStandardMaterial map={texture_6} attach="material-5"/>
+                <boxGeometry args={[3, 3, 3]} />
+                <meshStandardMaterial map={texture_1} attach="material-0" />
+                <meshStandardMaterial map={texture_2} attach="material-1" />
+                <meshStandardMaterial map={texture_3} attach="material-2" />
+                <meshStandardMaterial map={texture_4} attach="material-3" />
+                <meshStandardMaterial map={texture_5} attach="material-4" />
+                <meshStandardMaterial map={texture_6} attach="material-5" />
                 <Edges color="#e5ddac" lineWidth={0.5} />
             </mesh>
         </>
     )
 }
 
-const HomeCube = ({project_lst}) => {
+const HomeCube = ({ project_lst }) => {
     const cubeRef = useRef();
     const [faceVisible, setFaceVisible] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
     const handleFaceChange = (face) => {
         if (face !== faceVisible && face !== null) {
-          setFaceVisible(face);
+            setFaceVisible(face);
         }
     };
     const handleLoadingDone = () => {
@@ -142,33 +142,33 @@ const HomeCube = ({project_lst}) => {
     const keywords = ["Next.js", "JavaScript", "React", "C/C++", "Java", "Python"];
     const projectCounts = countProjects(project_lst, keywords);
 
-    const projects_used_in = ( tool ) => {
+    const projects_used_in = (tool) => {
         const count = projectCounts[tool]
         return ((count > 1) ?
-        <div id="face_subtitle" data-aos="fade-up">
-            Used in {count} projects
-        </div> :
-        <div id="face_subtitle" data-aos="fade-up">
-            Used in {count} project
-        </div>);
+            <div id="face_subtitle" data-aos="fade-up">
+                Used in {count} projects
+            </div> :
+            <div id="face_subtitle" data-aos="fade-up">
+                Used in {count} project
+            </div>);
     }
 
-    return (        
+    return (
         <div className="cube_container">
-            {!isLoaded && <Spinner id="cube_spinner"/>}
-            <div style={{ width: "5.5em", height: "5.5em"}}>
+            {!isLoaded && <Spinner id="cube_spinner" />}
+            <div style={{ width: "5.5em", height: "5.5em" }}>
                 <Canvas>
-                    <CubeThreeJS 
-                    cubeRef={cubeRef}
-                    handleFaceChange={handleFaceChange}
-                    handleLoadingDone={handleLoadingDone}/>
+                    <CubeThreeJS
+                        cubeRef={cubeRef}
+                        handleFaceChange={handleFaceChange}
+                        handleLoadingDone={handleLoadingDone} />
                 </Canvas>
             </div>
             <div className="face_detect_container text_highlight">
                 <span data-aos="fade-up">{faceVisible}</span>
                 {projects_used_in(faceVisible)}
             </div>
-        </div> 
+        </div>
     )
 }
 
