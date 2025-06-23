@@ -1,6 +1,7 @@
 import Zoom from 'react-medium-image-zoom'
 import { useState, useLayoutEffect } from 'react'
 import '../globals.css'
+import './customimg.css'
 
 export const CustomImg = ({ caption, src, alt }) => (
   <>

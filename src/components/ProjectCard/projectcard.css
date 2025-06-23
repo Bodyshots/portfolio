@@ -1,96 +1,48 @@
-/* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
-
-.card_title {
-    margin: 0.75em;
-    margin-bottom: 0!important;
-    text-align: left;
-    justify-content: center;
-    font-size: 17px;
-    color: #790000;
-}
-
-.card_short_desc {
-  margin: 0.75em;
-  margin-left: 0.9em;
-  font-size: 14px;
-  text-align: left;
-  color: #790000;
-}
-
+/* Card Container */
 .projectcard {
-    border: 1px solid #61001d;
-    border-radius: 8px!important;
-    overflow: hidden!important;
-    margin: 2em;
-
-    height: 22.5rem;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-    font-family: 'PixelFont', sans-serif;
-    transition: all 0.15s;
-}
-
-
-/* gradient css from https://keithjgrant.com/posts/2017/07/transitioning-gradients/ */
-.gradient {
-    position: relative;
-    min-height: 200px;
-    background-image: linear-gradient(
-      to right,
-      hsl(41, 56%, 70%),
-      hsl(356, 0%, 92%)
-    );
-    z-index: 1;
-  }
-  
-.gradient::before {
-  position: absolute;
-  content: "";
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: linear-gradient(
-    to bottom,
-    hsla(0, 0%, 100%, 0.664),
-    hsl(41, 52%, 73%)
-
-  );
-  z-index: -1;
-  transition: opacity 0.15s linear;
-  opacity: 0;
-}
-
-.gradient:hover::before {
-  opacity: 1;
+  border: 2px solid #e5ddac;
+  border-radius: 1.25rem !important;
+  overflow: hidden !important;
+  margin: 2em;
+  background: linear-gradient(135deg, #efe9cd 0%, #e5ddac 100%);
+  height: 25rem;
+  color: #61001d;
+  cursor: pointer;
+  box-shadow: 0 4px 24px 0 rgba(97, 0, 29, 0.10);
+  font-family: 'PixelFont', sans-serif;
+  /* transition: all 0.18s; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .projectcard:hover {
-    transition: all 0.15s;
-    background: linear-gradient(-11deg, #cc9663, #e7c596 37.71%);
+  box-shadow: 0 8px 32px 0 rgba(97, 0, 29, 0.18);
+  transition: all 0.001s;
+  border-color: #61001d;
+  transform: translateY(-4px) scale(1.025);
+  background: linear-gradient(-11deg, #dec796 60%, #efe9cd 100%);
 }
 
-.projectcard::before {
-  transition: all 0.15s;
-  color: white!important;
+.projectcard-top {
+  width: 100%;
+  /* background: #fff8ef; */
+  /* border-bottom: 1px solid #e5ddac; */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 225px;
+  position: relative;
 }
 
-.projectcard:hover .card_info .card_title {
-  transition: all 0.2s ease-in-out;
-  color: white!important;
-}
-
-.projectcard:hover .card_short_desc {
-  transition: all 0.2s ease-in-out;
-  color: white!important;
-}
-
-.projectcard-top > img {
-    width: 100%!important;
-    height: 225px!important;
-    object-fit: contain;
-    background: transparent;
+.projectcard-top>img {
+  width: 100% !important;
+  height: 225px !important;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 1.25rem 1.25rem 0 0;
 }
 
 #missing_img_cover {
@@ -99,55 +51,100 @@
   align-items: center;
   width: 100%;
   height: 225px;
+  color: #b9937c;
+  background: #efe9cd;
+  border-radius: 1.25rem 1.25rem 0 0;
+  font-size: 2.5em;
+}
+
+.card_info {
+  padding: 0.5em 1.2em 0.2em 1.2em;
+  background: none;
+}
+
+.card_title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 200;
+  color: #61001d;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-align: left;
+  font-family: 'PixelFont', sans-serif;
+}
+
+.card_short_desc {
+  margin: 0.5em 1.2em 0.5em 1.2em;
+  font-size: 1rem;
+  text-align: left;
+  color: #8d494d;
+  line-height: 1.4;
+  min-height: 2.5em;
+  font-family: 'PixelFont', sans-serif;
 }
 
 .projectcard-bottom {
-    margin: 10px 20px!important;
+  margin: 0.5em 1.2em 1em 1.2em !important;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-end;
 }
 
-.projectcat {
-    position: relative!important;
-}
-
-.projectcat::before {
-    content: ''!important;
-    background: rgb(235, 201, 107)!important;
-    position: absolute!important;
-    top: calc(100% + 10px)!important;
-    left: 0!important;
-    right: 0!important;
-    height: 2px!important;
+.projectCardToolsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.2em;
 }
 
 .projectCardTools {
   display: flex;
-  flex-flow: row wrap;
-  height: 100%;
-  margin: 0.5em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .projectCardTool {
-  font-size: 15.5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1em;
-  text-align: center;
-  background: transparent;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  background: #efe9cd;
+  color: #61001d;
+  border: 1px solid #e5ddac;
+  margin-bottom: 0.5rem;
+  box-shadow: 1px 1px 1px #0000001f !important;
   font-family: 'PixelFont', sans-serif;
-  color:#e5ddac;
-  background-color: #61001d;
-  border-radius: 8px;
-  padding: 0.3em;
-  box-shadow: 1px 1px 1px #0000001f!important;
+  transition: all 0.15s;
+}
+
+.projectcard:hover .projectCardTool {
+  background: #61001d;
+  color: #e5ddac;
+  border-color: #61001d;
 }
 
 @media screen and (max-width: 1278px) {
   .projectcard {
     height: auto;
   }
-  
-  .projectCardTool {
-    margin: 0 0.5em 0.5em 0.5em;
+}
+
+@media (max-width: 700px) {
+  .projectcard {
+    margin: 1em 0.2em;
+    height: auto;
+  }
+
+  .projectcard-top>img,
+  #missing_img_cover {
+    height: 160px !important;
+  }
+
+  .card_title {
+    font-size: 1.05rem;
+  }
+
+  .card_short_desc {
+    font-size: 0.95rem;
   }
 }

@@ -1,225 +1,239 @@
-.projectModal {
-    /* {Width => Tries 700px,
-    goes 90% if small or 50% if too big */
-    width: clamp(50%, 1000px, 90%);
-    height: auto;
-    background: linear-gradient(
-        135deg,
-        hsl(41, 46%, 70%),
-        rgba(229, 221, 172)
-      );
-    position: relative;
-    z-index: 99;
-
-    margin: auto;
-    padding: 0 2rem;
-    border-radius: 12px;
+/* Overlay and Modal Container */
+.workhistory-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-flow: column;
     align-items: center;
-    /* justify-content: center; */
-    vertical-align: auto;
-    color: rgba(141, 73, 77, 1)
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
 }
 
-.projectModalBody {
-    /* height: 100%; */
+.workhistory-modal {
+    background: linear-gradient(135deg, hsl(41, 46%, 70%), #e5ddac 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.16);
+    max-width: 700px;
     width: 100%;
-    margin: 1em;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    /* align-items: center; */
-}
-
-.projectModalText {
-    /* position: relative; */
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    /* height: 25em; */
-    width: 52.5%;
+    max-height: 80vh;
+    max-width: 70vw;
     overflow-y: auto;
+    color: #8d494d;
+    font-family: 'PixelFont', sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0;
 }
 
-.projectModalTitle {
-    margin-top: 0.5em;
-    font-size: 25px;
-    text-align: left;
+/* .imagecarouselitem {
+    height: 290px;
+} */
+
+.workhistory-modal-header {
+    padding: 1.5rem 2rem 1rem 2rem;
+    border-bottom: 2px solid #efe9cd;
+    background: transparent;
+}
+
+.workhistory-modal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.workhistory-modal-title {
+    font-size: 2rem;
+    font-weight: 200;
+    margin-bottom: 0.5rem;
+    color: #61001d;
+    line-height: 1.1;
+}
+
+.workhistory-modal-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #b9937c;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .workhistory-modal-meta {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.workhistory-modal-close {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-height: 33px;
+    height: 33px;
+    width: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.workhistory-modal-close:hover {
+    background: #f3f4f6;
+}
+
+/* ...existing styles... */
+
+#close_item {
+    position: relative;
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+#close_item:before,
+#close_item:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1.2em;
+    height: 0.18em;
+    background: #8d494d;
+    border-radius: 2px;
+    transform-origin: center;
+}
+
+#close_item:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#close_item:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Modal Content Layout */
+.workhistory-modal-content {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background: transparent;
+}
+
+@media (max-width: 900px) {
+    .workhistory-modal-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+}
+
+/* Left: Description and Tools */
+.workhistory-modal-section-title {
+    font-size: 1.125rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     color: #61001d;
 }
 
-.modal_image_att {
-    display: flex;
-    flex-flow: row wrap;
-    text-align: center;
-    justify-content: center;
-    padding-top: 1em;
-    margin: 0 2em 0 2em;
-    margin-top: -1em;
-    font-size: 10px;
+.workhistory-modal-list {
+    margin-bottom: 1.5rem;
+}
+
+.workhistory-card-desc {
+    font-size: 1rem;
+    line-height: 1.6;
     color: #8d494d;
 }
 
-.projectModalDesc {
-    width: 100%;
-    text-align: left;
-}
-
-.project_media {
-    width: 45%;
+.workhistory-modal-tech {
     display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-iframe.project_video {
+.workhistory-modal-tech-item {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: #61001d;
+    color: #e5ddac;
+    border: none;
+    margin-bottom: 0.5rem;
+    box-shadow: 1px 1px 1px #0000001f;
+    font-family: 'PixelFont', sans-serif;
+}
+
+/* Right: Media */
+.project_video {
     width: 100%;
     aspect-ratio: 16 / 9;
     margin-top: 1em;
     margin-bottom: 1em;
+    border-radius: 8px;
+    border: none;
+    background: #efe9cd;
 }
 
-.project_imgs {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    /* height: auto; */
-    object-fit: contain;
-}
-
-#missing_img_modal {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 25em;
-    height: 15em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    z-index: -1;
-    object-fit: contain;
-}
-
+#missing_img_modal,
 #missing_video_modal {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 25em;
     height: 15em;
-    justify-content: center;
-    align-content: center;
-    aspect-ratio: 16/9;
     margin-top: 1em;
     margin-bottom: 1em;
-    z-index: -1;
     object-fit: contain;
+    color: #8d494d;
+    border-radius: 8px;
 }
 
 a.modal_github_link {
     color: #8d494d;
     transition: 0.05s all linear;
+    text-decoration: underline;
 }
 
 a.modal_github_link:hover {
-    color: white;
-    transition: 0.05s all linear;
+    color: #e5ddac;
+    background: #61001d;
+    border-radius: 4px;
+    padding: 0 0.25em;
 }
 
 .missing_github_link {
     display: flex;
     text-align: center;
+    color: #8d494d;
+    font-size: 0.95em;
 }
 
-.projectModalCloseBtn {
-    margin: 1em;
-}
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .workhistory-modal {
+        max-width: 98vw;
+        padding: 0;
+    }
 
-.backdrop, .modal {
-    display: flex;
-    align-items: center;
-}
+    .workhistory-modal-content {
+        padding: 0.5rem;
+    }
 
-.projectCloseContainer {
-    position: absolute;
-    display: flex;
-    justify-content: right;
-    width: 100%;
-}
-
-#close_item {
-    width: 1.25em!important;
-    height: 1.25em!important;
-    background:
-      conic-gradient(from 90deg at var(--b) var(--b),rgba(0, 0, 0, 0) 90deg, grey 0) 
-      calc(100% + var(--b)/2) calc(100% + var(--b)/2)/ /*Vertical line*/
-      calc(50%  + var(--b))   calc(50%  + var(--b))!important; /*Horizontal line*/
-    transform: rotate(45deg)!important;
-    border: 0!important;
-    margin-top: 0.5em!important;
-    margin-right: 0.5em!important;
-    transition: all 0.15s;
-    opacity: 0.5;
-}
-
-#close_btn #close_item:hover, #close_btn:hover #close_item { opacity: 0.8; }
-
-#close_btn {
-    min-height: 33px;
-    height: 33px;
-    width: auto;
-    /* width: .3%; */
-    /* min-width: 24.63px; */
-    /* padding: 0!important; */
-    margin-right: 0.2em;
-}
-
-.projectModalRest {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: left;
-    height: 25%;
-    width: 100%;
-    /* margin-bottom: 3em; */
-}
-
-.projectModalBotTitle {
-    text-align: left;
-    font-size: 17.5px;
-    margin-bottom: 0.5em;
-    color: #61001d;
-}
-
-.projectModalTools {
-    display: flex;
-    flex-flow: row wrap;
-    height: 100%;
-}
-
-.projectModalTool {
-    font-size: 15.5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 1em;
-    height: 2em;
-    padding: 1em;
-    margin-bottom: 1em;
-    text-align: center;
-    background: transparent;
-    font-family: 'PixelFont', sans-serif;
-    color:#e5ddac;
-    background-color: #61001d;
-    border-radius: 8px;
-    padding: 0.3em;
-    box-shadow: 1px 1px 1px #0000001f!important;
-}
-
-#no_project_vid {
-    text-align: center;
-}
-
-@media screen and (max-width: 991px) {
-    .projectModal {
-        height: auto;
+    #missing_img_modal,
+    #missing_video_modal {
+        width: 100%;
+        height: 10em;
     }
 }

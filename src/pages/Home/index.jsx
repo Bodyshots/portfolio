@@ -1,7 +1,7 @@
 import './home.css';
 import '../../components/globals.css';
 import AnimatePage from '../../components/AnimatePage';
-import React, { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';
@@ -10,16 +10,15 @@ import NameChanger from '../../components/NameChanger';
 import supabase from '../../config/supabaseClient';
 import ProjectCarousel from '../../components/ProjectCarousel';
 import HoriScroll from '../../components/HoriScroll';
-import Backdrop from '../../components/Backdrop';
-import ProjectModal from '../../components/ProjectModal';
-import { AnimatePresence } from 'framer-motion';
 import HomeCoin from '../../components/HomeCoin';
 import { useNavigate } from 'react-router-dom';
+import WorkHistory from '../../components/WorkHistory';
 
 import { IoLogoLinkedin } from "react-icons/io";
 import { IoLogoGithub } from "react-icons/io";
 import { IoMdMail } from "react-icons/io";
 import HomeCube from '../../components/HomeCube';
+
 
 const Home = () => {
 
@@ -27,15 +26,7 @@ const Home = () => {
     const { loading, setLoading } = useContext(UserContext);
     const [fetchError, setFetchError] = useState(null);
     const [projects, setProjects] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [isActive, setIsActive] = useState(-1);
     const navigate = useNavigate();
-
-    const open = (id) => {
-        setIsActive(id);
-        setModalOpen(true);
-    }
-    const close = () => setModalOpen(false);
 
     useEffect(() => {
         // Set to True to initialize everything
@@ -63,8 +54,9 @@ const Home = () => {
 
         // Initialize animation library
         AOS.init({ duration: 1000 });
-        // Get projects from database
-        fetchProjects();
+
+        fetchProjects(); // Get projects from database
+
         // Set new title
         document.title = "Lanz Angeles | Homepage";
 
@@ -78,7 +70,7 @@ const Home = () => {
 
     return (
         <AnimatePage>
-            {fetchError && (<p>{fetchError}</p>)}
+            {fetchError && (<p className="center">{fetchError}</p>)}
             <div className="home_page" id='home_page_container'>
                 <title>Home Page</title>
                 <div id='landing_sec'>
@@ -89,16 +81,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div>
-                    {HoriScroll(true, "Major Projects", "projects")}
-                </div>
-                <div id='projects'>
-                    {ProjectCarousel(project_lst, modalOpen, open, close)}
-                    <button id="all_proj_btn" onClick={() => navigate("/allprojects")}>
-                        <span id="all_proj_text">View all projects</span>
-                    </button>
-                </div>
-                {HoriScroll(false, "About", "about")}
+                {HoriScroll(true, "About", "about")}
                 <div id='about'>
                     <div id="about_text">
                         <div id="about_texttitle">
@@ -125,7 +108,20 @@ const Home = () => {
                     </div>
                     <span id="about_coin"><HomeCoin /></span>
                 </div>
-                {HoriScroll(true, "Contact", "contact")}
+                {HoriScroll(false, "Experience", "experience")}
+                <div id="experience">
+                    <WorkHistory />
+                </div>
+                <div>
+                    {HoriScroll(true, "Major Projects", "projects")}
+                </div>
+                <div id='projects'>
+                    {ProjectCarousel(project_lst)}
+                    <button id="all_proj_btn" onClick={() => navigate("/allprojects")}>
+                        <span id="all_proj_text">View all projects</span>
+                    </button>
+                </div>
+                {HoriScroll(false, "Contact", "contact")}
                 <div id="contact">
                     <div id="contact_container">
                         <div id="contact_map">
@@ -169,20 +165,6 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <AnimatePresence
-                        initial={false}
-                        mode="wait"
-                        onExitComplete={() => null}
-                    >
-                        {modalOpen &&
-                            (<div className="modal_container">
-                                <Backdrop onClick={close}>
-                                    <ProjectModal handleClose={close}
-                                        project_lst={project_lst}
-                                        id={isActive} />
-                                </Backdrop>
-                            </div>)}
-                    </AnimatePresence>
                 </div>
             </div>
         </AnimatePage>

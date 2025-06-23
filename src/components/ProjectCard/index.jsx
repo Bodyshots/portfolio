@@ -15,7 +15,7 @@ function ProjectCard(item, modalOpen, open, close) {
   const card_tools = () => {
     return (
       <div className="projectCardTools">
-        {TOOLS.slice(0, 5).map((tool) =>
+        {TOOLS.slice(0, 4).map((tool) =>
           <div className="projectCardTool">
             {tool}
           </div>
@@ -45,7 +45,7 @@ function ProjectCard(item, modalOpen, open, close) {
             ? 'No short description'
             : SHORT_DESC}</p>
       </div>
-      <span className="flex flex-col">{card_tools()}</span>
+      <span className="projectCardToolsContainer">{card_tools()}</span>
     </div>
   );
 }
