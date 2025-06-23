@@ -1,5 +1,4 @@
-import { Briefcase, X, Calendar, MapPin, Users, Award, Wrench } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import "./workhistory.css"
 import { AnimatePresence } from "framer-motion"
 import { WorkHistoryModal } from "./WorkHistoryModal";
@@ -7,7 +6,6 @@ import Backdrop from "../Backdrop";
 import supabase from '../../config/supabaseClient';
 
 export default function WorkHistory() {
-    let experience_lst = [];
     const [isActive, setIsActive] = useState(-1);
     const [modalOpen, setModalOpen] = useState(false);
     const [experience, setExperience] = useState(null);
@@ -31,7 +29,7 @@ export default function WorkHistory() {
             }
         }
         fetchExperience();
-    }, [experience])
+    }, [])
 
     const open = (id) => {
         setIsActive(id);
@@ -39,9 +37,10 @@ export default function WorkHistory() {
     }
     const close = () => setModalOpen(false);
 
-    if (experience && Array.isArray(experience)) {
-        experience_lst = [...experience].sort((a, b) => a.id - b.id);
-    }
+    const experience_lst = useMemo(() =>
+        Array.isArray(experience) ? [...experience].sort((a, b) => a.id - b.id) : [],
+        [experience]
+    );
 
     return ((experience_lst && experience_lst.length > 0) ?
         <div className="workhistory-container">
@@ -82,7 +81,7 @@ export default function WorkHistory() {
 
                                     {/* Center node for each experience */}
                                     <div className="workhistory-center">
-                                        <div className="workhistory-node"></div>
+                                        <div className="workhistory-node" />
                                     </div>
                                 </div> :
                                 <div key={job.id} className="workhistory-row-right">
