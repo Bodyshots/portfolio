@@ -116,7 +116,7 @@ const HomeCube = ({ project_lst }) => {
     const keywords = ["Next.js", "JavaScript", "React", "C/C++", "Java", "Python"];
     const projectCounts = useMemo(() => countProjects(project_lst, keywords), [project_lst]);
 
-    // Remove data-aos from LCP elements, always render the subtitle for layout stability
+    // Always render the subtitle and face label for layout stability and LCP
     const projects_used_in = (tool) => {
         const count = projectCounts[tool] || 0;
         return (
@@ -138,7 +138,9 @@ const HomeCube = ({ project_lst }) => {
                 </Canvas>
             </div>
             <div className="face_detect_container text_highlight">
-                <span>{faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}</span>
+                <div>
+                    {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
+                </div>
                 {projects_used_in(faceVisible)}
             </div>
         </div>
