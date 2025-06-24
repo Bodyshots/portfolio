@@ -84,7 +84,7 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
               Project Description
             </h3>
             <div className="workhistory-modal-list" style={{ marginBottom: "1.5rem" }}>
-              <span className="workhistory-card-desc">
+              <span className="workhistory-card-desc flex text-left">
                 {LONG_DESC ? LONG_DESC : "No long description available."}
               </span>
             </div>
