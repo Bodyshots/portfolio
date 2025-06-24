@@ -2,7 +2,7 @@ import './secret.css';
 import '../../components/globals.css'
 import Container from 'react-bootstrap/Container';
 import AnimatePage from '../../components/AnimatePage';
-import morse_code_img from "../../images/morse_code_better.png"
+import morse_code_img from "../../images/morse_code_better.avif"
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';
@@ -10,7 +10,7 @@ import { useContext, useEffect } from 'react';
 import LargeSearch from '../../components/LargeSearch';
 
 function Secret() {
-     
+
     const { loading, setLoading } = useContext(UserContext);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ function Secret() {
                 >
                 </img>
                 <p id='secret_q'>what does this translate to?</p>
-                <LargeSearch/>
+                <LargeSearch />
             </Container>
         </AnimatePage>
     );

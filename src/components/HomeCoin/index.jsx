@@ -8,8 +8,8 @@ import * as THREE from 'three';
 import "./homecoin.css"
 import "../globals.css"
 import { Spinner } from "react-bootstrap";
-import profileimg from "../../images/headshot.png"
-import sidesimg from "../../images/circumference.jpg"
+import profileimg from "../../images/headshot.avif"
+import sidesimg from "../../images/circumference.avif"
 
 const CoinThreeJS = ({ handleLoadingDone }) => {
     const coinRef = useRef();

@@ -7,12 +7,12 @@ import "./homecube.css"
 import "../globals.css"
 import { Spinner } from "react-bootstrap";
 
-import pythonimg from "../../images/faces/python_face.png"
-import htmlimg from "../../images/faces/javascript_face.png"
-import cimg from "../../images/faces/C_face.png"
-import javaimg from "../../images/faces/java_face.png"
-import reactimg from "../../images/faces/react_face.png"
-import nextjsimg from '../../images/faces/nextjs_face.png'
+import pythonimg from "../../images/faces/python_face.avif"
+import htmlimg from "../../images/faces/javascript_face.avif"
+import cimg from "../../images/faces/C_face.avif"
+import javaimg from "../../images/faces/java_face.avif"
+import reactimg from "../../images/faces/react_face.avif"
+import nextjsimg from '../../images/faces/nextjs_face.avif'
 
 const countProjects = (projectList, keywords) => {
     const counts = {};
