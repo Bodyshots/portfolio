@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { MdOutlineImageNotSupported, MdOutlineVideocamOff } from "react-icons/md";
-import { CustomImg } from "../CustomImg/customimg";
-import { Carousel } from "react-bootstrap";
 import { ScrollText, X, Wrench } from "lucide-react"
+import ProjectVideo from "../shared/ProjectVideo";
+import ProjectImages from "../shared/ProjectImages"
 import "./projectmodal.css";
 import "../globals.css";
 
@@ -97,36 +96,9 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
           {/* Right: Media */}
           <div style={{ flex: "1 1 320px", minWidth: "260px", display: "flex", flexDirection: "column", alignItems: "center" }}>
             {/* Images */}
-            {(ITEM_IMAGES && ITEM_IMAGES.length > 0) ? (
-              ITEM_IMAGES.length > 1 ? ( // More than 1 image
-                <Carousel data-bs-theme="dark" indicators={false} style={{ width: "100%", marginBottom: "1em" }}>
-                  {ITEM_IMAGES.map((image, i) => (
-                    <Carousel.Item key={i}>
-                      <CustomImg caption={IMAGE_ATTS[i]} alt={ITEM_NAME} src={image} />
-                    </Carousel.Item>
-                  ))}
-                </Carousel>
-              ) : (
-                <CustomImg caption={IMAGE_ATTS[0]} alt={ITEM_NAME} src={ITEM_IMAGES[0]} />
-              )
-            ) : (
-              <MdOutlineImageNotSupported id="missing_img_modal" size={64} />
-            )}
+            {ProjectImages(ITEM_NAME, ITEM_IMAGES, IMAGE_ATTS)}
             {/* Video */}
-            {ITEM_VID ? (
-              <iframe
-                className="project_video"
-                src={ITEM_VID}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                style={{ marginTop: "1em", marginBottom: "1em" }}
-              />
-            ) : (
-              <MdOutlineVideocamOff id="missing_video_modal" size={64} />
-            )}
+            {ProjectVideo(ITEM_VID)}
           </div>
         </div>
       </div>

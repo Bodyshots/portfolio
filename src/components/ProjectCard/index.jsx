@@ -16,7 +16,9 @@ function ProjectCard(item, modalOpen, open, close) {
     return (
       <div className="projectCardTools">
         {TOOLS.slice(0, 4).map((tool) =>
-          <div className="projectCardTool">
+          <div
+            className="projectCardTool"
+            key={tool}>
             {tool}
           </div>
         )}
