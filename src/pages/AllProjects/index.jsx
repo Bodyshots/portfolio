@@ -49,11 +49,10 @@ const AllProjects = ({ }) => {
     }
 
     AOS.init({ duration: 1000 }); // Init animation library
-    fetchProjects(); // Get projects from database
+    fetchProjects();
 
     document.title = "Lanz Angeles | All Projects";
 
-    // Done loading
     setLoading(false);
   }, [loading]);
 

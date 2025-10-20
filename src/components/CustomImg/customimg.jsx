@@ -4,47 +4,14 @@ import '../globals.css'
 import './customimg.css'
 
 export const CustomImg = ({ caption, src, alt }) => (
-  <>
-    {/* <Zoom ZoomContent={(props) => <CustomZoomContent {...props} caption={caption} />}> */}
+  <div>
     <Zoom>
       <img
         alt={alt}
         src={src}
-        className="project_imgs"
+        className="project_imgs inset-0 w-full h-full object-cover"
       />
     </Zoom>
     {src && <span className="modal_image_att text-sm">{caption}</span>}
-  </>
+  </div>
 )
-
-const CustomZoomContent = ({
-  buttonUnzoom,
-  modalState,
-  img,
-  caption,
-}) => {
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useLayoutEffect(() => {
-    if (modalState === 'LOADED') {
-      setIsLoaded(true)
-    } else if (modalState === 'UNLOADING') {
-      setIsLoaded(false)
-    }
-  }, [modalState])
-
-  const classCaption = isLoaded
-    ? 'zoom-caption--bottom zoom-caption--loaded zoom-caption'
-    : 'zoom-caption--bottom zoom-caption'
-
-  return (
-    <figure>
-      {buttonUnzoom}
-      {img}
-      <figcaption className={classCaption}>
-        {caption}
-      </figcaption>
-    </figure>
-  )
-}
-

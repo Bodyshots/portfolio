@@ -59,7 +59,6 @@ const Home = () => {
 
     document.title = "Lanz Angeles | Homepage";
 
-    // Done loading
     setLoading(false);
   }, [loading]);
 

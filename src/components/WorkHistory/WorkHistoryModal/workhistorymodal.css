@@ -1,113 +1,113 @@
 .workhistory-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    z-index: 50;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
 }
 
 .workhistory-modal {
-    border-radius: 0.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.16);
-    max-width: 65rem;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.16);
+  max-width: 65rem;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .workhistory-modal-header {
-    padding: 1.5rem;
-    border-bottom: 2px solid #61001d;
+  padding: 1.5rem;
+  border-bottom: 2px solid #61001d;
 }
 
 .workhistory-modal-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .workhistory-modal-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    text-align: left;
-    color: #61001d;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  color: #61001d;
 }
 
 .workhistory-modal-company {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
-    color: #8d494d;
-    text-align: left;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: #8d494d;
+  text-align: left;
 }
 
 .workhistory-modal-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 0.875rem;
-    margin-top: 0.5em;
-    color: #8d494d;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.875rem;
+  margin-top: 0.5em;
+  color: #8d494d;
 }
 
 .workhistory-modal-close {
-    padding: 0.5rem;
-    border-radius: 9999px;
-    transition: background 0.2s;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  transition: background 0.2s;
 }
 
 .workhistory-modal-close:hover {
-    background: #f3f4f6;
+  background: #f3f4f6;
 }
 
 .workhistory-modal-content {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
 }
 
 .workhistory-modal-section-title {
-    font-size: 1.125rem;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #61001d;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #61001d;
 }
 
 .workhistory-modal-list {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .workhistory-modal-list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: #61001d;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #61001d;
 }
 
 .workhistory-modal-list-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    margin-top: 0.25rem;
-    flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
 }
 
 .workhistory-modal-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .workhistory-modal-tech-item {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    background: #efe9cd;
-    color: #61001d;
-    border: 1px solid #e5ddac;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  background: #efe9cd;
+  color: #61001d;
+  border: 1px solid #e5ddac;
 }

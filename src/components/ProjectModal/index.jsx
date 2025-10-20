@@ -95,9 +95,7 @@ const ProjectModal = ({ handleClose, project_lst, id }) => {
           </div>
           {/* Right: Media */}
           <div style={{ flex: "1 1 320px", minWidth: "260px", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            {/* Images */}
             {ProjectImages(ITEM_NAME, ITEM_IMAGES, IMAGE_ATTS)}
-            {/* Video */}
             {ProjectVideo(ITEM_VID)}
           </div>
         </div>

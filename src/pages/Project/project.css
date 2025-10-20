@@ -1,0 +1,14 @@
+.projectContainer {
+  font-family: 'PixelFont', sans-serif;
+}
+
+.projectGitLink {
+  text-decoration: none;
+  color: #e5ddac;
+}
+
+a.projectGitLink:hover {
+  color: white;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
