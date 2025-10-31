@@ -214,8 +214,7 @@ function Project() {
                     onClick={(e) => {
                       openImageModal(image, e)
                       setSelectedImageAtt(imageAtts[index])
-                    }
-                    }
+                    }}
                   >
                     <img src={image} alt={imageAtts[index]} className="w-full h-64 object-cover" />
                     <div className="p-4 bg-border">
@@ -242,16 +241,16 @@ function Project() {
                   top: isModalOpen ? "50%" : `${imagePosition.top}px`,
                   left: isModalOpen ? "50%" : `${imagePosition.left}px`,
                   transform: isModalOpen ? "translate(-50%, -50%)" : "translate(0, 0)",
-                  width: isModalOpen ? "80vw" : `${imagePosition.width}px`,
+                  width: isModalOpen ? "40vw" : `${imagePosition.width}px`,
                   height: isModalOpen ? "auto" : `${imagePosition.height}px`,
                 }}
                 onClick={closeImageModal}
               >
-                <div className="bg-white rounded-lg overflow-hidden shadow-2xl h-full" onClick={(e) => e.stopPropagation()}>
+                <div className="rounded-lg overflow-hidden shadow-2xl h-full max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
                   <img
                     src={selectedImage}
                     alt={projTitle}
-                    className={`w-full object-cover transition-all duration-500 ${isModalOpen ? "h-auto max-h-[70vh] object-contain" : "h-full"
+                    className={`w-full object-cover transition-all duration-500 ${isModalOpen ? "h-auto max-h-[80vh] object-contain" : "h-full"
                       }`}
                   />
                   <div
