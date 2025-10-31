@@ -4,7 +4,7 @@ import { MdOutlineImageNotSupported } from "react-icons/md";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
-function ProjectCard(item, modalOpen, open, close) {
+function ProjectCard(item, open) {
   const SHORT_DESC = item.short_desc
   const SHORT_DESC_LIMIT = 65;
 
@@ -28,7 +28,7 @@ function ProjectCard(item, modalOpen, open, close) {
   return (
     <div className="projectcard gradient"
       key={item.id}
-      onClick={() => (modalOpen ? close() : open(item.id))}
+      onClick={() => open(item.name)}
       data-aos="fade-right">
       <div className="projectcard-top img_wrap">
         {COVER_URL ?

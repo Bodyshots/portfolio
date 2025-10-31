@@ -5,16 +5,17 @@ import AnimatePage from '../../components/AnimatePage';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { UserContext } from '../../App';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
 import { Code } from "lucide-react"
 import { IoLogoGithub } from "react-icons/io";
 import ProjectVideo from '../../components/shared/ProjectVideo';
-import ProjectImages from '../../components/shared/ProjectImages';
+import { Spinner } from 'react-bootstrap';
+import { normTitleHTMLEscape } from '../../lib/utils';
 
 function Project() {
-  const { setLoading } = useContext(UserContext);
+  const { setLoading, loading } = useContext(UserContext);
   const { projName } = useParams();
 
   const [shortDesc, setShortDesc] = useState('');
@@ -24,9 +25,60 @@ function Project() {
   const [projTitle, setProjTitle] = useState('')
   const [projImages, setProjImages] = useState([]);
   const [imageAtts, setImageAtts] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
   const [tools, setTools] = useState([]);
 
-  const setprojDetails = (proj) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImageAtt, setSelectedImageAtt] = useState('');
+  const [imagePosition, setImagePosition] = useState(null);
+  const clickedImageRef = useRef(null)
+
+  const openImageModal = (image, event) => {
+    const imageElement = event.currentTarget.querySelector("img")
+    if (!imageElement) return
+
+    const rect = imageElement.getBoundingClientRect()
+
+    console.log("imageRef;", clickedImageRef)
+    clickedImageRef.current = imageElement
+
+    setImagePosition({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+    })
+
+    setSelectedImage(image)
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setIsModalOpen(true)
+      })
+    })
+  }
+
+  const closeImageModal = () => {
+    if (clickedImageRef.current) {
+      const rect = clickedImageRef.current.getBoundingClientRect()
+      setImagePosition({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+      })
+    }
+
+    setIsModalOpen(false)
+    setTimeout(() => {
+      setSelectedImage(null)
+      setImagePosition(null)
+      clickedImageRef.current = null
+    }, 500)
+  }
+
+  const setProjDetails = (proj) => {
     if (proj) {
       setProjTitle(proj.name);
       setShortDesc(proj.short_desc);
@@ -51,43 +103,52 @@ function Project() {
 
   useEffect(() => {
     setLoading(true);
+    setPageLoading(true);
     AOS.init({ duration: 1000 });
 
     const fetchproj = async () => {
       if (projName) {
-        const normName = projName.replace(/-/g, " ").toLowerCase();
 
-        const { data, error } = await supabase
+        supabase
           .from('Projects')
-          .select()
+          .select().then(({ data, error }) => {
+            if (error) {
+              setProjDetails('')
+              console.error(error)
+            }
 
-        if (error) {
-          setprojDetails('')
-          console.error(error)
-        }
-
-        if (data) {
-          setprojDetails(data.find((p) => p.name.toLowerCase().replace(/\s+/g, "-") === normName));
-        }
+            if (data) {
+              const project = data.find((p) =>
+                normTitleHTMLEscape(p.name) === projName);
+              setProjDetails(project);
+            }
+            setLoading(false);
+            setPageLoading(false);
+          });
       }
     }
 
     fetchproj(); // Get projs from database
-    setLoading(false);
-  }, [setLoading]);
+  }, [projName]);
 
-  console.log(projVid);
+  if (pageLoading || loading) {
+    return (
+      <div className='page_container'>
+        <Spinner id="page_spinner" />
+      </div>
+    );
+  }
 
-  return (
+  return (projTitle ?
     <AnimatePage>
       <Container className='projectContainer flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16'>
         {/* Header */}
         <div className="border-b-2 bg-accent-light-beige rounded-lg">
           <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12 pb-0">
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-secondary-foreground">{projTitle}</h1>
-            <p className="text-lg lg:text-xl mb-6 text-muted-foreground">{shortDesc}</p>
+            <h1 className="font-bold my-8 text-secondary-foreground">{projTitle}</h1>
+            <p className="text-lg lg:text-xl my-8 text-muted-foreground">{shortDesc}</p>
 
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center my-8">
               {githubLink && (
                 <a
                   href={githubLink}
@@ -96,7 +157,7 @@ function Project() {
                   className="projectGitLink inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 bg-secondary-foreground p-4 shadow-md hover:white hover:bg-primary-medium hover:transition-all hover:duration-100"
                 >
                   <IoLogoGithub className="w-5 h-5" />
-                  <span className=''>View on GitHub</span>
+                  <span>View on GitHub</span>
                 </a>
               )}
             </div>
@@ -105,88 +166,115 @@ function Project() {
 
         {/* Main Content */}
         <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12 pt-0">
-          {/* Project Info Cards */}
-          <div className="grid grid-cols-1 gap-4 mb-12">
-            {/* {project.completedDate && (
-                <div className="p-4 rounded-lg border-2 bg-card border-secondary max-w-xs">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-5 h-5 text-(--color-primary-light)" />
-                    <h3 className="font-semibold text-primary">Completed</h3>
-                  </div>
-                  <p className="text-muted-foreground">{project.completedDate}</p>
-                </div>
-              )} */}
-          </div>
 
           {/* Video Section - Only show if video exists */}
-          {projVid ? ProjectVideo("https://www.youtube.com/embed/dQw4w9WgXcQ")
-            : ProjectImages(projTitle, projImages, imageAtts)}
+          {projVid &&
+            <div className='mb-16'>
+              {ProjectVideo(projVid)}
+            </div>}
+
+          {/* Description */}
+          {longDesc ?
+            <div className="mb-12">
+              <h2 className="font-bold mb-6 text-secondary-foreground py-0">About This Project</h2>
+              <div className="pt-4 text-left">
+                <p className="text-lg leading-relaxed text-muted-foreground m-0">{longDesc}</p>
+              </div>
+            </div>
+            : <div className="mb-12">
+              <h2 className="font-bold mb-6 text-secondary-foreground py-4 pt-0">About This Project</h2>
+              <span className='text-lg text-muted-foreground'>No long description available.</span>
+            </div>
+          }
 
           {/* Tools & Technologies */}
-          <div className="mb-12 my-8">
-            <h2 className="text-2xl font-bold mb-6 text-primary my-4">Tools & Technologies</h2>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-secondary-foreground">Tools & Technologies</h2>
             <div className="flex flex-wrap justify-center gap-3">
               {tools.map((tool, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-background border-2 border-accent text-primary shadow-sm"
+                  className="text-secondary-foreground inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium bg-accent-very-light-beige border-2 border-accent shadow-sm"
                 >
-                  <Code className="w-4 h-4 text-(--color-primary-light)" />
-                  {tool}
+                  <span>{tool}</span>
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Description */}
-          {longDesc ?
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6 text-primary py-4 pt-0">About This Project</h2>
-              <div className="p-6 rounded-lg border-2 border-accent shadow-lg text-left">
-                <p className="text-base leading-relaxed text-primary">{longDesc}</p>
-              </div>
-            </div>
-            : <span>No long description available.</span>
-          }
           {/* Image Gallery */}
-          {/* <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6 text-primary">Project Gallery</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {project.images.map((image, index) => (
+          {projImages &&
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-secondary-foreground">Project Gallery</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                {projImages.map((image, index) => (
                   <div
                     key={index}
                     className="rounded-lg overflow-hidden shadow-lg border-2 cursor-pointer transition-transform hover:scale-105 border-accent"
-                    onClick={() => setSelectedImage(image)}
+                    onClick={(e) => {
+                      openImageModal(image, e)
+                      setSelectedImageAtt(imageAtts[index])
+                    }
+                    }
                   >
-                    <img src={image.url || "/placeholder.svg"} alt={image.alt} className="w-full h-64 object-cover" />
-                    <div className="p-4 bg-secondary">
-                      <p className="text-sm text-primary">{image.attribution}</p>
+                    <img src={image} alt={imageAtts[index]} className="w-full h-64 object-cover" />
+                    <div className="p-4 bg-border">
+                      <p className="text-sm text-muted-foreground m-0">{imageAtts[index]}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div> */}
+          }
 
           {/* Image Modal */}
-          {/* {selectedImage && (
-            <div
-              className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50"
-              onClick={() => setSelectedImage(null)}
-            >
-              <div className="max-w-5xl w-full">
-                <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-                  <img src={selectedImage.url || "/placeholder.svg"} alt={selectedImage.alt} className="w-full h-auto" />
-                  <div className="p-6 bg-secondary">
-                    <p className="text-base text-primary">{selectedImage.attribution}</p>
+          {selectedImage && imagePosition && (
+            <>
+              <div
+                className={`fixed inset-0 bg-black z-50 transition-opacity duration-500 ${isModalOpen ? "opacity-70" : "opacity-0"
+                  }`}
+                onClick={closeImageModal}
+              />
+
+              <div
+                className="fixed z-50 transition-all duration-500 ease-out"
+                style={{
+                  top: isModalOpen ? "50%" : `${imagePosition.top}px`,
+                  left: isModalOpen ? "50%" : `${imagePosition.left}px`,
+                  transform: isModalOpen ? "translate(-50%, -50%)" : "translate(0, 0)",
+                  width: isModalOpen ? "80vw" : `${imagePosition.width}px`,
+                  height: isModalOpen ? "auto" : `${imagePosition.height}px`,
+                }}
+                onClick={closeImageModal}
+              >
+                <div className="bg-white rounded-lg overflow-hidden shadow-2xl h-full" onClick={(e) => e.stopPropagation()}>
+                  <img
+                    src={selectedImage}
+                    alt={projTitle}
+                    className={`w-full object-cover transition-all duration-500 ${isModalOpen ? "h-auto max-h-[70vh] object-contain" : "h-full"
+                      }`}
+                  />
+                  <div
+                    className={`p-6 bg-border transition-opacity duration-500 ${isModalOpen ? "opacity-100" : "opacity-0"
+                      }`}
+                  >
+                    <p className="text-base text-muted-foreground m-0">{selectedImageAtt}</p>
                   </div>
                 </div>
               </div>
-            </div>
-          )} */}
+            </>
+          )}
         </div>
       </Container>
     </AnimatePage>
+    : (
+      <AnimatePage>
+        <Container id='not_found_container'>
+          <h1 id='not_found_title'>Page not found!</h1>
+          <h4 id='not_found_subtitle'>Hmmm... Are you sure you're supposed to be here?</h4>
+        </Container>
+      </AnimatePage>
+    )
   );
 }
 

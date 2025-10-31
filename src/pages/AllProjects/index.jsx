@@ -8,24 +8,21 @@ import { UserContext } from '../../App';
 import { useContext } from 'react';
 import ProjectCard from '../../components/ProjectCard';
 import supabase from '../../config/supabaseClient';
-import Backdrop from '../../components/Backdrop';
-import { AnimatePresence } from 'framer-motion';
-import ProjectModal from '../../components/ProjectModal';
+import { useNavigate } from 'react-router-dom';
+import { normTitleHTMLEscape } from '../../lib/utils';
 
 const AllProjects = ({ }) => {
 
   const { loading, setLoading } = useContext(UserContext);
+  const navigate = useNavigate();
 
   let project_lst = [];
   const [projects, setProjects] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isActive, setIsActive] = useState(-1);
 
-  const open = (id) => {
-    setIsActive(id);
-    setModalOpen(true);
+  const open = (name) => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    navigate(`/project/${normTitleHTMLEscape(project_lst.find(p => p.name === name).name)}`);
   }
-  const close = () => setModalOpen(false);
 
   useEffect(() => {
     // Set to True to initialize everything
@@ -64,21 +61,7 @@ const AllProjects = ({ }) => {
     <AnimatePage>
       <div id="all_projects_page">
         {project_lst.sort((a, b) => a.priority - b.priority)
-          .map((project) => ProjectCard(project, modalOpen, open, close))}
-        <AnimatePresence
-          initial={false}
-          mode="wait"
-          onExitComplete={() => null}
-        >
-          {modalOpen &&
-            (<div className="modal_container">
-              <Backdrop onClick={close}>
-                <ProjectModal handleClose={close}
-                  project_lst={project_lst}
-                  id={isActive} />
-              </Backdrop>
-            </div>)}
-        </AnimatePresence>
+          .map((project) => ProjectCard(project, open))}
       </div>
     </AnimatePage>
   );
