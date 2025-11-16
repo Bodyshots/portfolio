@@ -1,20 +1,20 @@
 #all_projects_page {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 90%;
-    margin: auto;
-    margin-bottom: 1em;
-    min-height: 100vh;
-    min-height: 100dvh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 90%;
+  margin: auto;
+  margin-bottom: 1em;
+  min-height: 100vh;
+  min-height: 100dvh;
 
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    font-family: 'PixelFont', sans-serif;
-    padding-top: 4em;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-family: 'PixelFont', sans-serif;
+  padding-top: 4em;
 }
 
 .modal_container {
-    position: absolute;
-    z-index: 99;
+  position: absolute;
+  z-index: 99;
 }

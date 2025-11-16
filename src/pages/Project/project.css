@@ -1,0 +1,31 @@
+.projectContainer {
+  font-family: 'PixelFont', sans-serif;
+}
+
+.projectGitLink {
+  text-decoration: none;
+  color: #e5ddac;
+}
+
+a.projectGitLink:hover {
+  color: white;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+#page_spinner {
+  width: 15em;
+  height: 15em;
+}
+
+.page_container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  position: relative;
+  z-index: 999;
+  top: 0;
+}
