@@ -28,7 +28,7 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
       <div className="workhistory-modal-overlay"
         key={selectedJob.id}
         onClick={() => (modalOpen ? close() : open(selectedJob.id))}>
-        <div className="workhistory-modal"
+        <div className="workhistory-modal bg-border"
           onClick={e => e.stopPropagation()}>
           <div className="workhistory-modal-header">
             <div className="workhistory-modal-header-row">
