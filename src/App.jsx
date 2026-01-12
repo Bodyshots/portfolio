@@ -53,7 +53,7 @@ const App = () => {
             {success && SuccessPopup(success, setSuccess)}
             <Container id='footer_container'>
                 <p id='footer'>
-                    Copyright © 2025 Lanz Angeles. Musketeer icon created by Flat Icons - Flaticon.
+                    Copyright © 2026 Lanz Angeles. Musketeer icon created by Flat Icons - Flaticon.
                     <br />All other rights reserved.
                 </p>
             </Container>
