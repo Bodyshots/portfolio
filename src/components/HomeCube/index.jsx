@@ -116,16 +116,6 @@ const HomeCube = ({ project_lst }) => {
   const keywords = ["Next.js", "JavaScript", "React", "C/C++", "Java", "Python"];
   const projectCounts = useMemo(() => countProjects(project_lst, keywords), [project_lst]);
 
-  // Always render the subtitle and face label for layout stability and LCP
-  const projects_used_in = (tool) => {
-    const count = projectCounts[tool] || 0;
-    return (
-      <div id="face_subtitle">
-        Used in {count} project{count === 1 ? "" : "s"}
-      </div>
-    );
-  }
-
   return (
     <div className="cube_container">
       {!isLoaded && <Spinner id="cube_spinner" />}
@@ -141,7 +131,6 @@ const HomeCube = ({ project_lst }) => {
         <div>
           {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
         </div>
-        {projects_used_in(faceVisible)}
       </div>
     </div>
   )
