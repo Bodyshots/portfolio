@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cascadia-code/scroll-to-hash-element": "^2.0.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fortawesome/fontawesome-free": "^7.3.1",
@@ -32,7 +33,6 @@
     "react-medium-image-zoom": "^5.4.9",
     "react-router-bootstrap": "^0.26.3",
     "react-router-dom": "^7.18.4",
-    "react-router-hash-link": "^2.4.3",
     "react-scroll": "^1.9.3",
     "react-slick": "^0.31.0",
     "react-string-replace": "^1.1.1",
