@@ -1,80 +1,145 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import ScrollIndicator from '../ScrollIndicator';
-import { HashLink } from 'react-router-hash-link';
-import './navbar.css';
-import '../globals.css';
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { NavItems } from "../../constants/ui/navbar";
+import { cn } from "../../lib/utils";
+import {
+  setNavOpaque,
+  setNavTransparent,
+  useUserStore,
+} from "../../store/useUserStore";
+import ScrollIndicator from "../ScrollIndicator";
+
+const NavItem = ({ path, label, className, onClick, hoverBg = true }) => {
+  return (
+    <Link
+      to={path}
+      className={cn(
+        "font-[PixelFont] no-underline text-accent hover:text-white transition-all text-[1rem] w-auto",
+        hoverBg && "hover:bg-black/5",
+        className,
+      )}
+      onClick={onClick}
+    >
+      {label}
+    </Link>
+  );
+};
 
 // Framework from https://react-bootstrap.github.io/components/navbar/
 function NavBar() {
-  const location = useLocation();
-  const [navbar, setNavBar] = useState(false);
-  const resume_link = 'https://drive.google.com/file/d/1Acfb1ePGQTSuQguVEOcBJKZjGdgHBTIG/view?usp=drive_link'
+  const navVisibility = useUserStore((state) => state.navVisibility);
+  const navVisibilityBeforeMenu = useRef(navVisibility);
+  const restoreNavVisibility = () => {
+    if (navVisibilityBeforeMenu.current) setNavOpaque();
+    else setNavTransparent();
+  };
 
-  const handleScroll = () => {
-    if (window.scrollY >= 700) {
-      setNavBar(true);
+  const handleMenuToggle = (event) => {
+    if (event.currentTarget.checked) {
+      navVisibilityBeforeMenu.current = navVisibility;
+      setNavOpaque();
+    } else {
+      restoreNavVisibility();
     }
-    else {
-      setNavBar(false);
+  };
+
+  const closeMenu = () => {
+    const menuToggle = document.getElementById("navbar-1-toggle");
+    if (menuToggle?.checked) {
+      menuToggle.checked = false;
+      restoreNavVisibility();
     }
-  }
-
-  // From https://github.com/rafgraph/react-router-hash-link/issues/25#issuecomment-536688104
-  const scrollWithOffset = (el) => {
-    const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
-    const yOffset = -120;
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [])
-
+  };
 
   return (
-    <Navbar bg='dark' variant='dark' expand="lg" id="globalnavbar" className={navbar ? "active" : ""}>
-      <Container fluid>
-        <LinkContainer to='/' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <Nav.Link as={Link} id='nav-brand'>
-            <Navbar.Brand>
-              Lanz Angeles{/* <span id="slogan">someone please hire me</span> */}
-            </Navbar.Brand>
-          </Nav.Link>
-        </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <LinkContainer smooth to='/' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <Nav.Link as={Link} active={location.pathname === '/'}>home</Nav.Link>
-            </LinkContainer>
-            <HashLink smooth to="/#projects" scroll={e => scrollWithOffset(e)} className="nav-link">
-              projects
-            </HashLink>
-            <HashLink smooth to="/#about" scroll={e => scrollWithOffset(e)} className="nav-link">
-              about me
-            </HashLink>
-            <HashLink smooth to="/#contact" scroll={e => scrollWithOffset(e)} className="nav-link">
-              contact
-            </HashLink>
-            <a href={resume_link} as={Link} className="nav-link">
-              resume
-            </a>
-            <LinkContainer to='/secret'>
-              <Nav.Link as={Link} active={location.pathname === '/secret'}>secret</Nav.Link>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
+    <div
+      className={cn(
+        "max-lg:collapse w-full fixed z-99 rounded-none transition-all duration-300",
+        navVisibility ? "bg-primary/80 backdrop-blur-[3px]" : "bg-transparent",
+      )}
+    >
+      <input
+        id="navbar-1-toggle"
+        className="peer hidden"
+        type="checkbox"
+        onChange={handleMenuToggle}
+      />
+      <label
+        htmlFor="navbar-1-toggle"
+        aria-label="Close navigation menu"
+        className="fixed inset-0 hidden max-lg:peer-checked:block"
+      ></label>
+      <div className="collapse-title navbar flex max-lg:justify-between cursor-default py-0">
+        <div className="mr-8 p-2">
+          <NavItem
+            path="/"
+            label="Lanz Angeles"
+            className="text-2xl"
+            hoverBg={false}
+          />
+        </div>
+        <label
+          htmlFor="navbar-1-toggle"
+          className="btn btn-ghost border-0 lg:hidden hover:shadow-lg hover:bg-accent transition-all duration-150"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu preview-icon"
+          >
+            <path d="M4 5h16" />
+            <path d="M4 12h16" />
+            <path d="M4 19h16" />
+          </svg>
+        </label>
+
+        {/* Desktop view */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            {NavItems.map(({ path, label, onClick }) => (
+              <li key={label}>
+                <NavItem
+                  path={path}
+                  label={label}
+                  onClick={() => {
+                    onClick?.();
+                    closeMenu();
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Mobile (collapsed) Dropdown */}
+      <div className="collapse-content lg:hidden z-1 pl-0">
+        <ul className="menu py-0">
+          {NavItems.map(({ path, label, onClick }) => (
+            <li key={label}>
+              {" "}
+              {/* Mobile (collapsed) Dropdown */}
+              <NavItem
+                path={path}
+                label={label}
+                onClick={() => {
+                  onClick?.();
+                  closeMenu();
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
       <ScrollIndicator />
-    </Navbar>
+    </div>
   );
 }
 
