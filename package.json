@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "daisyui": "^5.7.50",
     "framer-motion": "^12.43.0",
+    "husky": "^9.1.7",
     "lucide-react": "^0.546.0",
     "net": "^1.0.2",
     "react": "^19.3.0",
@@ -43,6 +44,8 @@
     "zustand": "^5.0.15"
   },
   "scripts": {
+    "prepare": "husky",
+    "lint-format": "biome check --write",
     "dev": "vite",
     "start": "vite",
     "build": "tsx && vite build"
