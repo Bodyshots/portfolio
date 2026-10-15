@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { NavConstants } from "../../constants/ui/navbar";
+import { NavConstants } from "../../constants/navbar";
 import { setNavOpaque, setNavTransparent } from "../../store/useUserStore";
 
 const ScrollBreakpoint = () => {

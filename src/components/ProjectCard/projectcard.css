@@ -1,15 +1,15 @@
 /* Card Container */
 .projectcard {
   border: 2px solid #e5ddac;
-  border-radius: 1.25rem !important;
-  overflow: hidden !important;
+  border-radius: 1.25rem;
+  overflow: hidden;
   margin: 2em;
   background: linear-gradient(135deg, #efe9cd 0%, #e5ddac 100%);
   height: 25rem;
   color: #61001d;
   cursor: pointer;
-  box-shadow: 0 4px 24px 0 rgba(97, 0, 29, 0.10);
-  font-family: 'PixelFont', sans-serif;
+  box-shadow: 0 4px 24px 0 rgba(97, 0, 29, 0.1);
+  font-family: "PixelFont", sans-serif;
   /* transition: all 0.18s; */
   display: flex;
   flex-direction: column;
@@ -37,9 +37,9 @@
   position: relative;
 }
 
-.projectcard-top>img {
-  width: 100% !important;
-  height: 225px !important;
+.projectcard-top > img {
+  width: 100%;
+  height: 225px;
   object-fit: contain;
   background: transparent;
   border-radius: 1.25rem 1.25rem 0 0;
@@ -70,7 +70,7 @@
   letter-spacing: 0.01em;
   line-height: 1.2;
   text-align: left;
-  font-family: 'PixelFont', sans-serif;
+  font-family: "PixelFont", sans-serif;
 }
 
 .card_short_desc {
@@ -80,11 +80,11 @@
   color: #8d494d;
   line-height: 1.4;
   min-height: 2.5em;
-  font-family: 'PixelFont', sans-serif;
+  font-family: "PixelFont", sans-serif;
 }
 
 .projectcard-bottom {
-  margin: 0.5em 1.2em 1em 1.2em !important;
+  margin: 0.5em 1.2em 1em 1.2em;
   flex: 1 1 auto;
   display: flex;
   align-items: flex-end;
@@ -112,8 +112,8 @@
   color: #61001d;
   border: 1px solid #e5ddac;
   margin-bottom: 0.5rem;
-  box-shadow: 1px 1px 1px #0000001f !important;
-  font-family: 'PixelFont', sans-serif;
+  box-shadow: 1px 1px 1px #0000001f;
+  font-family: "PixelFont", sans-serif;
   transition: all 0.15s;
 }
 
@@ -135,9 +135,9 @@
     height: auto;
   }
 
-  .projectcard-top>img,
+  .projectcard-top > img,
   #missing_img_cover {
-    height: 160px !important;
+    height: 160px;
   }
 
   .card_title {

@@ -1,6 +1,7 @@
 .workhistory-container {
   padding: 3rem;
-  font-family: "PixelFont", "sans-serif";
+  font-family: "PixelFont", sans-serif;
+  background-color: #e5ddac;
 }
 
 .workhistory-inner {
@@ -143,5 +144,5 @@
   margin: 3em auto;
   width: 100%;
   height: 100%;
-  font-family: "PixelFont", "sans-serif";
+  font-family: "PixelFont", sans-serif;
 }

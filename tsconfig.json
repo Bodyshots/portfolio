@@ -4,6 +4,7 @@
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
+    "jsx": "react-jsx",
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
@@ -11,9 +12,11 @@
     "rootDir": "./",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "paths": {},
     "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*", "./*"]
+    }
   },
   "include": ["src", "vite-env.d.ts"],
   "types": ["node"]

@@ -14,7 +14,6 @@ const NavItems: NavItem[] = [
   { path: "/#about", label: "About Me" },
   { path: "/#contact", label: "Contact" },
   { path: import.meta.env.VITE_RESUME_URL ?? "", label: "Resume" },
-  { path: "/secret", label: "Secret" },
 ];
 
 const NavConstants = Object.freeze({

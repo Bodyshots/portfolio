@@ -1,121 +1,117 @@
-import './home.css';
-import '../../components/globals.css';
-import AnimatePage from '../../components/AnimatePage';
-import { useEffect } from "react";
+import "./home.css";
+import "../../components/globals.css";
 import AOS from "aos";
+import { useEffect } from "react";
+import AnimatePage from "../../components/AnimatePage";
 import "aos/dist/aos.css";
-import { UserContext } from '../../App';
-import { useContext, useState } from 'react';
-import NameChanger from '../../components/NameChanger';
-import supabase from '../../config/supabaseClient';
-import ProjectCarousel from '../../components/ProjectCarousel';
-import HoriScroll from '../../components/HoriScroll';
-import HomeCoin from '../../components/HomeCoin';
-import { useNavigate } from 'react-router-dom';
-import WorkHistory from '../../components/WorkHistory';
-
-import { IoLogoLinkedin } from "react-icons/io";
-import { IoLogoGithub } from "react-icons/io";
-import { IoMdMail } from "react-icons/io";
-import HomeCube from '../../components/HomeCube';
-
+import { useState } from "react";
+import { IoLogoGithub, IoLogoLinkedin, IoMdMail } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import HomeCoin from "../../components/HomeCoin";
+import HomeCube from "../../components/HomeCube";
+import HoriScroll from "../../components/HoriScroll";
+import NameChanger from "../../components/NameChanger";
+import ProjectCarousel from "../../components/ProjectCarousel";
+import WorkHistory from "../../components/WorkHistory";
+import supabase from "../../config/supabaseClient";
+import { OtherConstants } from "../../constants/other";
 
 const Home = () => {
-
-  let project_lst = [];
-  const { loading, setLoading } = useContext(UserContext);
-  const [fetchError, setFetchError] = useState(null);
+  const project_lst = [];
   const [projects, setProjects] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Set to True to initialize everything
-    setLoading(true);
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
     const fetchProjects = async () => {
-
       // Get database from supabase - Has to be its exact name
-      const { data, error } = await supabase
-        .from('Projects')
-        .select()
+      const { data, error } = await supabase.from("Projects").select();
 
       if (error) {
-        setFetchError("Could not fetch projects");
         setProjects(null);
-        console.log(error)
+        console.error(error);
       }
 
       if (data) {
         setProjects(data);
-        setFetchError(null);
       }
-    }
+    };
 
     // Initialize animation library
-    AOS.init({ duration: 1000 });
+    AOS.init({ duration: OtherConstants.AOS_DURATION });
 
     fetchProjects(); // Get projects from database
 
     document.title = "Lanz Angeles | Homepage";
+  }, []);
 
-    setLoading(false);
-  }, [loading]);
-
-  for (let key in projects) {
+  for (const key in projects) {
     project_lst.push(projects[key]);
   }
 
   return (
     <AnimatePage>
-      {fetchError && (<p className="center">{fetchError}</p>)}
-      <div className="home_page" id='home_page_container'>
+      <div className="home_page" id="home_page_container">
         <title>Home Page</title>
-        <div id='landing_sec'>
-          <div id='landing_overlay'>
+        <div id="landing_sec">
+          <div id="landing_overlay">
             <div id="landing_mid_container">
-              <span id="landing_cube" data-aos="fade-down"><HomeCube project_lst={project_lst} data-aos="fade-right" /></span>
-              <span data-aos="fade-left" id="landing_namechanger"><NameChanger /></span>
+              <span id="landing_cube" data-aos="fade-down">
+                <HomeCube data-aos="fade-right" />
+              </span>
+              <span data-aos="fade-left" id="landing_namechanger">
+                <NameChanger />
+              </span>
             </div>
           </div>
         </div>
         {HoriScroll(true, "About", "about")}
-        <div id='about'>
+        <div id="about">
           <div id="about_text">
-            <div id="about_texttitle">
-              Welcome to my website!
-            </div>
+            <div id="about_texttitle">Welcome to my website!</div>
             <div id="about_textbody">
               <div>
-                Hi! I'm Lanz, an aspiring full-stack developer that's recently graduated with a Computer Science (CS) and Applied
-                Statistics major (and a minor in Mathematics)!
-                <br />
-                <br />I've previously worked as a Research Assistant, teaching hundreds of 1st and 2nd year students foundational skills to help them on their journey through CS.
-                Currently, I've been working on creating web applications while dabbling a little bit into AI, being eager to make my mark on the industry.
+                Hi! I'm Lanz, a full-stack developer that's recently graduated
+                with a Computer Science (CS) and Applied Statistics major (and a
+                minor in Mathematics)!
                 <br />
                 <br />
-                <div style={{
-                  display: "flex",
-                  textAlign: "center"
-                }}>
-                  Want to connect? Scroll down below to take a look at my socials. Hope to
-                  chat with you soon!
+                I've previously worked as a Research Assistant, teaching
+                hundreds of 1st and 2nd year students foundational skills to
+                help them on their journey through CS. Currently, I've been
+                working on creating web applications while dabbling a little bit
+                into AI, being eager to make my mark on the industry.
+                <br />
+                <br />
+                <div
+                  style={{
+                    display: "flex",
+                    textAlign: "center",
+                  }}
+                >
+                  Want to connect? Scroll down below to take a look at my
+                  socials. Hope to chat with you soon!
                 </div>
               </div>
             </div>
           </div>
-          <span id="about_coin"><HomeCoin /></span>
+          <span id="about_coin">
+            <HomeCoin />
+          </span>
         </div>
         {HoriScroll(false, "Experience", "experience")}
         <div id="experience">
           <WorkHistory />
         </div>
-        <div>
-          {HoriScroll(true, "Major Projects", "projects")}
-        </div>
-        <div id='projects'>
+        <div>{HoriScroll(true, "Major Projects", "projects")}</div>
+        <div id="projects">
           {ProjectCarousel(project_lst)}
-          <button id="all_proj_btn" onClick={() => navigate("/allprojects")}>
+          <button
+            id="all_proj_btn"
+            onClick={() => navigate("/allprojects")}
+            type="button"
+          >
             <span id="all_proj_text">View all projects</span>
           </button>
         </div>
@@ -123,15 +119,17 @@ const Home = () => {
         <div id="contact">
           <div id="contact_container">
             <div id="contact_map">
-              <iframe id="google_maps"
+              <iframe
+                id="google_maps"
+                title="google_maps"
                 src={import.meta.env.VITE_GOOGLEMAPS_URL}
                 width="600px"
                 height="250px"
                 styles={"border:0;"}
                 allowfullscreen=""
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-              </iframe>
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
             <div id="contact_info_container">
               <div id="contact_info">
@@ -143,19 +141,25 @@ const Home = () => {
                 <div id="contact_links">
                   <div id="contact_link_title">Links</div>
                   <div id="links">
-                    <a className="contact_link"
+                    <a
+                      className="contact_link"
                       href={import.meta.env.VITE_GITHUB_URL}
-                      id="github_icon">
+                      id="github_icon"
+                    >
                       <IoLogoGithub />
                     </a>
-                    <a className="contact_link"
+                    <a
+                      className="contact_link"
                       href={import.meta.env.VITE_LINKEDIN_URL}
-                      id="linkedin_icon">
+                      id="linkedin_icon"
+                    >
                       <IoLogoLinkedin />
                     </a>
-                    <a className="contact_link"
+                    <a
+                      className="contact_link"
                       href={import.meta.env.VITE_EMAIL}
-                      id="email_icon">
+                      id="email_icon"
+                    >
                       <IoMdMail />
                     </a>
                   </div>
@@ -167,7 +171,6 @@ const Home = () => {
       </div>
     </AnimatePage>
   );
-}
+};
 
 export default Home;
-

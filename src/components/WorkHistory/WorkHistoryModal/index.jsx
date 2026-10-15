@@ -1,8 +1,22 @@
 import { motion } from "framer-motion";
-import { X, Calendar, MapPin, Users, Award, Wrench, Briefcase } from "lucide-react"
+import {
+  Award,
+  Briefcase,
+  Calendar,
+  MapPin,
+  Users,
+  Wrench,
+  X,
+} from "lucide-react";
 import "./workhistorymodal.css";
-import '../workhistory.css'
+import "../workhistory.css";
 import "../../globals.css";
+
+const backdrop = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
 
 const dropIn = {
   hidden: { y: "-100vh", opacity: 0 },
@@ -15,27 +29,37 @@ const dropIn = {
 };
 
 export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
-
   return (
     <motion.div
       className="workhistory-modal-overlay"
-      variants={dropIn}
+      variants={backdrop}
       initial="hidden"
       animate="visible"
       exit="exit"
       onClick={close}
     >
-      <div className="workhistory-modal-overlay"
+      <div
         key={selectedJob.id}
-        onClick={() => (modalOpen ? close() : open(selectedJob.id))}>
-        <div className="workhistory-modal bg-border"
-          onClick={e => e.stopPropagation()}>
+        onClick={() => (modalOpen ? close() : open(selectedJob.id))}
+        role="dialog"
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <motion.div
+          className="workhistory-modal bg-border"
+          variants={dropIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          role="dialog"
+          aria-modal="true"
+          tabIndex={-1}
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+        >
           <div className="workhistory-modal-header">
             <div className="workhistory-modal-header-row">
               <div className="flex-1 pr-4">
-                <h1 className="workhistory-modal-title">
-                  {selectedJob.title}
-                </h1>
+                <h1 className="workhistory-modal-title">{selectedJob.title}</h1>
                 <h2 className="workhistory-modal-company">
                   {selectedJob.company}
                 </h2>
@@ -73,10 +97,13 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
                 <Briefcase className="w-5 h-5" />
                 Key Responsibilities
               </h3>
-              {selectedJob && selectedJob.responsibilities ?
-                (<ul className="workhistory-modal-list">
-                  {selectedJob.responsibilities.map((resp, index) => (
-                    <li key={index} className="workhistory-modal-list-item">
+              {selectedJob?.responsibilities ? (
+                <ul className="workhistory-modal-list">
+                  {selectedJob.responsibilities.map((resp) => (
+                    <li
+                      key={crypto.randomUUID()}
+                      className="workhistory-modal-list-item"
+                    >
                       <span
                         className="workhistory-modal-list-dot"
                         style={{ backgroundColor: "#b9937c" }}
@@ -84,7 +111,10 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
                       {resp}
                     </li>
                   ))}
-                </ul>) : <span>No responsibilities available. Check back later!</span>}
+                </ul>
+              ) : (
+                <span>No responsibilities available. Check back later!</span>
+              )}
             </div>
 
             <div className="text-left">
@@ -92,10 +122,13 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
                 <Award className="w-5 h-5" />
                 Key Achievements
               </h3>
-              {selectedJob && selectedJob.achievements ?
-                (<ul className="workhistory-modal-list">
-                  {selectedJob.achievements.map((achievement, index) => (
-                    <li key={index} className="workhistory-modal-list-item">
+              {selectedJob?.achievements ? (
+                <ul className="workhistory-modal-list">
+                  {selectedJob.achievements.map((achievement) => (
+                    <li
+                      key={crypto.randomUUID()}
+                      className="workhistory-modal-list-item"
+                    >
                       <span
                         className="workhistory-modal-list-dot"
                         style={{ backgroundColor: "#b9937c" }}
@@ -103,7 +136,10 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
                       {achievement}
                     </li>
                   ))}
-                </ul>) : <span>No achievements available. Check back later!</span>}
+                </ul>
+              ) : (
+                <span>No achievements available. Check back later!</span>
+              )}
             </div>
 
             <div>
@@ -112,20 +148,25 @@ export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
                 Technologies & Tools
               </h3>
               <div className="workhistory-modal-tech">
-                {selectedJob && selectedJob.technologies ?
-                  selectedJob.technologies.map((tech, index) => (
+                {selectedJob?.technologies ? (
+                  selectedJob.technologies.map((tech) => (
                     <span
-                      key={index}
+                      key={crypto.randomUUID()}
                       className="workhistory-modal-tech-item"
                     >
                       {tech}
                     </span>
-                  )) : <span className="text-left">No technologies available. Check back later!</span>}
+                  ))
+                ) : (
+                  <span className="text-left">
+                    No technologies available. Check back later!
+                  </span>
+                )}
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
-  )
+  );
 }

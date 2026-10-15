@@ -1,4 +1,4 @@
-import { ClassValue, clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -15,5 +15,5 @@ export function htmlEscape(text: string) {
 }
 
 export function normTitleHTMLEscape(text: string) {
-  return htmlEscape(text.toLowerCase().replace(/\s+/g, "-"))
+  return htmlEscape(text.toLowerCase().replace(/\s+/g, "-"));
 }

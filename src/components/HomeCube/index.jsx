@@ -1,24 +1,24 @@
-import { OrbitControls, Edges } from "@react-three/drei";
+import { Edges, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useEffect, useRef, useState, useMemo } from "react";
-import * as THREE from 'three';
-import "./homecube.css"
-import "../globals.css"
-import { Spinner } from "react-bootstrap";
+import "./homecube.css";
+import "../globals.css";
+import cimg from "../../images/faces/C_face.avif";
+import javaimg from "../../images/faces/java_face.avif";
+import htmlimg from "../../images/faces/javascript_face.avif";
+import nextjsimg from "../../images/faces/nextjs_face.avif";
+import pythonimg from "../../images/faces/python_face.avif";
+import reactimg from "../../images/faces/react_face.avif";
 
-import pythonimg from "../../images/faces/python_face.avif"
-import htmlimg from "../../images/faces/javascript_face.avif"
-import cimg from "../../images/faces/C_face.avif"
-import javaimg from "../../images/faces/java_face.avif"
-import reactimg from "../../images/faces/react_face.avif"
-import nextjsimg from '../../images/faces/nextjs_face.avif'
-
-const countProjects = (projectList, keywords) => {
+const _countProjects = (projectList, keywords) => {
   const counts = {};
-  keywords.forEach(keyword => { counts[keyword] = 0; });
-  projectList.forEach(project => {
-    keywords.forEach(keyword => {
+  keywords.forEach((keyword) => {
+    counts[keyword] = 0;
+  });
+  projectList.forEach((project) => {
+    keywords.forEach((keyword) => {
       if (project.tools.includes(keyword)) {
         counts[keyword] += 1;
       }
@@ -29,17 +29,17 @@ const countProjects = (projectList, keywords) => {
 
 const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
   const { camera } = useThree();
-  const threshold = 0.70;
+  const threshold = 0.7;
   let maxDot = -Infinity;
   let closestFace = null;
 
   const faces = {
     "Next.js": new THREE.Vector3(0, 0, 1),
-    "React": new THREE.Vector3(0, 0, -1),
-    "Python": new THREE.Vector3(-1, 0, 0),
-    "JavaScript": new THREE.Vector3(1, 0, 0),
-    "Java": new THREE.Vector3(0, 1, 0),
-    "C/C++": new THREE.Vector3(0, -1, 0)
+    React: new THREE.Vector3(0, 0, -1),
+    Python: new THREE.Vector3(-1, 0, 0),
+    JavaScript: new THREE.Vector3(1, 0, 0),
+    Java: new THREE.Vector3(0, 1, 0),
+    "C/C++": new THREE.Vector3(0, -1, 0),
   };
 
   const checkVisibleFace = () => {
@@ -58,13 +58,13 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         closestFace = faceName;
       }
     }
-    handleFaceChange(closestFace)
+    handleFaceChange(closestFace);
   };
 
-  useFrame((state, delta) => {
-    cubeRef.current.rotation.x += (delta * 0.125);
-    cubeRef.current.rotation.y += (delta * 0.125);
-    cubeRef.current.rotation.z += (delta * 0.125);
+  useFrame((_, delta) => {
+    cubeRef.current.rotation.x += delta * 0.125;
+    cubeRef.current.rotation.y += delta * 0.125;
+    cubeRef.current.rotation.z += delta * 0.125;
     checkVisibleFace();
   });
 
@@ -76,15 +76,30 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
   const texture_6 = useLoader(TextureLoader, nextjsimg);
 
   useEffect(() => {
-    if (texture_1 && texture_2 && texture_3 && texture_4 && texture_5 && texture_6) {
+    if (
+      texture_1 &&
+      texture_2 &&
+      texture_3 &&
+      texture_4 &&
+      texture_5 &&
+      texture_6
+    ) {
       handleLoadingDone();
     }
-  }, [texture_1, texture_2, texture_3, texture_4, texture_5, texture_6]);
+  }, [
+    texture_1,
+    texture_2,
+    texture_3,
+    texture_4,
+    texture_5,
+    texture_6,
+    handleLoadingDone,
+  ]);
 
   return (
     <>
       <OrbitControls enableZoom={false} enablePan={false} />
-      <ambientLight intensity={3.19} color={'#efe9cf'} />
+      <ambientLight intensity={3.19} color={"#efe9cf"} />
       <mesh ref={cubeRef}>
         <boxGeometry args={[3, 3, 3]} />
         <meshStandardMaterial map={texture_1} attach="material-0" />
@@ -96,13 +111,13 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         <Edges color="#e5ddac" lineWidth={0.5} />
       </mesh>
     </>
-  )
-}
+  );
+};
 
-const HomeCube = ({ project_lst }) => {
+const HomeCube = () => {
   const cubeRef = useRef();
   const [faceVisible, setFaceVisible] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [_isLoaded, setIsLoaded] = useState(false);
 
   const handleFaceChange = (face) => {
     if (face !== faceVisible && face !== null) {
@@ -111,20 +126,18 @@ const HomeCube = ({ project_lst }) => {
   };
   const handleLoadingDone = () => {
     setIsLoaded(true);
-  }
-
-  const keywords = ["Next.js", "JavaScript", "React", "C/C++", "Java", "Python"];
-  const projectCounts = useMemo(() => countProjects(project_lst, keywords), [project_lst]);
+  };
 
   return (
     <div className="cube_container">
-      {!isLoaded && <Spinner id="cube_spinner" />}
+      {/* {!isLoaded && <Spinner id="cube_spinner" />} */}
       <div style={{ width: "5.5em", height: "5.5em" }}>
         <Canvas>
           <CubeThreeJS
             cubeRef={cubeRef}
             handleFaceChange={handleFaceChange}
-            handleLoadingDone={handleLoadingDone} />
+            handleLoadingDone={handleLoadingDone}
+          />
         </Canvas>
       </div>
       <div className="face_detect_container text_highlight">
@@ -133,7 +146,7 @@ const HomeCube = ({ project_lst }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default HomeCube;

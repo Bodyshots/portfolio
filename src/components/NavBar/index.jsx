@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { NavItems } from "../../constants/ui/navbar";
+import { NavItems } from "../../constants/navbar";
 import { cn } from "../../lib/utils";
 import {
   setNavOpaque,
@@ -25,7 +25,6 @@ const NavItem = ({ path, label, className, onClick, hoverBg = true }) => {
   );
 };
 
-// Framework from https://react-bootstrap.github.io/components/navbar/
 function NavBar() {
   const navVisibility = useUserStore((state) => state.navVisibility);
   const navVisibilityBeforeMenu = useRef(navVisibility);
