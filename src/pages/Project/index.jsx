@@ -6,7 +6,6 @@ import "aos/dist/aos.css";
 import { useEffect, useRef, useState } from "react";
 import { IoLogoGithub } from "react-icons/io";
 import { useParams } from "react-router-dom";
-import { RingLoader } from "react-spinners";
 import ProjectVideo from "../../components/shared/ProjectVideo";
 import supabase from "../../config/supabaseClient";
 import { ImageConstants } from "../../constants/image";
@@ -15,6 +14,7 @@ import { normTitleHTMLEscape } from "../../lib/utils";
 import {
   disableLoading,
   enableLoading,
+  resetProject,
   setError,
   setGithubLink,
   setImageAtts,
@@ -26,6 +26,8 @@ import {
   setTools,
   useProjectStore,
 } from "../../store/useProjectStore";
+import Loading from "../Loading";
+import NotFound from "../NotFound";
 
 function Project() {
   const { projName } = useParams();
@@ -44,6 +46,7 @@ function Project() {
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImageAtt, setSelectedImageAtt] = useState("");
   const [imagePosition, setImagePosition] = useState(null);
+  const [resolvedProjName, setResolvedProjName] = useState(null);
   const clickedImageRef = useRef(null);
 
   const openImageModal = (image, event) => {
@@ -91,49 +94,55 @@ function Project() {
 
   useEffect(() => {
     enableLoading();
+    resetProject();
+    setError("");
     AOS.init({ duration: OtherConstants.AOS_DURATION });
 
     const fetchProj = async () => {
-      if (projName) {
-        supabase
-          .from("Projects")
-          .select()
-          .then(({ data, error }) => {
-            if (error) {
-              resetProject();
-              setError(error);
-              console.error(error);
-            }
+      try {
+        const { data, error } = await supabase.from("Projects").select();
+        if (!isCurrent) return;
 
-            if (data) {
-              const proj = data.find(
-                (p) => normTitleHTMLEscape(p.name) === projName,
-              );
-              setProjTitle(proj.name);
-              setShortDesc(proj.short_desc);
-              setLongDesc(proj.long_desc);
-              setProjVid(proj.video);
-              setGithubLink(proj.github);
-              setProjImages(proj.images);
-              setImageAtts(proj.image_atts);
-              setTools(proj.tools);
-              setError("");
-            }
-          });
+        if (error) throw error;
+
+        const proj = data?.find(
+          (project) => normTitleHTMLEscape(project.name) === projName,
+        );
+
+        if (proj) {
+          setProjTitle(proj.name);
+          setShortDesc(proj.short_desc);
+          setLongDesc(proj.long_desc);
+          setProjVid(proj.video);
+          setGithubLink(proj.github);
+          setProjImages(proj.images);
+          setImageAtts(proj.image_atts);
+          setTools(proj.tools);
+        }
+      } catch (error) {
+        if (!isCurrent) return;
+
+        resetProject();
+        setError(error instanceof Error ? error.message : String(error));
+        console.error(error);
+      } finally {
+        if (isCurrent) {
+          setResolvedProjName(projName);
+          disableLoading();
+        }
       }
     };
 
-    fetchProj(); // Get projs from database
-    disableLoading();
+    let isCurrent = true;
+    void fetchProj();
+
+    return () => {
+      isCurrent = false;
+      disableLoading();
+    };
   }, [projName]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <RingLoader color="#ffffff" />
-      </div>
-    );
-  }
+  if (loading || resolvedProjName !== projName) return <Loading />;
 
   return projTitle ? (
     <AnimatePage>
@@ -302,14 +311,7 @@ function Project() {
       </div>
     </AnimatePage>
   ) : (
-    <AnimatePage>
-      <div id="not_found_container">
-        <h1 id="not_found_title">Page not found!</h1>
-        <h4 id="not_found_subtitle">
-          Hmmm... Are you sure you're supposed to be here?
-        </h4>
-      </div>
-    </AnimatePage>
+    <NotFound />
   );
 }
 

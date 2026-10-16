@@ -26,7 +26,9 @@ const Home = () => {
 
     const fetchProjects = async () => {
       // Get database from supabase - Has to be its exact name
-      const { data, error } = await supabase.from("Projects").select();
+      const { data, error } = await supabase
+        .from(import.meta.env.VITE_PROJECT_DB_NAME)
+        .select();
 
       if (error) {
         setProjects(null);
