@@ -9,7 +9,7 @@ interface ImportMetaEnv {
   readonly VITE_GOOGLEMAPS_URL: string;
   readonly VITE_RESUME_URL: string;
   readonly VITE_ANON_KEY: string;
-  readonly VITE_PROJECT_DB: string;
+  readonly VITE_PROJECT_DB_NAME: string;
 }
 
 export interface ImportMeta {
