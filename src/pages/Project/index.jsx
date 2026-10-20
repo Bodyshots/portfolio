@@ -100,7 +100,9 @@ function Project() {
 
     const fetchProj = async () => {
       try {
-        const { data, error } = await supabase.from("Projects").select();
+        const { data, error } = await supabase
+          .from(import.meta.env.VITE_PROJECT_DB_NAME)
+          .select();
         if (!isCurrent) return;
 
         if (error) throw error;
