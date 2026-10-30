@@ -195,28 +195,6 @@ canvas {
   shape-outside: circle(50%);
 }
 
-#all_proj_btn {
-  margin-top: -1.5em;
-  margin-bottom: 2em;
-  font-size: 17.5px;
-  background: transparent;
-  font-family: "PixelFont", sans-serif;
-  width: 11.5%;
-  color: #e5ddac;
-  background-color: #61001d;
-  border-radius: 8px;
-  padding: 0.3em;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-#all_proj_btn:hover {
-  color: white;
-  background-color: #8d494d;
-  transition: all 0.1s ease-in-out;
-  transform: scale(1.05);
-  box-shadow: -1px -1px -1px rgba(0, 0, 0, 0.5);
-}
-
 #all_proj_text {
   margin: 0.2em;
 }
@@ -419,20 +397,6 @@ a.contact_link:hover {
   #about_coin {
     margin: 0;
     width: 100%;
-  }
-
-  #all_proj_btn {
-    margin-top: -1.5em;
-    margin-bottom: 2em;
-    font-size: 17.5px;
-    background: transparent;
-    font-family: "PixelFont", sans-serif;
-    width: 30.5%;
-    color: #e5ddac;
-    background-color: #61001d;
-    border-radius: 8px;
-    padding: 0.1em;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 
   #experience {

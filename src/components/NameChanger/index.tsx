@@ -1,22 +1,13 @@
 import "./namechanger.css";
 import "../globals.css";
 import { useEffect, useState } from "react";
+import { ROLES } from "@/constants/role";
 
 function NameChanger() {
   const [currIndex, setCurrIndex] = useState(0);
-  const roleNames = [
-    "a developer",
-    "an engineer",
-    "an architect",
-    "a designer",
-    "an innovator",
-    "a planner",
-    "an inventor",
-    "a researcher",
-  ];
 
   useEffect(() => {
-    if (currIndex === roleNames.length - 1) {
+    if (currIndex === ROLES.length - 1) {
       setCurrIndex(0);
     }
     const interval = setInterval(() => {
@@ -25,15 +16,15 @@ function NameChanger() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [currIndex, roleNames.length]);
+  }, [currIndex]);
 
   return (
     <div id="changer_container">
-      <span className="subtitle text_highlight">hi, i'm</span>
+      <span className="subtitle text_highlight">hi, I'm</span>
       <span className="text_highlight" id="name">
         lanz,
       </span>
-      <span className="subtitle text_highlight">{roleNames[currIndex]}</span>
+      <span className="subtitle text_highlight">{ROLES[currIndex]}</span>
     </div>
   );
 }

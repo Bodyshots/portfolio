@@ -1,114 +1,102 @@
+import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { Edges, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { RingLoader } from "react-spinners";
 import * as THREE from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import "./homecube.css";
+import { CubeConstants } from "@/constants/cube";
 import "../globals.css";
-import cimg from "../../images/faces/C_face.avif";
-import javaimg from "../../images/faces/java_face.avif";
-import htmlimg from "../../images/faces/javascript_face.avif";
-import nextjsimg from "../../images/faces/nextjs_face.avif";
-import pythonimg from "../../images/faces/python_face.avif";
-import reactimg from "../../images/faces/react_face.avif";
-
-const _countProjects = (projectList, keywords) => {
-  const counts = {};
-  keywords.forEach((keyword) => {
-    counts[keyword] = 0;
-  });
-  projectList.forEach((project) => {
-    keywords.forEach((keyword) => {
-      if (project.tools.includes(keyword)) {
-        counts[keyword] += 1;
-      }
-    });
-  });
-  return counts;
-};
 
 const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
   const { camera } = useThree();
-  const threshold = 0.7;
+  const isInteracting = useRef(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   let maxDot = -Infinity;
   let closestFace = null;
+  const faces = CubeConstants.FACES;
 
-  const faces = {
-    "Next.js": new THREE.Vector3(0, 0, 1),
-    React: new THREE.Vector3(0, 0, -1),
-    Python: new THREE.Vector3(-1, 0, 0),
-    JavaScript: new THREE.Vector3(1, 0, 0),
-    Java: new THREE.Vector3(0, 1, 0),
-    "C/C++": new THREE.Vector3(0, -1, 0),
-  };
+  const cubeRotation = CubeConstants.ROTATION;
+  const rotationAmplitude = THREE.MathUtils.degToRad(cubeRotation.AMPLITUDE);
+  const baseRotations = cubeRotation.BASE;
+
+  const themeColors = getComputedStyle(document.documentElement);
+  const edgeColor = themeColors.getPropertyValue(CubeConstants.EDGE.COLOR);
+  const lightColor = themeColors.getPropertyValue(CubeConstants.LIGHT.COLOR);
 
   const checkVisibleFace = () => {
     const cube = cubeRef.current;
     if (!cube) return;
+
     const matrix = new THREE.Matrix4();
     cube.updateMatrixWorld();
     matrix.copy(cube.matrixWorld);
+
     const cameraDirection = new THREE.Vector3();
     camera.getWorldDirection(cameraDirection);
-    for (const [faceName, faceNormal] of Object.entries(faces)) {
-      const worldNormal = faceNormal.clone().applyMatrix4(matrix).normalize();
+
+    for (const face of faces) {
+      const worldNormal = face.normal.clone().applyMatrix4(matrix).normalize();
       const dotProduct = cameraDirection.dot(worldNormal);
-      if (dotProduct > maxDot || dotProduct >= threshold) {
+      if (dotProduct > maxDot || dotProduct >= CubeConstants.FACE_THRESHOLD) {
         maxDot = dotProduct;
-        closestFace = faceName;
+        closestFace = face.name;
       }
     }
     handleFaceChange(closestFace);
   };
 
-  useFrame((_, delta) => {
-    cubeRef.current.rotation.x += delta * 0.125;
-    cubeRef.current.rotation.y += delta * 0.125;
-    cubeRef.current.rotation.z += delta * 0.125;
+  useFrame(({ clock }) => {
+    const cube = cubeRef.current;
+    if (!cube) return;
+
+    if (!prefersReducedMotion && !isInteracting.current) {
+      cube.rotation.y =
+        baseRotations.Y +
+        Math.sin(clock.elapsedTime * 0.25) * rotationAmplitude;
+    }
+
     checkVisibleFace();
   });
 
-  const texture_1 = useLoader(TextureLoader, pythonimg);
-  const texture_2 = useLoader(TextureLoader, htmlimg);
-  const texture_3 = useLoader(TextureLoader, cimg);
-  const texture_4 = useLoader(TextureLoader, javaimg);
-  const texture_5 = useLoader(TextureLoader, reactimg);
-  const texture_6 = useLoader(TextureLoader, nextjsimg);
+  const textures = useLoader(
+    TextureLoader,
+    faces.map((face) => face.image),
+  );
 
   useEffect(() => {
-    if (
-      texture_1 &&
-      texture_2 &&
-      texture_3 &&
-      texture_4 &&
-      texture_5 &&
-      texture_6
-    ) {
-      handleLoadingDone();
-    }
-  }, [
-    texture_1,
-    texture_2,
-    texture_3,
-    texture_4,
-    texture_5,
-    texture_6,
-    handleLoadingDone,
-  ]);
+    if (textures.every(Boolean)) handleLoadingDone();
+  }, [textures, handleLoadingDone]);
 
   return (
     <>
-      <OrbitControls enableZoom={false} enablePan={false} />
-      <ambientLight intensity={3.19} color={"#efe9cf"} />
-      <mesh ref={cubeRef}>
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        onStart={() => {
+          isInteracting.current = true;
+        }}
+        onEnd={() => {
+          isInteracting.current = false;
+        }}
+      />
+      <ambientLight
+        intensity={CubeConstants.LIGHT.INTENSITY}
+        color={lightColor}
+      />
+      <mesh
+        ref={cubeRef}
+        rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
+      >
         <boxGeometry args={[3, 3, 3]} />
-        <meshStandardMaterial map={texture_1} attach="material-0" />
-        <meshStandardMaterial map={texture_2} attach="material-1" />
-        <meshStandardMaterial map={texture_3} attach="material-2" />
-        <meshStandardMaterial map={texture_4} attach="material-3" />
-        <meshStandardMaterial map={texture_5} attach="material-4" />
-        <meshStandardMaterial map={texture_6} attach="material-5" />
-        <Edges color="#e5ddac" lineWidth={0.5} />
+        {faces.map((face, index) => (
+          <meshStandardMaterial
+            key={face.name}
+            map={textures[index]}
+            attach={`material-${face.materialIndex}`}
+          />
+        ))}
+        <Edges color={edgeColor} lineWidth={0.5} />
       </mesh>
     </>
   );
@@ -117,22 +105,32 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
 const HomeCube = () => {
   const cubeRef = useRef();
   const [faceVisible, setFaceVisible] = useState(null);
-  const [_isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleFaceChange = (face) => {
     if (face !== faceVisible && face !== null) {
       setFaceVisible(face);
     }
   };
-  const handleLoadingDone = () => {
+  const handleLoadingDone = useCallback(() => {
     setIsLoaded(true);
-  };
+  }, []);
 
   return (
-    <div className="cube_container">
-      {/* {!isLoaded && <Spinner id="cube_spinner" />} */}
-      <div style={{ width: "5.5em", height: "5.5em" }}>
-        <Canvas>
+    <div className="flex justify-center items-center flex-col flex-nowrap">
+      <div className="relative size-[5.5em]">
+        <div
+          aria-hidden={isLoaded}
+          className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
+            isLoaded ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
+          <RingLoader
+            color="currentColor"
+            cssOverride={{ color: "var(--color-secondary-foreground)" }}
+          />
+        </div>
+        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS
             cubeRef={cubeRef}
             handleFaceChange={handleFaceChange}
@@ -140,10 +138,8 @@ const HomeCube = () => {
           />
         </Canvas>
       </div>
-      <div className="face_detect_container text_highlight">
-        <div>
-          {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
-        </div>
+      <div className="mt-[-0.2em] flex flex-col text-[50px] text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
+        {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
       </div>
     </div>
   );

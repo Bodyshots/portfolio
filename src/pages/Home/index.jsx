@@ -110,11 +110,13 @@ const Home = () => {
         <div id="projects">
           {ProjectCarousel(project_lst)}
           <button
-            id="all_proj_btn"
+            className="mt-[-1.5em] mb-8 w-[11.5%] rounded-lg bg-secondary-foreground p-2 text-lg text-primary font-[PixelFont] shadow-sm transition-all duration-100 ease-in-out hover:scale-105 hover:cursor-pointer hover:bg-accent hover:text-primary-foreground hover:shadow-[-1px_-1px_1px_rgba(0,0,0,0.5)] max-[991px]:w-[30.5%] max-[991px]:p-[0.1em]"
             onClick={() => navigate("/allprojects")}
             type="button"
           >
-            <span id="all_proj_text">View all projects</span>
+            <span className="p-4 text-center justify-center align-center">
+              View all projects
+            </span>
           </button>
         </div>
         {HoriScroll(false, "Contact", "contact")}
