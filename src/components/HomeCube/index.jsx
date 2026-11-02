@@ -1,28 +1,45 @@
 import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { Edges, OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
 import { RingLoader } from "react-spinners";
 import * as THREE from "three";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { CubeConstants } from "@/constants/cube";
+import { texturesLoaded, useTextures } from "@/lib/three";
 import "../globals.css";
 
-const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
+const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
   const { camera } = useThree();
   const isInteracting = useRef(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   let maxDot = -Infinity;
+
+  // Dimensions
+  const cubeDimensions = CubeConstants.DIMENSIONS;
+
+  // Edges
+  const cubeEdges = CubeConstants.EDGE;
+
+  // Lights
+  const cubeLights = CubeConstants.LIGHT;
+
+  // Faces
   let closestFace = null;
   const faces = CubeConstants.FACES;
+  const loadedTextures = useTextures(faces.map((face) => face.image));
 
+  // Rotation
   const cubeRotation = CubeConstants.ROTATION;
   const rotationAmplitude = THREE.MathUtils.degToRad(cubeRotation.AMPLITUDE);
   const baseRotations = cubeRotation.BASE;
 
+  // Colors
   const themeColors = getComputedStyle(document.documentElement);
-  const edgeColor = themeColors.getPropertyValue(CubeConstants.EDGE.COLOR);
-  const lightColor = themeColors.getPropertyValue(CubeConstants.LIGHT.COLOR);
+  const edgeColor = themeColors.getPropertyValue(cubeEdges.COLOR);
+  const lightColor = themeColors.getPropertyValue(cubeLights.COLOR);
+
+  const getIdleRotation = (elapsedTime, speed) =>
+    Math.sin(elapsedTime * speed) * rotationAmplitude;
 
   const checkVisibleFace = () => {
     const cube = cubeRef.current;
@@ -51,34 +68,29 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
     if (!cube) return;
 
     if (!prefersReducedMotion && !isInteracting.current) {
-      cube.rotation.y =
-        baseRotations.Y +
-        Math.sin(clock.elapsedTime * 0.25) * rotationAmplitude;
+      for (const [axis, base, speed] of [
+        ["x", baseRotations.X, cubeRotation.IDLE.X],
+        ["y", baseRotations.Y, cubeRotation.IDLE.Y],
+        ["z", baseRotations.Z, cubeRotation.IDLE.Z],
+      ]) {
+        cube.rotation[axis] = base + getIdleRotation(clock.elapsedTime, speed);
+      }
     }
 
     checkVisibleFace();
   });
 
-  const textures = useLoader(
-    TextureLoader,
-    faces.map((face) => face.image),
-  );
-
   useEffect(() => {
-    if (textures.every(Boolean)) handleLoadingDone();
-  }, [textures, handleLoadingDone]);
+    setIsLoaded(texturesLoaded(loadedTextures));
+  }, [loadedTextures, setIsLoaded]);
 
   return (
     <>
       <OrbitControls
         enableZoom={false}
         enablePan={false}
-        onStart={() => {
-          isInteracting.current = true;
-        }}
-        onEnd={() => {
-          isInteracting.current = false;
-        }}
+        onStart={() => (isInteracting.current = true)}
+        onEnd={() => (isInteracting.current = false)}
       />
       <ambientLight
         intensity={CubeConstants.LIGHT.INTENSITY}
@@ -88,15 +100,21 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, handleLoadingDone }) => {
         ref={cubeRef}
         rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
       >
-        <boxGeometry args={[3, 3, 3]} />
+        <boxGeometry
+          args={[
+            cubeDimensions.WIDTH,
+            cubeDimensions.HEIGHT,
+            cubeDimensions.DEPTH,
+          ]}
+        />
         {faces.map((face, index) => (
           <meshStandardMaterial
             key={face.name}
-            map={textures[index]}
+            map={loadedTextures[index]}
             attach={`material-${face.materialIndex}`}
           />
         ))}
-        <Edges color={edgeColor} lineWidth={0.5} />
+        <Edges color={edgeColor} lineWidth={cubeEdges.LINE_WIDTH} />
       </mesh>
     </>
   );
@@ -112,9 +130,6 @@ const HomeCube = () => {
       setFaceVisible(face);
     }
   };
-  const handleLoadingDone = useCallback(() => {
-    setIsLoaded(true);
-  }, []);
 
   return (
     <div className="flex justify-center items-center flex-col flex-nowrap">
@@ -130,11 +145,11 @@ const HomeCube = () => {
             cssOverride={{ color: "var(--color-secondary-foreground)" }}
           />
         </div>
-        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS
             cubeRef={cubeRef}
             handleFaceChange={handleFaceChange}
-            handleLoadingDone={handleLoadingDone}
+            setIsLoaded={setIsLoaded}
           />
         </Canvas>
       </div>

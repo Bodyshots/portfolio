@@ -1,4 +1,3 @@
-// @ts-expect-error The installed `three` package has no declarations available.
 import * as THREE from "three";
 import cImg from "@/images/faces/C_face.avif";
 import javaImg from "@/images/faces/java_face.avif";
@@ -54,22 +53,33 @@ const CubeFaces: CubeFace[] = [
 ];
 
 const CubeConstants = Object.freeze({
+  DIMENSIONS: {
+    WIDTH: 3,
+    HEIGHT: 3,
+    DEPTH: 3,
+  },
   FACES: CubeFaces,
   FACE_THRESHOLD: 0.7,
   EDGE: {
     COLOR: "--primary",
+    LINE_WIDTH: 0.5,
   },
   LIGHT: {
     COLOR: "--secondary",
     INTENSITY: 3.19,
   },
   ROTATION: {
+    AMPLITUDE: 3, // in degrees
     BASE: {
       X: Math.PI / 8,
       Y: -Math.PI / 5,
       Z: 0,
     },
-    AMPLITUDE: 3, // in degrees
+    IDLE: {
+      X: 0,
+      Y: 0.25,
+      Z: 0,
+    },
   },
 });
 
