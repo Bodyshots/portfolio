@@ -1,5 +1,5 @@
 import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
-import { Edges, OrbitControls } from "@react-three/drei";
+import { Edges } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { RingLoader } from "react-spinners";
@@ -9,10 +9,13 @@ import { texturesLoaded, useTextures } from "@/lib/three";
 import "../globals.css";
 
 const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
-  const { camera } = useThree();
-  const isInteracting = useRef(false);
+  const dragGroupRef = useRef();
+  const dragRef = useRef(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   let maxDot = -Infinity;
+
+  // Camera
+  const { camera } = useThree();
 
   // Dimensions
   const cubeDimensions = CubeConstants.DIMENSIONS;
@@ -38,8 +41,56 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
   const edgeColor = themeColors.getPropertyValue(cubeEdges.COLOR);
   const lightColor = themeColors.getPropertyValue(cubeLights.COLOR);
 
+  // Velocity
+  const dragSensitivity = CubeConstants.VELOCITY.SENSITIVITY;
+  const cubeVelocity = CubeConstants.VELOCITY;
+  const dragVelocity = useRef({
+    x: cubeVelocity.INITIAL.X,
+    y: cubeVelocity.INITIAL.Y,
+  });
+
+  const resetVelocity = () => {
+    dragVelocity.current.x = cubeVelocity.INITIAL.X;
+    dragVelocity.current.y = cubeVelocity.INITIAL.Y;
+  };
+
+  const updateDragVelocity = (deltaX, deltaY, elapsedTime) => {
+    dragVelocity.current.x = THREE.MathUtils.lerp(
+      dragVelocity.current.x,
+      (deltaX * dragSensitivity) / elapsedTime,
+      CubeConstants.VELOCITY.SMOOTHING,
+    );
+    dragVelocity.current.y = THREE.MathUtils.lerp(
+      dragVelocity.current.y,
+      (deltaY * dragSensitivity) / elapsedTime,
+      CubeConstants.VELOCITY.SMOOTHING,
+    );
+  };
+
+  const applyDamping = (delta) => {
+    const damping = Math.exp(cubeVelocity.DAMPING * delta);
+    dragVelocity.current.x *= damping;
+    dragVelocity.current.y *= damping;
+  };
+
   const getIdleRotation = (elapsedTime, speed) =>
     Math.sin(elapsedTime * speed) * rotationAmplitude;
+
+  const updateRotation = (horizontalRotation, verticalRotation) => {
+    const group = dragGroupRef.current;
+
+    const horizontalQuaternion = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      horizontalRotation,
+    );
+    const verticalQuaternion = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(1, 0, 0),
+      verticalRotation,
+    );
+
+    group.quaternion.premultiply(horizontalQuaternion);
+    group.quaternion.premultiply(verticalQuaternion);
+  };
 
   const checkVisibleFace = () => {
     const cube = cubeRef.current;
@@ -63,15 +114,26 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
     handleFaceChange(closestFace);
   };
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const cube = cubeRef.current;
     if (!cube) return;
 
-    if (!prefersReducedMotion && !isInteracting.current) {
+    if (!dragRef.current && dragGroupRef.current) {
+      if (prefersReducedMotion) resetVelocity();
+      else {
+        updateRotation(
+          dragVelocity.current.x * delta,
+          dragVelocity.current.y * delta,
+        );
+        applyDamping(delta);
+      }
+    }
+
+    if (!prefersReducedMotion) {
       for (const [axis, base, speed] of [
-        ["x", baseRotations.X, cubeRotation.IDLE.X],
-        ["y", baseRotations.Y, cubeRotation.IDLE.Y],
-        ["z", baseRotations.Z, cubeRotation.IDLE.Z],
+        ["x", baseRotations.X, cubeRotation.SPEED.X],
+        ["y", baseRotations.Y, cubeRotation.SPEED.Y],
+        ["z", baseRotations.Z, cubeRotation.SPEED.Z],
       ]) {
         cube.rotation[axis] = base + getIdleRotation(clock.elapsedTime, speed);
       }
@@ -86,36 +148,76 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
 
   return (
     <>
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        onStart={() => (isInteracting.current = true)}
-        onEnd={() => (isInteracting.current = false)}
-      />
       <ambientLight
         intensity={CubeConstants.LIGHT.INTENSITY}
         color={lightColor}
       />
-      <mesh
-        ref={cubeRef}
-        rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
+      <group
+        ref={dragGroupRef}
+        onPointerDown={(event) => {
+          if (event.button !== 0) return;
+          event.stopPropagation();
+          event.target.setPointerCapture(event.pointerId);
+          resetVelocity();
+          dragRef.current = {
+            pointerId: event.pointerId,
+            x: event.clientX,
+            y: event.clientY,
+            time: event.nativeEvent.timeStamp,
+          };
+        }}
+        // Handles cube dragging
+        // Calcs change in pos (deltaX and deltaY) based on curr ptr pos and the last recorded pos
+        // Also calcs elapsed time since last movement to det drag velocity
+        // Cube's rotation updated based on this drag velocity, and drag ref is updated w/ the new ptr pos and time
+        onPointerMove={(event) => {
+          const drag = dragRef.current;
+          if (
+            !drag ||
+            drag.pointerId !== event.pointerId ||
+            !dragGroupRef.current
+          )
+            return;
+
+          const deltaX = event.clientX - drag.x;
+          const deltaY = event.clientY - drag.y;
+          const currentTime = event.nativeEvent.timeStamp;
+          const elapsedTime = Math.max((currentTime - drag.time) / 1000, 0.001);
+
+          updateRotation(deltaX * dragSensitivity, deltaY * dragSensitivity);
+          updateDragVelocity(deltaX, deltaY, elapsedTime);
+          drag.x = event.clientX;
+          drag.y = event.clientY;
+          drag.time = currentTime;
+        }}
+        onPointerUp={(event) => {
+          if (dragRef.current?.pointerId !== event.pointerId) return;
+          event.target.releasePointerCapture(event.pointerId);
+          dragRef.current = null;
+        }}
+        onPointerCancel={() => (dragRef.current = null)}
       >
-        <boxGeometry
-          args={[
-            cubeDimensions.WIDTH,
-            cubeDimensions.HEIGHT,
-            cubeDimensions.DEPTH,
-          ]}
-        />
-        {faces.map((face, index) => (
-          <meshStandardMaterial
-            key={face.name}
-            map={loadedTextures[index]}
-            attach={`material-${face.materialIndex}`}
+        <mesh
+          ref={cubeRef}
+          rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
+        >
+          <boxGeometry
+            args={[
+              cubeDimensions.WIDTH,
+              cubeDimensions.HEIGHT,
+              cubeDimensions.DEPTH,
+            ]}
           />
-        ))}
-        <Edges color={edgeColor} lineWidth={cubeEdges.LINE_WIDTH} />
-      </mesh>
+          {faces.map((face, index) => (
+            <meshStandardMaterial
+              key={face.name}
+              map={loadedTextures[index]}
+              attach={`material-${face.materialIndex}`}
+            />
+          ))}
+          <Edges color={edgeColor} lineWidth={cubeEdges.LINE_WIDTH} />
+        </mesh>
+      </group>
     </>
   );
 };
@@ -145,7 +247,7 @@ const HomeCube = () => {
             cssOverride={{ color: "var(--color-secondary-foreground)" }}
           />
         </div>
-        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="touch-none transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS
             cubeRef={cubeRef}
             handleFaceChange={handleFaceChange}

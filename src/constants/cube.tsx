@@ -58,12 +58,12 @@ const CubeConstants = Object.freeze({
     HEIGHT: 3,
     DEPTH: 3,
   },
-  FACES: CubeFaces,
-  FACE_THRESHOLD: 0.7,
   EDGE: {
     COLOR: "--primary",
     LINE_WIDTH: 0.5,
   },
+  FACES: CubeFaces,
+  FACE_THRESHOLD: 0.7,
   LIGHT: {
     COLOR: "--secondary",
     INTENSITY: 3.19,
@@ -75,11 +75,20 @@ const CubeConstants = Object.freeze({
       Y: -Math.PI / 5,
       Z: 0,
     },
-    IDLE: {
+    SPEED: {
       X: 0,
-      Y: 0.25,
+      Y: 0.75,
       Z: 0,
     },
+  },
+  VELOCITY: {
+    DAMPING: -5, // Will be multiplied by delta time to reduce velocity over time
+    INITIAL: {
+      X: 0,
+      Y: 0,
+    },
+    SENSITIVITY: 0.01,
+    SMOOTHING: 0.35,
   },
 });
 
