@@ -1,4 +1,3 @@
-import "../globals.css";
 import "./projectcard.css";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 

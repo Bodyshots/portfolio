@@ -1,4 +1,3 @@
-import "./scrollindicator.css";
 import { useEffect, useState } from "react";
 
 // Most code taken from https://www.youtube.com/watch?v=X1PI52QLanE
@@ -22,7 +21,10 @@ const ScrollIndicator = () => {
   }, []);
 
   return (
-    <div className="progress_style" style={{ width: `${scrollTop}%` }}></div>
+    <div
+      className="h-[3.5px] bg-accent opacity-60 [transition:all_0.5s_ease-in-out,width_0s_ease-in-out]"
+      style={{ width: `${scrollTop}%` }}
+    />
   );
 };
 

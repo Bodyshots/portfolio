@@ -1,5 +1,3 @@
-import "./namechanger.css";
-import "../globals.css";
 import { useEffect, useState } from "react";
 import { ROLES } from "@/constants/role";
 
@@ -19,12 +17,10 @@ function NameChanger() {
   }, [currIndex]);
 
   return (
-    <div id="changer_container">
-      <span className="subtitle text_highlight">hi, I'm</span>
-      <span className="text_highlight" id="name">
-        lanz,
-      </span>
-      <span className="subtitle text_highlight">{ROLES[currIndex]}</span>
+    <div className="flex flex-col gap-8">
+      <span className="text_highlight text-[0.4em]">hi, I'm</span>
+      <span className="text_highlight text-9xl">lanz,</span>
+      <span className="text_highlight text-[0.4em]">{ROLES[currIndex]}</span>
     </div>
   );
 }

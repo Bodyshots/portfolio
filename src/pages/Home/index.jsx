@@ -1,5 +1,4 @@
 import "./home.css";
-import "../../components/globals.css";
 import AOS from "aos";
 import { useEffect } from "react";
 import AnimatePage from "../../components/AnimatePage";
@@ -9,9 +8,9 @@ import { IoLogoGithub, IoLogoLinkedin, IoMdMail } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import HomeCoin from "../../components/HomeCoin";
 import HomeCube from "../../components/HomeCube";
-import HoriScroll from "../../components/HoriScroll";
 import NameChanger from "../../components/NameChanger";
 import ProjectCarousel from "../../components/ProjectCarousel";
+import SectionHeader from "../../components/SectionHeader";
 import WorkHistory from "../../components/WorkHistory";
 import supabase from "../../config/supabaseClient";
 import { OtherConstants } from "../../constants/other";
@@ -68,7 +67,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {HoriScroll(true, "About", "about")}
+        <SectionHeader text="About" />
         <div id="about">
           <div id="about_text">
             <div id="about_texttitle">Welcome to my website!</div>
@@ -102,11 +101,11 @@ const Home = () => {
             <HomeCoin />
           </span>
         </div>
-        {HoriScroll(false, "Experience", "experience")}
+        <SectionHeader text="Experience" />
         <div id="experience">
           <WorkHistory />
         </div>
-        <div>{HoriScroll(true, "Major Projects", "projects")}</div>
+        <SectionHeader text="Major Projects" />
         <div id="projects">
           {ProjectCarousel(project_lst)}
           <button
@@ -119,7 +118,7 @@ const Home = () => {
             </span>
           </button>
         </div>
-        {HoriScroll(false, "Contact", "contact")}
+        <SectionHeader text="Contact" />
         <div id="contact">
           <div id="contact_container">
             <div id="contact_map">

@@ -6,7 +6,6 @@ import { RingLoader } from "react-spinners";
 import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
 import { texturesLoaded, useTextures } from "@/lib/three";
-import "../globals.css";
 
 const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
   const dragGroupRef = useRef();

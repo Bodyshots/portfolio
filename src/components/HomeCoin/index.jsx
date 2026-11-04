@@ -6,9 +6,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { RingLoader } from "react-spinners";
 import * as THREE from "three";
-import { texturesLoaded, useTextures } from "@/lib/three";
-import "../globals.css";
 import { CoinConstants } from "@/constants/coin";
+import { texturesLoaded, useTextures } from "@/lib/three";
 
 const CoinThreeJS = ({ setIsLoaded }) => {
   const spinRef = useRef();

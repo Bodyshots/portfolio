@@ -1,7 +1,6 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
 // @ts-expect-error This package does not provide TypeScript declarations.
 import ScrollToHashElement from "@cascadia-code/scroll-to-hash-element";
+import { BrowserRouter as Router } from "react-router-dom";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
