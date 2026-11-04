@@ -50,7 +50,7 @@ const CoinConstants = Object.freeze({
   ROTATION: {
     AMPLITUDE: 60, // in degrees
     BASE: {
-      X: 272.5,
+      X: 270,
       Y: 90,
       Z: 0,
     },
