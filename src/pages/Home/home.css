@@ -209,91 +209,6 @@ canvas {
   font-size: 1.25rem;
 }
 
-#contact {
-  width: 100%;
-  min-height: 100%;
-  padding: 2em 0;
-  background-color: #e5ddac;
-  font-family: "PixelFont", sans-serif;
-  color: #61001d;
-  border-bottom: 3px solid #61001d;
-  box-shadow: 3px 3px 3px rgba(97, 0, 29, 0.5);
-}
-
-#contact_container {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-}
-
-#personal_info {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  padding-left: 0.3em;
-}
-
-#contact_info_container {
-  width: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#contact_map {
-  width: 40%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#contact_info {
-  font-size: 1.25em;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-#contact_links {
-  font-size: 1.5em;
-  margin-top: 1em;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-}
-
-#contact_link_title {
-  margin-bottom: 0.5em;
-}
-
-#links {
-  display: flex;
-  justify-content: center;
-  flex-flow: row;
-}
-
-.contact_link svg {
-  margin-left: 1em;
-  margin-right: 1em;
-  height: 60px;
-  width: 60px;
-}
-
-a.contact_link {
-  color: #61001d;
-}
-
-a.contact_link:hover {
-  color: white;
-  transition: all 0.15s ease-in-out;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-}
-
 @media screen and (max-width: 991px) {
   #landing_sec {
     width: 100%;
@@ -344,30 +259,6 @@ a.contact_link:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  #contact_container {
-    flex-flow: column wrap;
-  }
-
-  #contact_info {
-    margin: 2em 0 0 0;
-  }
-
-  #contact_info_container {
-    width: 100%;
-  }
-
-  #personal_info {
-    padding: 0 0 0 0.3em;
-  }
-
-  #contact_map {
-    width: clamp(10em, 100%, 25em);
-  }
-
-  #google_maps {
-    width: clamp(10em, 100%, 25em);
   }
 
   #about {

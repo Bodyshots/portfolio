@@ -12,8 +12,3 @@
   font-family: "PixelFont", sans-serif;
   padding-top: 4em;
 }
-
-.modal_container {
-  position: absolute;
-  z-index: 99;
-}

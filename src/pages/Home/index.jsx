@@ -1,19 +1,19 @@
 import "./home.css";
 import AOS from "aos";
 import { useEffect } from "react";
-import AnimatePage from "../../components/AnimatePage";
+import AnimatePage from "@/components/AnimatePage";
 import "aos/dist/aos.css";
 import { useState } from "react";
-import { IoLogoGithub, IoLogoLinkedin, IoMdMail } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import HomeCoin from "../../components/HomeCoin";
-import HomeCube from "../../components/HomeCube";
-import NameChanger from "../../components/NameChanger";
-import ProjectCarousel from "../../components/ProjectCarousel";
-import SectionHeader from "../../components/SectionHeader";
-import WorkHistory from "../../components/WorkHistory";
+import HomeCoin from "@/components/HomeCoin";
+import { HomeContact } from "@/components/HomeContact";
+import HomeCube from "@/components/HomeCube";
+import NameChanger from "@/components/NameChanger";
+import ProjectCarousel from "@/components/ProjectCarousel";
+import SectionHeader from "@/components/SectionHeader";
+import WorkHistory from "@/components/WorkHistory";
+import { OtherConstants } from "@/constants/other";
 import supabase from "../../config/supabaseClient";
-import { OtherConstants } from "../../constants/other";
 
 const Home = () => {
   const project_lst = [];
@@ -118,59 +118,7 @@ const Home = () => {
             </span>
           </button>
         </div>
-        <SectionHeader text="Contact" />
-        <div id="contact">
-          <div id="contact_container">
-            <div id="contact_map">
-              <iframe
-                id="google_maps"
-                title="google_maps"
-                src={import.meta.env.VITE_GOOGLEMAPS_URL}
-                width="600px"
-                height="250px"
-                styles={"border:0;"}
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-            <div id="contact_info_container">
-              <div id="contact_info">
-                <div id="personal_info">
-                  <span>Lanz Angeles</span>
-                  <span>lanzangeles100@gmail.com</span>
-                  <span>226-627-5219</span>
-                </div>
-                <div id="contact_links">
-                  <div id="contact_link_title">Links</div>
-                  <div id="links">
-                    <a
-                      className="contact_link"
-                      href={import.meta.env.VITE_GITHUB_URL}
-                      id="github_icon"
-                    >
-                      <IoLogoGithub />
-                    </a>
-                    <a
-                      className="contact_link"
-                      href={import.meta.env.VITE_LINKEDIN_URL}
-                      id="linkedin_icon"
-                    >
-                      <IoLogoLinkedin />
-                    </a>
-                    <a
-                      className="contact_link"
-                      href={import.meta.env.VITE_EMAIL}
-                      id="email_icon"
-                    >
-                      <IoMdMail />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HomeContact />
       </div>
     </AnimatePage>
   );
