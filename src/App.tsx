@@ -5,6 +5,8 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import ScrollBreakpoint from "./components/ScrollBreakpoint";
+import "aos/dist/aos.css";
+import "./components/globals.css";
 
 const App = () => {
   return (

@@ -1,11 +1,9 @@
 import "./project.css";
-import "../../components/globals.css";
 import AOS from "aos";
-import AnimatePage from "../../components/AnimatePage";
-import "aos/dist/aos.css";
 import { useEffect, useRef, useState } from "react";
 import { IoLogoGithub } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import AnimatePage from "../../components/AnimatePage";
 import ProjectVideo from "../../components/shared/ProjectVideo";
 import supabase from "../../config/supabaseClient";
 import { ImageConstants } from "../../constants/image";
