@@ -1,91 +1,138 @@
 // Based on code from https://github.com/rene78/Rotating-Coin/blob/master/js/main.js
 
+import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
+import { RingLoader } from "react-spinners";
 import * as THREE from "three";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import "./homecoin.css";
+import { texturesLoaded, useTextures } from "@/lib/three";
 import "../globals.css";
-import { CoinConstants } from "../../constants/coin";
-import sidesimg from "../../images/circumference.avif";
-import profileimg from "../../images/headshot.avif";
+import { CoinConstants } from "@/constants/coin";
 
-const CoinThreeJS = ({ handleLoadingDone }) => {
+const CoinThreeJS = ({ setIsLoaded }) => {
+  const spinRef = useRef();
   const coinRef = useRef();
-  const face = useLoader(TextureLoader, profileimg);
-  const sides = useLoader(TextureLoader, sidesimg);
-  sides.wrapS = THREE.RepeatWrapping;
-  sides.repeat.set(30, 0);
+  const isInteracting = useRef(false);
+  const idlePhase = useRef(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Polar Angle
+  const polarAngles = CoinConstants.POLAR_ANGLE;
+
+  // Textures
+  const textures = CoinConstants.TEXTURES;
+  const loadedTextures = useTextures(textures.map((texture) => texture.image));
+  loadedTextures.forEach((loadedTexture, index) => {
+    const texture = textures[index];
+    if (texture.wrapS !== undefined) loadedTexture.wrapS = texture.wrapS;
+    if (texture.repeat) loadedTexture.repeat.set(...texture.repeat);
+    if (texture.offset) loadedTexture.offset.set(...texture.offset);
+  });
+
+  // Rotation
+  const coinRotation = CoinConstants.ROTATION;
+  const baseRotations = coinRotation.BASE;
+  const baseRotationsRadians = {
+    X: THREE.MathUtils.degToRad(baseRotations.X),
+    Y: THREE.MathUtils.degToRad(baseRotations.Y),
+    Z: THREE.MathUtils.degToRad(baseRotations.Z),
+  };
+  const wobble = coinRotation.WOBBLE;
 
   useFrame((_, delta) => {
-    coinRef.current.rotation.y += delta * 0.125;
-    coinRef.current.rotation.z += delta * 0.125;
+    const spin = spinRef.current;
+    const coin = coinRef.current;
+    if (!spin || !coin) return;
+
+    if (!prefersReducedMotion && !isInteracting.current) {
+      idlePhase.current += delta;
+    }
+
+    spin.rotation.y = prefersReducedMotion
+      ? 0
+      : Math.sin(idlePhase.current * coinRotation.SPEED.Y) *
+        THREE.MathUtils.degToRad(coinRotation.AMPLITUDE);
+
+    if (!prefersReducedMotion) {
+      coin.rotation.x =
+        baseRotationsRadians.X +
+        Math.sin(idlePhase.current * coinRotation.SPEED.X) *
+          THREE.MathUtils.degToRad(wobble.X);
+      coin.rotation.y = baseRotationsRadians.Y;
+      coin.rotation.z =
+        baseRotationsRadians.Z +
+        Math.sin(idlePhase.current * coinRotation.SPEED.Z) *
+          THREE.MathUtils.degToRad(wobble.Z);
+    }
   });
 
   useEffect(() => {
-    const checkTexturesLoaded = () => {
-      if (face && sides) {
-        handleLoadingDone();
-      }
-    };
-
-    checkTexturesLoaded();
-  }, [sides, face, handleLoadingDone]);
+    setIsLoaded(texturesLoaded(loadedTextures));
+  }, [loadedTextures, setIsLoaded]);
 
   return (
     <>
-      <OrbitControls enableZoom={false} enablePan={false} />
-      <ambientLight intensity={8.25} color={"#efe9cf"} />
-      <pointLight color={"white"} intensity={1} position={[-1, -1, -1]} />
-      <pointLight color={"white"} intensity={1} position={[1, 2, 3]} />
-      <pointLight color={"#61001d"} intensity={1} position={[0, 3, 2]} />
-      <pointLight color={"#8d494d"} intensity={1} position={[-1, -1, -1]} />
-      <directionalLight color={"#61001d"} intensity={1} position={[0, 0, 2]} />
-      <mesh
-        ref={coinRef}
-        rotation={[
-          THREE.MathUtils.degToRad(90),
-          THREE.MathUtils.degToRad(90),
-          0,
-        ]}
-      >
-        <cylinderGeometry args={[3, 3, 0.25, 100]} />
-        <meshStandardMaterial
-          map={face}
-          attach="material-1"
-          roughness={CoinConstants.DEFAULT_ROUGHNESS}
-          metalness={CoinConstants.DEFAULT_METALNESS}
-        />
-        <meshStandardMaterial
-          map={face}
-          attach="material-2"
-          roughness={CoinConstants.DEFAULT_ROUGHNESS}
-          metalness={CoinConstants.DEFAULT_METALNESS}
-        />
-        <meshStandardMaterial
-          map={sides}
-          attach="material-0"
-          roughness={CoinConstants.DEFAULT_ROUGHNESS}
-          metalness={CoinConstants.DEFAULT_METALNESS}
-        />
-      </mesh>
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        minPolarAngle={polarAngles.MIN}
+        maxPolarAngle={polarAngles.MAX}
+        onStart={() => (isInteracting.current = true)}
+        onEnd={() => (isInteracting.current = false)}
+      />
+      <group ref={spinRef}>
+        <mesh
+          ref={coinRef}
+          rotation={[
+            baseRotationsRadians.X,
+            baseRotationsRadians.Y,
+            baseRotationsRadians.Z,
+          ]}
+        >
+          <cylinderGeometry
+            args={[
+              CoinConstants.GEOMETRY.RADIUS_TOP,
+              CoinConstants.GEOMETRY.RADIUS_BOTTOM,
+              CoinConstants.GEOMETRY.HEIGHT,
+              CoinConstants.GEOMETRY.RADIAL_SEGMENTS,
+            ]}
+          />
+          {textures.map((texture, index) => (
+            <meshBasicMaterial
+              key={texture.name}
+              map={loadedTextures[index]}
+              attach={`material-${texture.materialIndex}`}
+              toneMapped={false}
+            />
+          ))}
+        </mesh>
+      </group>
     </>
   );
 };
 
 const HomeCoin = () => {
-  const [_isLoaded, setIsLoaded] = useState(false);
-
-  const handleLoadingDone = () => {
-    setIsLoaded(true);
-  };
-
+  const [isLoaded, setIsLoaded] = useState(false);
   return (
-    <div data-aos="fade-left" className="coin_container">
-      <div id="canvas_coincontainer">
-        <Canvas>
-          <CoinThreeJS handleLoadingDone={handleLoadingDone} />
+    <div
+      data-aos="fade-left"
+      className="flex justify-center align-center flex-col nowrap h-full"
+    >
+      <div className="relative h-100 w-100 max-[991px]:h-82 max-[991px]:w-82">
+        <div
+          aria-hidden={isLoaded}
+          className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
+            isLoaded ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <RingLoader
+            color="currentColor"
+            cssOverride={{ color: "var(--color-secondary-foreground)" }}
+          />
+        </div>
+        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+          <CoinThreeJS setIsLoaded={setIsLoaded} />
         </Canvas>
       </div>
     </div>
