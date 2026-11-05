@@ -1,14 +1,17 @@
-import "./project.css";
 import AOS from "aos";
 import { useEffect, useRef, useState } from "react";
-import { IoLogoGithub } from "react-icons/io";
 import { useParams } from "react-router-dom";
-import AnimatePage from "../../components/AnimatePage";
-import ProjectVideo from "../../components/shared/ProjectVideo";
-import supabase from "../../config/supabaseClient";
-import { ImageConstants } from "../../constants/image";
-import { OtherConstants } from "../../constants/other";
-import { normTitleHTMLEscape } from "../../lib/utils";
+import AnimatePage from "@/components/AnimatePage";
+import ProjectDescription from "@/components/ProjectDescription";
+import ProjectGallery from "@/components/ProjectGallery";
+import ProjectHeader from "@/components/ProjectHeader";
+import ProjectImageModal from "@/components/ProjectImageModal";
+import ProjectTools from "@/components/ProjectTools";
+import ProjectVideo from "@/components/shared/ProjectVideo";
+import supabase from "@/config/supabaseClient";
+import { ImageConstants } from "@/constants/image";
+import { OtherConstants } from "@/constants/other";
+import { normTitleHTMLEscape } from "@/lib/utils";
 import {
   disableLoading,
   enableLoading,
@@ -23,7 +26,7 @@ import {
   setShortDesc,
   setTools,
   useProjectStore,
-} from "../../store/useProjectStore";
+} from "@/store/useProjectStore";
 import Loading from "../Loading";
 import NotFound from "../NotFound";
 
@@ -146,167 +149,32 @@ function Project() {
 
   return projTitle ? (
     <AnimatePage>
-      <div className="projectContainer flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
-        {/* Header */}
-        <div className="border-b-2 bg-accent-light-beige rounded-lg">
-          <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12 pb-0">
-            <h1 className="font-bold my-8 text-secondary-foreground">
-              {projTitle}
-            </h1>
-            <p className="text-lg lg:text-xl my-8 text-muted-foreground">
-              {shortDesc}
-            </p>
-
-            <div className="flex flex-wrap gap-4 justify-center my-8">
-              {githubLink && (
-                <a
-                  href={githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="projectGitLink inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 bg-secondary-foreground p-4 shadow-md hover:white hover:bg-primary-medium hover:transition-all hover:duration-100"
-                >
-                  <IoLogoGithub className="w-5 h-5" />
-                  <span>View on GitHub</span>
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
+      <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
+        <ProjectHeader
+          title={projTitle}
+          shortDesc={shortDesc}
+          ghLink={githubLink}
+        />
 
         {/* Main Content */}
-        <div className="max-w-6xl mx-auto px-4 py-8 lg:py-12 pt-0">
-          {/* Video Section - Only show if video exists */}
-          {projVid && <div className="mb-16">{ProjectVideo(projVid)}</div>}
-
-          {/* Description */}
-          {longDesc ? (
-            <div className="mb-12">
-              <h2 className="font-bold mb-6 text-secondary-foreground py-0">
-                About This Project
-              </h2>
-              <div className="pt-4 text-left">
-                <p className="text-lg leading-relaxed text-muted-foreground m-0">
-                  {longDesc}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="mb-12">
-              <h2 className="font-bold mb-6 text-secondary-foreground py-4 pt-0">
-                About This Project
-              </h2>
-              <span className="text-lg text-muted-foreground">
-                No long description available.
-              </span>
-            </div>
-          )}
-
-          {/* Tools & Technologies */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-secondary-foreground">
-              Tools & Technologies
-            </h2>
-            <div className="flex flex-wrap justify-center gap-3">
-              {tools.map((tool) => (
-                <span
-                  key={crypto.randomUUID()}
-                  className="text-secondary-foreground inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium bg-accent-very-light-beige border-2 border-accent shadow-sm"
-                >
-                  <span>{tool}</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Image Gallery */}
-          {projImages && (
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-secondary-foreground">
-                Project Gallery
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                {projImages.map((image, index) => (
-                  <button
-                    key={crypto.randomUUID()}
-                    className="rounded-lg overflow-hidden shadow-lg border-2 cursor-pointer transition-transform hover:scale-105 border-accent"
-                    onClick={(e) => {
-                      openImageModal(image, e);
-                      setSelectedImageAtt(imageAtts[index]);
-                    }}
-                    type="button"
-                  >
-                    <img
-                      src={image}
-                      alt={imageAtts[index]}
-                      className="w-full h-64 object-cover"
-                    />
-                    <div className="p-4 bg-border">
-                      <p className="text-sm text-muted-foreground m-0">
-                        {imageAtts[index]}
-                      </p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Image Modal */}
-          {selectedImage && imagePosition && (
-            <>
-              <button
-                className={`fixed inset-0 bg-black z-50 transition-opacity duration-500 ${
-                  isModalOpen ? "opacity-70" : "opacity-0"
-                }`}
-                onClick={closeImageModal}
-                type="button"
-              />
-
-              <button
-                className="fixed z-50 transition-all duration-500 ease-out border-0 bg-transparent p-0 text-left"
-                style={{
-                  top: isModalOpen ? "50%" : `${imagePosition.top}px`,
-                  left: isModalOpen ? "50%" : `${imagePosition.left}px`,
-                  transform: isModalOpen
-                    ? "translate(-50%, -50%)"
-                    : "translate(0, 0)",
-                  width: isModalOpen ? "40vw" : `${imagePosition.width}px`,
-                  height: isModalOpen ? "auto" : `${imagePosition.height}px`,
-                }}
-                onClick={closeImageModal}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    closeImageModal();
-                  }
-                }}
-                type="button"
-                tabIndex={0}
-                aria-label="Close image modal"
-              >
-                <div className="rounded-lg overflow-hidden shadow-2xl h-full max-h-[90vh]">
-                  <img
-                    src={selectedImage}
-                    alt={projTitle}
-                    className={`w-full object-cover transition-all duration-500 ${
-                      isModalOpen
-                        ? "h-auto max-h-[80vh] object-contain"
-                        : "h-full"
-                    }`}
-                  />
-                  <div
-                    className={`p-6 bg-border transition-opacity duration-500 ${
-                      isModalOpen ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    <p className="text-base text-muted-foreground m-0">
-                      {selectedImageAtt}
-                    </p>
-                  </div>
-                </div>
-              </button>
-            </>
-          )}
+        <div className="max-w-6xl mx-auto px-4 py-8 pt-0">
+          <ProjectVideo video={projVid} />
+          <ProjectDescription desc={longDesc} />
+          <ProjectTools tools={tools} />
+          <ProjectGallery
+            images={projImages}
+            imageAtts={imageAtts}
+            openImage={openImageModal}
+            setImageAtt={setSelectedImageAtt}
+          />
+          <ProjectImageModal
+            title={projTitle}
+            image={selectedImage}
+            imageAtt={selectedImageAtt}
+            imagePos={imagePosition}
+            isOpen={isModalOpen}
+            closeImage={closeImageModal}
+          />
         </div>
       </div>
     </AnimatePage>

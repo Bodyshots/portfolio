@@ -5,15 +5,15 @@ import AnimatePage from "@/components/AnimatePage";
 import "aos/dist/aos.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HomeCoin from "@/components/HomeCoin";
+import HomeAbout from "@/components/HomeAbout";
 import { HomeContact } from "@/components/HomeContact";
 import HomeCube from "@/components/HomeCube";
+import HomeExperience from "@/components/HomeExperience";
 import NameChanger from "@/components/NameChanger";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import SectionHeader from "@/components/SectionHeader";
-import WorkHistory from "@/components/WorkHistory";
+import supabase from "@/config/supabaseClient";
 import { OtherConstants } from "@/constants/other";
-import supabase from "../../config/supabaseClient";
 
 const Home = () => {
   const project_lst = [];
@@ -67,44 +67,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <SectionHeader text="About" />
-        <div id="about">
-          <div id="about_text">
-            <div id="about_texttitle">Welcome to my website!</div>
-            <div id="about_textbody">
-              <div>
-                Hi! I'm Lanz, a full-stack developer that's recently graduated
-                with a Computer Science (CS) and Applied Statistics major (and a
-                minor in Mathematics)!
-                <br />
-                <br />
-                I've previously worked as a Research Assistant, teaching
-                hundreds of 1st and 2nd year students foundational skills to
-                help them on their journey through CS. Currently, I've been
-                working on creating web applications while dabbling a little bit
-                into AI, being eager to make my mark on the industry.
-                <br />
-                <br />
-                <div
-                  style={{
-                    display: "flex",
-                    textAlign: "center",
-                  }}
-                >
-                  Want to connect? Scroll down below to take a look at my
-                  socials. Hope to chat with you soon!
-                </div>
-              </div>
-            </div>
-          </div>
-          <span id="about_coin">
-            <HomeCoin />
-          </span>
-        </div>
-        <SectionHeader text="Experience" />
-        <div id="experience">
-          <WorkHistory />
-        </div>
+        <HomeAbout />
+        <HomeExperience />
         <SectionHeader text="Major Projects" />
         <div id="projects">
           {ProjectCarousel(project_lst)}

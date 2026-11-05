@@ -116,7 +116,7 @@ const HomeCoin = () => {
   return (
     <div
       data-aos="fade-left"
-      className="flex justify-center align-center flex-col nowrap h-full"
+      className="flex h-full flex-col flex-nowrap items-center justify-center mx-25"
     >
       <div className="relative h-100 w-100 max-[991px]:h-82 max-[991px]:w-82">
         <div

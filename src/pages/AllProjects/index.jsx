@@ -1,12 +1,11 @@
-import "./allprojects.css";
 import AOS from "aos";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AnimatePage from "../../components/AnimatePage";
-import ProjectCard from "../../components/ProjectCard";
-import supabase from "../../config/supabaseClient";
-import { OtherConstants } from "../../constants/other";
-import { normTitleHTMLEscape } from "../../lib/utils";
+import AnimatePage from "@/components/AnimatePage";
+import ProjectCard from "@/components/ProjectCard";
+import supabase from "@/config/supabaseClient";
+import { OtherConstants } from "@/constants/other";
+import { normTitleHTMLEscape } from "@/lib/utils";
 
 const AllProjects = () => {
   const navigate = useNavigate();
@@ -52,7 +51,7 @@ const AllProjects = () => {
 
   return (
     <AnimatePage>
-      <div id="all_projects_page">
+      <div className="grid grid-cols-2 w-[90%] mx-auto mb-[1em] min-h-dvh justify-center text-center items-center pt-[4em]">
         {project_lst
           .sort((a, b) => a.priority - b.priority)
           .map((project) => ProjectCard(project, open))}
