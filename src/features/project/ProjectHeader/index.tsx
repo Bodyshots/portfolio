@@ -8,7 +8,7 @@ interface ProjectHeaderProps {
 
 const ProjectHeader = ({ title, shortDesc, ghLink }: ProjectHeaderProps) => {
   return (
-    <div className="border-b-2 bg-accent-light-beige rounded-lg">
+    <div className="bg-accent-light-beige">
       <div className="max-w-6xl mx-auto px-4 py-8 pb-0 pt-4">
         <h1 className="my-8 text-secondary-foreground text-5xl">{title}</h1>
         <p className="text-lg lg:text-xl my-8 text-muted-foreground font-light">
