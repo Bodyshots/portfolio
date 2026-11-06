@@ -1,10 +1,10 @@
 import AOS from "aos";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AnimatePage from "@/components/AnimatePage";
-import ProjectCard from "@/components/ProjectCard";
 import supabase from "@/config/supabaseClient";
 import { OtherConstants } from "@/constants/other";
+import AnimatePage from "@/features/global/AnimatePage";
+import ProjectCard from "@/features/project/ProjectCard";
 import { normTitleHTMLEscape } from "@/lib/utils";
 
 const AllProjects = () => {

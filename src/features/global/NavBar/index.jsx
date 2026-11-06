@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { NavItems } from "../../constants/navbar";
-import { cn } from "../../lib/utils";
+import { NavItems } from "@/constants/navbar";
+import { cn } from "@/lib/utils";
 import {
   setNavOpaque,
   setNavTransparent,
   useUserStore,
-} from "../../store/useUserStore";
+} from "@/store/useUserStore";
 import ScrollIndicator from "../ScrollIndicator";
 
 const NavItem = ({ path, label, className, onClick, hoverBg = true }) => {

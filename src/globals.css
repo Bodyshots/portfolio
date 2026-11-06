@@ -155,12 +155,12 @@
 /* Custom font */
 @font-face {
   font-family: PixelFont;
-  src: url("../fonts/Dico.ttf") format("truetype");
+  src: url("@/fonts/Dico.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Bahnschrift;
-  src: url("../fonts/BAHNSCHRIFT.TTF") format("truetype");
+  src: url("@/fonts/BAHNSCHRIFT.TTF") format("truetype");
 }
 
 html {

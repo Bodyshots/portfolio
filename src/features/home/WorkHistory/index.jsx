@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
-import supabase from "../../config/supabaseClient";
+import supabase from "@/config/supabaseClient";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 

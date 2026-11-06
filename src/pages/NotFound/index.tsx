@@ -1,4 +1,4 @@
-import AnimatePage from "../../components/AnimatePage";
+import AnimatePage from "@/features/global/AnimatePage";
 
 function NotFound() {
   return (

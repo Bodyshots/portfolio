@@ -1,19 +1,19 @@
 import "./home.css";
 import AOS from "aos";
 import { useEffect } from "react";
-import AnimatePage from "@/components/AnimatePage";
+import AnimatePage from "@/features/global/AnimatePage";
 import "aos/dist/aos.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HomeAbout from "@/components/HomeAbout";
-import { HomeContact } from "@/components/HomeContact";
-import HomeCube from "@/components/HomeCube";
-import HomeExperience from "@/components/HomeExperience";
-import NameChanger from "@/components/NameChanger";
-import ProjectCarousel from "@/components/ProjectCarousel";
-import SectionHeader from "@/components/SectionHeader";
 import supabase from "@/config/supabaseClient";
 import { OtherConstants } from "@/constants/other";
+import HomeAbout from "@/features/home/HomeAbout";
+import { HomeContact } from "@/features/home/HomeContact";
+import HomeCube from "@/features/home/HomeCube";
+import HomeExperience from "@/features/home/HomeExperience";
+import NameChanger from "@/features/home/NameChanger";
+import SectionHeader from "@/features/home/SectionHeader";
+import ProjectCarousel from "@/features/project/ProjectCarousel";
 
 const Home = () => {
   const project_lst = [];

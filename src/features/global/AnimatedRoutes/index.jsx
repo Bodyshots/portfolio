@@ -1,9 +1,9 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
-import AllProjects from "../../pages/AllProjects";
-import Home from "../../pages/Home";
-import NotFound from "../../pages/NotFound";
-import Project from "../../pages/Project";
+import AllProjects from "@/pages/AllProjects";
+import Home from "@/pages/Home";
+import NotFound from "@/pages/NotFound";
+import Project from "@/pages/Project";
 
 // Idea of separating AnimatedRoutes from App.js from:
 // https://www.youtube.com/watch?v=FdrEjwymzdY

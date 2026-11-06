@@ -1,16 +1,16 @@
 import AOS from "aos";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import AnimatePage from "@/components/AnimatePage";
-import ProjectDescription from "@/components/ProjectDescription";
-import ProjectGallery from "@/components/ProjectGallery";
-import ProjectHeader from "@/components/ProjectHeader";
-import ProjectImageModal from "@/components/ProjectImageModal";
-import ProjectTools from "@/components/ProjectTools";
-import ProjectVideo from "@/components/shared/ProjectVideo";
 import supabase from "@/config/supabaseClient";
 import { ImageConstants } from "@/constants/image";
 import { OtherConstants } from "@/constants/other";
+import AnimatePage from "@/features/global/AnimatePage";
+import ProjectDescription from "@/features/project/ProjectDescription";
+import ProjectGallery from "@/features/project/ProjectGallery";
+import ProjectHeader from "@/features/project/ProjectHeader";
+import ProjectImageModal from "@/features/project/ProjectImageModal";
+import ProjectTools from "@/features/project/ProjectTools";
+import ProjectVideo from "@/features/project/ProjectVideo";
 import { normTitleHTMLEscape } from "@/lib/utils";
 import {
   disableLoading,

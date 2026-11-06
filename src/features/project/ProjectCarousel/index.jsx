@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import { normTitleHTMLEscape } from "../../lib/utils";
+import { normTitleHTMLEscape } from "@/lib/utils";
 import ProjectCard from "../ProjectCard";
 
 import "./projectcarousel.css";

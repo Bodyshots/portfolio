@@ -1,4 +1,4 @@
-import SectionHeader from "../SectionHeader";
+import SectionHeader from "@/features/home/SectionHeader";
 import { ContactLinks } from "./ContactLinks";
 
 export const HomeContact = () => {

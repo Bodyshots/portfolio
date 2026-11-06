@@ -1,5 +1,5 @@
-import SectionHeader from "../SectionHeader";
-import WorkHistory from "../WorkHistory";
+import SectionHeader from "@/features/home/SectionHeader";
+import WorkHistory from "@/features/home/WorkHistory";
 
 const HomeExperience = () => {
   return (
