@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+// @ts-expect-error react-slick does not provide declarations in this project
 import Slider from "react-slick";
 import { normTitleHTMLEscape } from "@/lib/utils";
 import ProjectCard from "../ProjectCard";
@@ -6,26 +7,31 @@ import ProjectCard from "../ProjectCard";
 import "./projectcarousel.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import type { Project } from "@/types";
 
 // Most carousel code from: https://www.youtube.com/watch?v=FLt2TveqHQM
 // and https://react-slick.neostack.com/docs/example/custom-arrows
 
-function ProjectCarousel(project_lst) {
+interface ProjectCarouselProps {
+  projects: Project[];
+}
+
+const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
   const navigate = useNavigate();
 
-  const open = (name) => {
+  const open = (name: string) => {
+    const project = projects.find((p) => p.name === name);
+    if (!project) return;
+
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(
-      `/project/${normTitleHTMLEscape(project_lst.find((p) => p.name === name).name)}`,
-    );
+    navigate(`/project/${normTitleHTMLEscape(project.name)}`);
   };
 
-  const major_projects = project_lst
-    .map((item) => {
-      return item.major ? item : null;
-    })
-    .filter((item) => item)
-    .sort((a, b) => a.priority - b.priority);
+  const major_projects = projects
+    ? projects
+        .filter((item): item is Project => item.major)
+        .sort((a, b) => a.priority - b.priority)
+    : [];
 
   const settings = {
     infinite: true,
@@ -45,20 +51,20 @@ function ProjectCarousel(project_lst) {
   return (
     <>
       {major_projects && major_projects.length > 0 ? (
-        <div className="projectcarousel">
+        <div className="mx-auto my-6 w-4/5">
           <Slider {...settings}>
             {major_projects.map((item) => (
-              <div key={crypto.randomUUID()}>
-                {item && ProjectCard(item, open)}
-              </div>
+              <ProjectCard key={item.id} item={item} open={open} />
             ))}
           </Slider>
         </div>
       ) : (
-        <div id="none_projectcarousel">Hmmm... There are no projects here!</div>
+        <div className="text-center text-foreground justify-content align-items text-4xl my-30 mx-auto w-full h-full">
+          Hmmm... There are no projects here!
+        </div>
       )}
     </>
   );
-}
+};
 
 export default ProjectCarousel;

@@ -38,7 +38,7 @@ const BulletPointSection = ({
           ))}
         </ul>
       ) : (
-        <span>{missingText}</span>
+        <span className="text-foreground">{missingText}</span>
       )}
     </div>
   );

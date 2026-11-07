@@ -1,15 +1,45 @@
 import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { Edges } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import {
+  type Dispatch,
+  type PointerEvent as ReactPointerEvent,
+  type RefObject,
+  type SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { RingLoader } from "react-spinners";
 import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
-const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
-  const dragGroupRef = useRef();
-  const dragRef = useRef(null);
+interface CubeDrag {
+  pointerId: number;
+  x: number;
+  y: number;
+  time: number;
+  lastAppliedTime: number;
+  deltaX: number;
+  deltaY: number;
+  started: boolean;
+}
+
+interface CubeThreeJSProps {
+  cubeRef: RefObject<THREE.Mesh | null>;
+  dragRef: RefObject<CubeDrag | null>;
+  handleFaceChange: (face: string | null) => void;
+  setIsLoaded: Dispatch<SetStateAction<boolean>>;
+}
+
+const CubeThreeJS = ({
+  cubeRef,
+  dragRef,
+  handleFaceChange,
+  setIsLoaded,
+}: CubeThreeJSProps) => {
+  const dragGroupRef = useRef<THREE.Group | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   let maxDot = -Infinity;
 
@@ -26,7 +56,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
   const cubeLights = CubeConstants.LIGHT;
 
   // Faces
-  let closestFace = null;
+  let closestFace: string | null = null;
   const faces = CubeConstants.FACES;
   const loadedTextures = useTextures(faces.map((face) => face.image));
 
@@ -53,7 +83,11 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
     dragVelocity.current.y = cubeVelocity.INITIAL.Y;
   };
 
-  const updateDragVelocity = (deltaX, deltaY, elapsedTime) => {
+  const updateDragVelocity = (
+    deltaX: number,
+    deltaY: number,
+    elapsedTime: number,
+  ) => {
     dragVelocity.current.x = THREE.MathUtils.lerp(
       dragVelocity.current.x,
       (deltaX * dragSensitivity) / elapsedTime,
@@ -66,17 +100,21 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
     );
   };
 
-  const applyDamping = (delta) => {
+  const applyDamping = (delta: number) => {
     const damping = Math.exp(cubeVelocity.DAMPING * delta);
     dragVelocity.current.x *= damping;
     dragVelocity.current.y *= damping;
   };
 
-  const getIdleRotation = (elapsedTime, speed) =>
+  const getIdleRotation = (elapsedTime: number, speed: number) =>
     Math.sin(elapsedTime * speed) * rotationAmplitude;
 
-  const updateRotation = (horizontalRotation, verticalRotation) => {
+  const updateRotation = (
+    horizontalRotation: number,
+    verticalRotation: number,
+  ) => {
     const group = dragGroupRef.current;
+    if (!group) return;
 
     const horizontalQuaternion = new THREE.Quaternion().setFromAxisAngle(
       new THREE.Vector3(0, 1, 0),
@@ -117,7 +155,28 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
     const cube = cubeRef.current;
     if (!cube) return;
 
-    if (!dragRef.current && dragGroupRef.current) {
+    const drag = dragRef.current;
+    if (drag) {
+      if (drag.started) {
+        resetVelocity();
+        drag.started = false;
+      }
+
+      if (drag.deltaX !== 0 || drag.deltaY !== 0) {
+        const elapsedTime = Math.max(
+          (drag.time - drag.lastAppliedTime) / 1000,
+          0.001,
+        );
+        updateRotation(
+          drag.deltaX * dragSensitivity,
+          drag.deltaY * dragSensitivity,
+        );
+        updateDragVelocity(drag.deltaX, drag.deltaY, elapsedTime);
+        drag.deltaX = 0;
+        drag.deltaY = 0;
+        drag.lastAppliedTime = drag.time;
+      }
+    } else if (dragGroupRef.current) {
       if (prefersReducedMotion) resetVelocity();
       else {
         updateRotation(
@@ -133,7 +192,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
         ["x", baseRotations.X, cubeRotation.SPEED.X],
         ["y", baseRotations.Y, cubeRotation.SPEED.Y],
         ["z", baseRotations.Z, cubeRotation.SPEED.Z],
-      ]) {
+      ] as const) {
         cube.rotation[axis] = base + getIdleRotation(clock.elapsedTime, speed);
       }
     }
@@ -151,51 +210,7 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
         intensity={CubeConstants.LIGHT.INTENSITY}
         color={lightColor}
       />
-      <group
-        ref={dragGroupRef}
-        onPointerDown={(event) => {
-          if (event.button !== 0) return;
-          event.stopPropagation();
-          event.target.setPointerCapture(event.pointerId);
-          resetVelocity();
-          dragRef.current = {
-            pointerId: event.pointerId,
-            x: event.clientX,
-            y: event.clientY,
-            time: event.nativeEvent.timeStamp,
-          };
-        }}
-        // Handles cube dragging
-        // Calcs change in pos (deltaX and deltaY) based on curr ptr pos and the last recorded pos
-        // Also calcs elapsed time since last movement to det drag velocity
-        // Cube's rotation updated based on this drag velocity, and drag ref is updated w/ the new ptr pos and time
-        onPointerMove={(event) => {
-          const drag = dragRef.current;
-          if (
-            !drag ||
-            drag.pointerId !== event.pointerId ||
-            !dragGroupRef.current
-          )
-            return;
-
-          const deltaX = event.clientX - drag.x;
-          const deltaY = event.clientY - drag.y;
-          const currentTime = event.nativeEvent.timeStamp;
-          const elapsedTime = Math.max((currentTime - drag.time) / 1000, 0.001);
-
-          updateRotation(deltaX * dragSensitivity, deltaY * dragSensitivity);
-          updateDragVelocity(deltaX, deltaY, elapsedTime);
-          drag.x = event.clientX;
-          drag.y = event.clientY;
-          drag.time = currentTime;
-        }}
-        onPointerUp={(event) => {
-          if (dragRef.current?.pointerId !== event.pointerId) return;
-          event.target.releasePointerCapture(event.pointerId);
-          dragRef.current = null;
-        }}
-        onPointerCancel={() => (dragRef.current = null)}
-      >
+      <group ref={dragGroupRef}>
         <mesh
           ref={cubeRef}
           rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
@@ -222,23 +237,61 @@ const CubeThreeJS = ({ cubeRef, handleFaceChange, setIsLoaded }) => {
 };
 
 const HomeCube = () => {
-  const cubeRef = useRef();
-  const [faceVisible, setFaceVisible] = useState(null);
+  const cubeRef = useRef<THREE.Mesh | null>(null);
+  const dragRef = useRef<CubeDrag | null>(null);
+  const [faceVisible, setFaceVisible] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const handleFaceChange = (face) => {
-    if (face !== faceVisible && face !== null) {
-      setFaceVisible(face);
-    }
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || !event.isPrimary) return;
+
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      time: event.timeStamp,
+      lastAppliedTime: event.timeStamp,
+      deltaX: 0,
+      deltaY: 0,
+      started: true,
+    };
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    drag.deltaX += event.clientX - drag.x;
+    drag.deltaY += event.clientY - drag.y;
+    drag.x = event.clientX;
+    drag.y = event.clientY;
+    drag.time = event.timeStamp;
+  };
+
+  const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+  };
+
+  const handleFaceChange = (face: string | null) => {
+    if (face !== faceVisible && face !== null) setFaceVisible(face);
   };
 
   return (
     <div className="flex justify-center items-center flex-col flex-nowrap">
-      <div className="relative size-[5.5em]">
+      <div
+        className="relative size-[5.5em] touch-none cursor-grab active:cursor-grabbing"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+      >
         <div
           aria-hidden={isLoaded}
           className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
-            isLoaded ? "pointer-events-none opacity-0" : "opacity-100"
+            isLoaded ? "opacity-0" : "opacity-100"
           }`}
         >
           <RingLoader
@@ -246,15 +299,16 @@ const HomeCube = () => {
             cssOverride={{ color: "var(--color-secondary-foreground)" }}
           />
         </div>
-        <Canvas className="touch-none transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="touch-none overflow-visible transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS
             cubeRef={cubeRef}
+            dragRef={dragRef}
             handleFaceChange={handleFaceChange}
             setIsLoaded={setIsLoaded}
           />
         </Canvas>
       </div>
-      <div className="mt-[-0.2em] flex flex-col text-[50px] text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
+      <div className="-mt-1 flex flex-col text-[50px] text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
         {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
       </div>
     </div>

@@ -9,9 +9,13 @@ import * as THREE from "three";
 import { CoinConstants } from "@/constants/coin";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
-const CoinThreeJS = ({ setIsLoaded }) => {
-  const spinRef = useRef();
-  const coinRef = useRef();
+interface CoinThreeJSProps {
+  setIsLoaded: (value: boolean) => void;
+}
+
+const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
+  const spinRef = useRef<THREE.Group | null>(null);
+  const coinRef = useRef<THREE.Mesh | null>(null);
   const isInteracting = useRef(false);
   const idlePhase = useRef(0);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -75,12 +79,13 @@ const CoinThreeJS = ({ setIsLoaded }) => {
       <OrbitControls
         enableZoom={false}
         enablePan={false}
+        target={[0, 0, 0]}
         minPolarAngle={polarAngles.MIN}
         maxPolarAngle={polarAngles.MAX}
         onStart={() => (isInteracting.current = true)}
         onEnd={() => (isInteracting.current = false)}
       />
-      <group ref={spinRef}>
+      <group ref={spinRef} position={[0, 0, 0]}>
         <mesh
           ref={coinRef}
           rotation={[
@@ -116,9 +121,9 @@ const HomeCoin = () => {
   return (
     <div
       data-aos="fade-left"
-      className="flex h-full flex-col flex-nowrap items-center justify-center mx-25"
+      className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2"
     >
-      <div className="relative h-100 w-100 max-[991px]:h-82 max-[991px]:w-82">
+      <div className="relative flex h-100 w-100 items-center justify-center max-lg:h-82 max-lg:w-82">
         <div
           aria-hidden={isLoaded}
           className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
@@ -130,7 +135,7 @@ const HomeCoin = () => {
             cssOverride={{ color: "var(--color-secondary-foreground)" }}
           />
         </div>
-        <Canvas className="transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="h-full w-full overflow-visible transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CoinThreeJS setIsLoaded={setIsLoaded} />
         </Canvas>
       </div>

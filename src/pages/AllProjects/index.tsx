@@ -6,18 +6,18 @@ import { OtherConstants } from "@/constants/other";
 import AnimatePage from "@/features/global/AnimatePage";
 import ProjectCard from "@/features/project/ProjectCard";
 import { normTitleHTMLEscape } from "@/lib/utils";
+import type { Project } from "@/types";
 
 const AllProjects = () => {
   const navigate = useNavigate();
+  const [projects, setProjects] = useState<Project[]>([]);
 
-  const project_lst = [];
-  const [projects, setProjects] = useState(null);
+  const open = (name: string) => {
+    const project = projects.find((p) => p.name === name);
+    if (!project) return;
 
-  const open = (name) => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(
-      `/project/${normTitleHTMLEscape(project_lst.find((p) => p.name === name).name)}`,
-    );
+    navigate(`/project/${normTitleHTMLEscape(project.name)}`);
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const AllProjects = () => {
         .select();
 
       if (error) {
-        setProjects(null);
+        setProjects([]);
         console.error(error);
       }
 
@@ -45,16 +45,14 @@ const AllProjects = () => {
     document.title = "Lanz Angeles | All Projects";
   }, []);
 
-  for (const key in projects) {
-    project_lst.push(projects[key]);
-  }
+  const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
 
   return (
     <AnimatePage>
-      <div className="grid grid-cols-2 w-[90%] mx-auto mb-[1em] min-h-dvh justify-center text-center items-center pt-[4em]">
-        {project_lst
-          .sort((a, b) => a.priority - b.priority)
-          .map((project) => ProjectCard(project, open))}
+      <div className="grid grid-cols-2 w-9/10 mx-auto mb-4 min-h-dvh justify-center text-center items-center pt-16">
+        {sortedProjects.map((project) => (
+          <ProjectCard key={project.id} item={project} open={open} />
+        ))}
       </div>
     </AnimatePage>
   );

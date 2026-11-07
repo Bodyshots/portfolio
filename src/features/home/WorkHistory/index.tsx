@@ -1,13 +1,14 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import supabase from "@/config/supabaseClient";
+import type { WorkItem } from "@/types";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 
 export default function WorkHistory() {
   const [isActive, setIsActive] = useState(-1);
   const [modalOpen, setModalOpen] = useState(false);
-  const [experience, setExperience] = useState(null);
+  const [experience, setExperience] = useState<WorkItem[] | null>(null);
 
   useEffect(() => {
     const fetchExperience = async () => {
@@ -27,7 +28,7 @@ export default function WorkHistory() {
     fetchExperience();
   }, []);
 
-  const open = (id) => {
+  const open = (id: number) => {
     setIsActive(id);
     setModalOpen(true);
   };
@@ -42,7 +43,7 @@ export default function WorkHistory() {
   );
 
   return experience_lst && experience_lst.length > 0 ? (
-    <div className="bg-primary p-12 font-[PixelFont]">
+    <div className="bg-primary p-12">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-16 text-center text-5xl text-foreground">
           From present to oldest (2023)
@@ -63,19 +64,17 @@ export default function WorkHistory() {
       </div>
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {modalOpen && (
-          <div className="modal_container">
-            <WorkHistoryModal
-              selectedJob={experience_lst[isActive - 1]}
-              modalOpen={modalOpen}
-              open={open}
-              close={close}
-            />
-          </div>
+          <WorkHistoryModal
+            selectedJob={experience_lst[isActive - 1]}
+            modalOpen={modalOpen}
+            open={open}
+            close={close}
+          />
         )}
       </AnimatePresence>
     </div>
   ) : (
-    <div className="my-[3em] h-full w-full text-center font-[PixelFont] text-[40px] text-foreground">
+    <div className="my-[3em] h-full w-full text-center  text-[40px] text-foreground">
       Hmmm... There's nothing here!
     </div>
   );

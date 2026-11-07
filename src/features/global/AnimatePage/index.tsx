@@ -1,6 +1,7 @@
 // Code from https://www.youtube.com/watch?v=pTinipkJBcs
 
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 const animations = {
   // Animation process:
@@ -15,7 +16,7 @@ const animations = {
   exit: { opacity: 0, x: -100 },
 };
 
-const AnimatePage = ({ children }) => {
+const AnimatePage = ({ children }: { children: ReactNode }) => {
   return (
     <motion.div
       variants={animations}

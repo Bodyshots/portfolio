@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { type ChangeEvent, useRef } from "react";
 import { Link } from "react-router-dom";
 import { NavItems } from "@/constants/navbar";
 import { cn } from "@/lib/utils";
@@ -9,12 +9,26 @@ import {
 } from "@/store/useUserStore";
 import ScrollIndicator from "../ScrollIndicator";
 
-const NavItem = ({ path, label, className, onClick, hoverBg = true }) => {
+interface NavItemProps {
+  path: string;
+  label: string;
+  hoverBg?: boolean;
+  className?: string;
+  onClick?: () => void;
+}
+
+const NavItem = ({
+  path,
+  label,
+  className,
+  onClick,
+  hoverBg = true,
+}: NavItemProps) => {
   return (
     <Link
       to={path}
       className={cn(
-        "font-[PixelFont] no-underline text-accent hover:text-white transition-all text-[1rem] w-auto",
+        "no-underline text-accent hover:text-white transition-all text-lg w-auto",
         hoverBg && "hover:bg-black/5",
         className,
       )}
@@ -33,7 +47,7 @@ function NavBar() {
     else setNavTransparent();
   };
 
-  const handleMenuToggle = (event) => {
+  const handleMenuToggle = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.checked) {
       navVisibilityBeforeMenu.current = navVisibility;
       setNavOpaque();
@@ -43,7 +57,9 @@ function NavBar() {
   };
 
   const closeMenu = () => {
-    const menuToggle = document.getElementById("navbar-1-toggle");
+    const menuToggle = document.getElementById(
+      "navbar-1-toggle",
+    ) as HTMLInputElement | null;
     if (menuToggle?.checked) {
       menuToggle.checked = false;
       restoreNavVisibility();
@@ -91,7 +107,7 @@ function NavBar() {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="lucide lucide-menu preview-icon"
+            className="lucide lucide-menu preview-icon"
           >
             <path d="M4 5h16" />
             <path d="M4 12h16" />
@@ -124,7 +140,6 @@ function NavBar() {
           {NavItems.map(({ path, label, onClick }) => (
             <li key={label}>
               {" "}
-              {/* Mobile (collapsed) Dropdown */}
               <NavItem
                 path={path}
                 label={label}

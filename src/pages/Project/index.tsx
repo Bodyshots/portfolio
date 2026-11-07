@@ -46,11 +46,21 @@ function Project() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedImageAtt, setSelectedImageAtt] = useState("");
-  const [imagePosition, setImagePosition] = useState(null);
-  const [resolvedProjName, setResolvedProjName] = useState(null);
-  const clickedImageRef = useRef(null);
+  const [imagePosition, setImagePosition] = useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const [resolvedProjName, setResolvedProjName] = useState<
+    string | undefined | null
+  >(null);
+  const clickedImageRef = useRef<HTMLImageElement | null>(null);
 
-  const openImageModal = (image, event) => {
+  const openImageModal = (
+    image: string,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     const imageElement = event.currentTarget.querySelector("img");
     if (!imageElement) return;
 
@@ -87,7 +97,7 @@ function Project() {
 
     setIsModalOpen(false);
     setTimeout(() => {
-      setSelectedImage(null);
+      setSelectedImage("");
       setImagePosition(null);
       clickedImageRef.current = null;
     }, ImageConstants.DEFAULT_TIMEOUT);
@@ -156,7 +166,6 @@ function Project() {
           ghLink={githubLink}
         />
 
-        {/* Main Content */}
         <div className="max-w-6xl mx-auto px-4 py-8 pt-0">
           <ProjectVideo video={projVid} />
           <ProjectDescription desc={longDesc} />

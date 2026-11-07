@@ -13,10 +13,10 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route exact path="" element={<Home />} />
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/allprojects" element={<AllProjects />} />
+        <Route path="" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/allprojects" element={<AllProjects />} />
         <Route path="/project/:projName" element={<Project />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

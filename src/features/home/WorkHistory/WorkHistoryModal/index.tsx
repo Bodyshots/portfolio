@@ -1,11 +1,24 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { WorkHistoryConstants } from "@/constants/workhistory";
+import type { WorkItem } from "@/types";
 import WorkContent from "./WorkContent";
 import WorkHeader from "./WorkHeader";
 
-export function WorkHistoryModal({ selectedJob, modalOpen, open, close }) {
+interface WorkHistoryModalProps {
+  selectedJob: WorkItem;
+  modalOpen: boolean;
+  open: (id: number) => void;
+  close: () => void;
+}
+
+export function WorkHistoryModal({
+  selectedJob,
+  modalOpen,
+  open,
+  close,
+}: WorkHistoryModalProps) {
   const backdropAnim = WorkHistoryConstants.ANIMATION.BACKDROP;
-  const dropInAnim = WorkHistoryConstants.ANIMATION.DROP_IN;
+  const dropInAnim = WorkHistoryConstants.ANIMATION.DROP_IN as Variants;
 
   return (
     <motion.div

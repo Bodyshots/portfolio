@@ -17,3 +17,9 @@ export function htmlEscape(text: string) {
 export function normTitleHTMLEscape(text: string) {
   return htmlEscape(text.toLowerCase().replace(/\s+/g, "-"));
 }
+
+export function displayDescription(text: string, limit: number = 0) {
+  return limit || text.length <= limit
+    ? text
+    : `${text.substring(0, limit)}...`;
+}

@@ -7,7 +7,7 @@ interface ProjectImageModalProps {
     left: number;
     width: number;
     height: number;
-  };
+  } | null;
   isOpen: boolean;
   closeImage: () => void;
 }
