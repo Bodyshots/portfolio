@@ -10,30 +10,36 @@ interface ProjectCardProps {
   open: (name: string) => void;
 }
 
+const CardTool = ({ tool }: { tool: string }) => {
+  return (
+    <div
+      className="mb-2 rounded-full border border-primary bg-secondary px-3 py-1 text-sm text-foreground shadow-[1px_1px_1px_color-mix(in_srgb,var(--color-foreground)_12%,transparent)] transition-all duration-150 group-hover:border-foreground group-hover:bg-foreground group-hover:text-primary"
+      key={tool}
+    >
+      {tool}
+    </div>
+  );
+};
+
+const CardTools = ({ tools }: { tools: string[] | null }) => {
+  const cardTools = ProjectConstants.CARD.TOOLS;
+
+  return (
+    <div className="flex flex-row mt-2 mb-2 mx-5 flex-wrap gap-2">
+      {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
+        <CardTool key={tool} tool={tool} />
+      ))}
+    </div>
+  );
+};
+
 function ProjectCard({ item, open }: ProjectCardProps) {
   const cardConstants = ProjectConstants.CARD;
-  const cardTools = cardConstants.TOOLS;
   const SHORT_DESC = item.short_desc ?? "No short description available";
   const SHORT_DESC_LIMIT = cardConstants.SHORT_DESC_LIMIT;
 
   const NAME = item.name;
   const COVER_URL = item.cover_img;
-  const TOOLS = item.tools;
-
-  const card_tools = () => {
-    return (
-      <div className="mt-2 mb-2 flex flex-wrap gap-2">
-        {(TOOLS ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
-          <div
-            className="mb-2 rounded-full border border-primary bg-secondary px-3 py-1 text-sm text-foreground shadow-[1px_1px_1px_color-mix(in_srgb,var(--color-foreground)_12%,transparent)] transition-all duration-150 group-hover:border-foreground group-hover:bg-foreground group-hover:text-primary"
-            key={tool}
-          >
-            {tool}
-          </div>
-        ))}
-      </div>
-    );
-  };
 
   return (
     <button
@@ -53,16 +59,14 @@ function ProjectCard({ item, open }: ProjectCardProps) {
         ) : (
           <MdOutlineImageNotSupported className="flex h-56.25 w-full items-center justify-center rounded-t-3xl bg-secondary text-4xl text-muted max-md:h-40" />
         )}
-        <div className="bg-none px-5 pt-4 pb-1">
-          <p className="m-0 text-xl font-extralight leading-[1.2] tracking-[0.01em] text-left text-foreground max-md:text-md">
-            {NAME}
-          </p>
-        </div>
+        <p className="bg-none px-5 pt-4 pb-1 m-0 text-xl font-extralight leading-[1.2] tracking-[0.01em] text-left text-foreground max-md:text-md">
+          {NAME}
+        </p>
         <p className="mx-5 my-2 min-h-10 text-left text-base leading-[1.4] text-accent max-md:text-md">
           {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
         </p>
       </div>
-      <span className="ml-5 flex flex-col">{card_tools()}</span>
+      <CardTools tools={item.tools} />
     </button>
   );
 }
