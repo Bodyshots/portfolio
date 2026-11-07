@@ -22,7 +22,7 @@ const ScrollIndicator = () => {
 
   return (
     <div
-      className="h-[3.5px] bg-accent opacity-60 [transition:all_0.5s_ease-in-out,width_0s_ease-in-out]"
+      className="h-1 bg-accent opacity-60 [transition:all_0.5s_ease-in-out,width_0s_ease-in-out]"
       style={{ width: `${scrollTop}%` }}
     />
   );

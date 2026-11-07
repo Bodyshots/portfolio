@@ -1,11 +1,12 @@
+import { HomeSectionID } from "@/constants/home";
 import SectionHeader from "@/features/home/SectionHeader";
 import { ContactLinks } from "./ContactLinks";
 
 export const HomeContact = () => {
   return (
     <>
-      <SectionHeader text="Contact" />
-      <div className="min-h-full w-full border-b-[3px] border-foreground! bg-primary px-4 py-8 text-foreground shadow-[3px_3px_3px_color-mix(in_srgb,var(--color-foreground)_50%,transparent)] sm:px-8">
+      <SectionHeader text="Contact" id={HomeSectionID.CONTACT} />
+      <div className="min-h-full w-full border-b-3 border-foreground! bg-primary px-4 py-8 text-foreground shadow-[3px_3px_3px_color-mix(in_srgb,var(--color-foreground)_50%,transparent)] sm:px-8">
         <div className="flex w-full flex-col items-center justify-evenly  text-center lg:flex-row">
           <div className="flex w-full max-w-96 items-center justify-center lg:w-2/5 lg:max-w-none">
             <iframe

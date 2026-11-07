@@ -308,7 +308,7 @@ const HomeCube = () => {
           />
         </Canvas>
       </div>
-      <div className="-mt-1 flex flex-col text-[50px] text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
+      <div className="-mt-1 flex flex-col text-5xl text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
         {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
       </div>
     </div>

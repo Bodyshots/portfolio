@@ -70,7 +70,7 @@ function NavBar() {
     <div
       className={cn(
         "max-lg:collapse w-full fixed z-99 rounded-none transition-all duration-300",
-        navVisibility ? "bg-primary/80 backdrop-blur-[3px]" : "bg-transparent",
+        navVisibility ? "bg-primary/80 backdrop-blur-xs" : "bg-transparent",
       )}
     >
       <input

@@ -23,3 +23,7 @@ export function displayDescription(text: string, limit: number = 0) {
     ? text
     : `${text.substring(0, limit)}...`;
 }
+
+export function capitalizeString(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

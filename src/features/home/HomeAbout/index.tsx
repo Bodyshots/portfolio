@@ -1,10 +1,11 @@
+import { HomeSectionID } from "@/constants/home";
 import HomeCoin from "../HomeCoin";
 import SectionHeader from "../SectionHeader";
 
 const HomeAbout = () => {
   return (
     <>
-      <SectionHeader text="About" />
+      <SectionHeader text="About" id={HomeSectionID.ABOUT} />
       <div
         className="flex flex-col justify-between align-center m-auto min-h-full py-4 px-0 lg:flex-row lg:flex-wrap 
       bg-[radial-gradient(circle_at_50%_85%,color-mix(in_srgb,var(--accent)_55%,transparent)_15%,var(--primary)_65%,var(--primary)_65%)]

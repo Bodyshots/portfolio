@@ -18,9 +18,9 @@ function NameChanger() {
 
   return (
     <div className="flex flex-col gap-8">
-      <span className="text_highlight text-[0.4em]">hi, I'm</span>
-      <span className="text_highlight text-9xl">lanz,</span>
-      <span className="text_highlight text-[0.4em]">{ROLES[currIndex]}</span>
+      <span className="text_highlight text-4xl">Hi, I'm</span>
+      <span className="text_highlight text-9xl">Lanz,</span>
+      <span className="text_highlight text-4xl">{ROLES[currIndex]}</span>
     </div>
   );
 }

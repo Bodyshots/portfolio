@@ -1,3 +1,5 @@
+import { HomeSectionID } from "./home";
+
 interface NavItem {
   label: string;
   path: string;
@@ -10,9 +12,9 @@ const NavItems: NavItem[] = [
     path: "/",
     onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
   },
-  { path: "/#projects", label: "Projects" },
-  { path: "/#about", label: "About Me" },
-  { path: "/#contact", label: "Contact" },
+  { path: `/#${HomeSectionID.PROJECTS}`, label: "Projects" },
+  { path: `/#${HomeSectionID.ABOUT}`, label: "About Me" },
+  { path: `/#${HomeSectionID.CONTACT}`, label: "Contact" },
   { path: import.meta.env.VITE_RESUME_URL ?? "", label: "Resume" },
 ];
 

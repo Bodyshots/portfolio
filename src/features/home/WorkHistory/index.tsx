@@ -74,7 +74,7 @@ export default function WorkHistory() {
       </AnimatePresence>
     </div>
   ) : (
-    <div className="my-[3em] h-full w-full text-center  text-[40px] text-foreground">
+    <div className="my-12 h-full w-full text-center text-4xl text-foreground">
       Hmmm... There's nothing here!
     </div>
   );
