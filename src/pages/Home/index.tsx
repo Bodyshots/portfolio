@@ -1,5 +1,6 @@
 import AOS from "aos";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 import AnimatePage from "@/features/global/AnimatePage";
 import "aos/dist/aos.css";
 import { useState } from "react";
@@ -13,11 +14,17 @@ import HomeProjects from "@/features/home/HomeProjects";
 import type { Project } from "@/types";
 
 const Home = () => {
+  const { hash } = useLocation();
   const [projects, setProjects] = useState<Project[]>([]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  useLayoutEffect(() => {
+    if (!hash) return;
 
+    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+    target?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [hash]);
+
+  useEffect(() => {
     const fetchProjects = async () => {
       // Get database from supabase
       const { data, error } = await supabase

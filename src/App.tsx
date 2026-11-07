@@ -1,5 +1,3 @@
-// @ts-expect-error This package does not provide TypeScript declarations.
-import ScrollToHashElement from "@cascadia-code/scroll-to-hash-element";
 import { BrowserRouter as Router } from "react-router-dom";
 import AnimatedRoutes from "@/features/global/AnimatedRoutes";
 import Footer from "./features/global/Footer";
@@ -12,7 +10,6 @@ const App = () => {
   return (
     <>
       <ScrollBreakpoint />
-      <ScrollToHashElement />
       <Router>
         <NavBar />
         <AnimatedRoutes />

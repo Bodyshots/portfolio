@@ -17,7 +17,7 @@
     "@supabase/supabase-js": "^2.119.0",
     "@tabler/icons-react": "^3.50.0",
     "@tailwindcss/vite": "^4.3.5",
-    "@types/three": "^0.186.0",
+    "@types/three": "^0.187.0",
     "aos": "^2.3.4",
     "clsx": "^2.1.1",
     "daisyui": "^5.7.50",
@@ -67,7 +67,6 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "^7.29.7",
-    "@cascadia-code/scroll-to-hash-element": "^2.0.3",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
     "@tailwindcss/postcss": "^4.3.5",
