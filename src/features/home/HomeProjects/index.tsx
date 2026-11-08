@@ -1,12 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { HomeSectionID } from "@/constants/home";
 import ProjectCarousel from "@/features/project/ProjectCarousel";
-import type { Project } from "@/types";
 import SectionHeader from "../SectionHeader";
-
-interface HomeProjectsProps {
-  projects: Project[];
-}
 
 const AllProjectsBtn = () => {
   const navigate = useNavigate();
@@ -24,12 +19,12 @@ const AllProjectsBtn = () => {
   );
 };
 
-const HomeProjects = ({ projects }: HomeProjectsProps) => {
+const HomeProjects = () => {
   return (
     <>
       <SectionHeader text="Major Projects" id={HomeSectionID.PROJECTS} />
       <div className="flex flex-col justify-center align-center bg-[linear-gradient(to_bottom,rgba(141,73,77,0.65)_-95%,transparent)]">
-        <ProjectCarousel projects={projects} />
+        <ProjectCarousel />
         <AllProjectsBtn />
       </div>
     </>

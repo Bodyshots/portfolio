@@ -1,86 +1,56 @@
 import { create } from "zustand";
+import type { Project } from "@/types";
 
 type ProjectState = {
   loading: boolean;
   error: string;
 
-  shortDesc: string;
-  longDesc: string;
-  projVid: string;
-  githubLink: string;
-  projTitle: string;
-  projImages: string[];
-  imageAtts: string[];
-  tools: string[];
+  projects: Project[];
+  selectedProject: Project | null;
+
+  setProjects: (project: Project[]) => void;
+  setSelectedProject: (id: number) => void;
+
+  enableProjectsLoading: () => void;
+  disableProjectsLoading: () => void;
+  setProjectsError: (error: string) => void;
 };
 
 export const useProjectStore = create<ProjectState>(() => ({
   loading: false,
   error: "",
-
-  shortDesc: "",
-  longDesc: "",
-  projVid: "",
-  githubLink: "",
-  projTitle: "",
-  projImages: [],
-  imageAtts: [],
-  tools: [],
+  projects: [],
+  selectedProject: null,
+  enableProjectsLoading,
+  disableProjectsLoading,
+  setProjectsError,
+  setProjects,
+  setSelectedProject,
 }));
 
-export function setShortDesc(shortDesc: string) {
-  useProjectStore.setState({ shortDesc });
-}
-
-export function setLongDesc(longDesc: string) {
-  useProjectStore.setState({ longDesc });
-}
-
-export function setProjVid(projVid: string) {
-  useProjectStore.setState({ projVid });
-}
-
-export function setGithubLink(githubLink: string) {
-  useProjectStore.setState({ githubLink });
-}
-
-export function setProjTitle(projTitle: string) {
-  useProjectStore.setState({ projTitle });
-}
-
-export function setProjImages(projImages: string[]) {
-  useProjectStore.setState({ projImages });
-}
-
-export function setImageAtts(imageAtts: string[]) {
-  useProjectStore.setState({ imageAtts });
-}
-
-export function setTools(tools: string[]) {
-  useProjectStore.setState({ tools });
-}
-
-export function enableLoading() {
+export function enableProjectsLoading() {
   useProjectStore.setState({ loading: true });
 }
 
-export function disableLoading() {
+export function disableProjectsLoading() {
   useProjectStore.setState({ loading: false });
 }
 
-export function setError(error: string) {
+export function setProjectsError(error: string) {
   useProjectStore.setState({ error });
 }
 
-export function resetProject() {
+export function setProjects(projects: Project[]) {
+  useProjectStore.setState({ projects });
+}
+
+export function setSelectedProject(id: number) {
+  const { projects } = useProjectStore.getState();
   useProjectStore.setState({
-    shortDesc: "",
-    longDesc: "",
-    githubLink: "",
-    projTitle: "",
-    projVid: "",
-    projImages: [],
-    imageAtts: [],
-    tools: [],
+    selectedProject: projects.find((project) => project.id === id) ?? null,
   });
+}
+
+export function resetProject() {
+  useProjectStore.setState({ selectedProject: null });
 }

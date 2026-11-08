@@ -1,8 +1,9 @@
-interface ProjectDescriptionProps {
-  desc: string;
-}
+import { useProjectStore } from "@/store/useProjectStore";
 
-const ProjectDescription = ({ desc }: ProjectDescriptionProps) => {
+// TODO: Loading state for description
+const ProjectDescription = () => {
+  const desc = useProjectStore((state) => state.selectedProject)?.long_desc;
+
   return (
     <div className="my-8 mt-2">
       <h2 className="mb-6 text-secondary-foreground py-0 text-3xl">

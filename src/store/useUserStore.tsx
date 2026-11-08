@@ -20,10 +20,10 @@ export function setNavTransparent() {
   useUserStore.setState({ navVisibility: false });
 }
 
-export function enableLoading() {
+export function enableUserLoading() {
   useUserStore.setState({ loading: true });
 }
 
-export function disableLoading() {
+export function disableUserLoading() {
   useUserStore.setState({ loading: false });
 }

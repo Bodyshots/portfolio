@@ -7,24 +7,28 @@ import ProjectCard from "../ProjectCard";
 import "./projectcarousel.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {
+  disableProjectsLoading,
+  enableProjectsLoading,
+  setSelectedProject,
+  useProjectStore,
+} from "@/store/useProjectStore";
 import type { Project } from "@/types";
 
 // Most carousel code from: https://www.youtube.com/watch?v=FLt2TveqHQM
 // and https://react-slick.neostack.com/docs/example/custom-arrows
 
-interface ProjectCarouselProps {
-  projects: Project[];
-}
-
-const ProjectCarousel = ({ projects }: ProjectCarouselProps) => {
+const ProjectCarousel = () => {
   const navigate = useNavigate();
+  const projects = useProjectStore((state) => state.projects);
 
-  const open = (name: string) => {
-    const project = projects.find((p) => p.name === name);
-    if (!project) return;
+  const open = (pid: number, name: string) => {
+    enableProjectsLoading();
+    setSelectedProject(pid);
+    disableProjectsLoading();
 
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(`/project/${normTitleHTMLEscape(project.name)}`);
+    navigate(`/project/${normTitleHTMLEscape(name)}`);
   };
 
   const major_projects = projects

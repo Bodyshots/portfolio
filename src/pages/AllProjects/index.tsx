@@ -6,23 +6,27 @@ import { OtherConstants } from "@/constants/other";
 import AnimatePage from "@/features/global/AnimatePage";
 import ProjectCard from "@/features/project/ProjectCard";
 import { normTitleHTMLEscape } from "@/lib/utils";
+import {
+  disableProjectsLoading,
+  enableProjectsLoading,
+  setSelectedProject,
+} from "@/store/useProjectStore";
 import type { Project } from "@/types";
 
 const AllProjects = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
 
-  const open = (name: string) => {
-    const project = projects.find((p) => p.name === name);
-    if (!project) return;
+  const open = (pid: number, name: string) => {
+    enableProjectsLoading();
+    setSelectedProject(pid);
+    disableProjectsLoading();
 
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(`/project/${normTitleHTMLEscape(project.name)}`);
+    navigate(`/project/${normTitleHTMLEscape(name)}`);
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
     const fetchProjects = async () => {
       // Get database from supabase - Has to be its exact name
       const { data, error } = await supabase
