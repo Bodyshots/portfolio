@@ -120,7 +120,7 @@ const HomeCoin = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <div
-      data-aos="fade-left"
+      data-aos="fade-down"
       className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2"
     >
       <div className="relative flex h-100 w-100 items-center justify-center max-lg:h-82 max-lg:w-82">

@@ -8,7 +8,7 @@ const HomeHero = () => {
         <div className="mb-4 flex h-full flex-row flex-nowrap justify-center overflow-x-hidden max-lg:h-120 max-lg:w-full max-lg:flex-col-reverse max-lg:overflow-visible">
           <span
             className="relative ml-10 flex items-center justify-center max-lg:ml-0 max-lg:w-full"
-            data-aos="fade-down"
+            data-aos="fade-up"
           >
             <HomeCube data-aos="fade-right" />
           </span>

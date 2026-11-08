@@ -5,17 +5,9 @@
   "type": "module",
   "dependencies": {
     "@anatoliygatt/use-prefers-reduced-motion": "^1.0.11",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@fortawesome/fontawesome-free": "^7.3.1",
-    "@fortawesome/fontawesome-svg-core": "^7.3.1",
-    "@fortawesome/free-solid-svg-icons": "^7.3.1",
-    "@fortawesome/react-fontawesome": "^3.5.0",
-    "@mui/material": "^9.5.0",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
     "@supabase/supabase-js": "^2.119.0",
-    "@tabler/icons-react": "^3.50.0",
     "@tailwindcss/vite": "^4.3.5",
     "@types/three": "^0.187.0",
     "aos": "^2.3.4",
@@ -23,7 +15,6 @@
     "daisyui": "^5.7.50",
     "framer-motion": "^14.10.1",
     "lucide-react": "^1.70.0",
-    "net": "^1.0.2",
     "react": "^19.3.1",
     "react-cool-onclickoutside": "^1.7.0",
     "react-dom": "^19.3.1",
@@ -37,15 +28,15 @@
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^3.7.0",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.186.1",
+    "three": "^0.187.0",
     "zustand": "^5.1.0"
   },
   "scripts": {
     "prepare": "husky",
     "lint-format": "biome check --write",
     "dev": "vite",
-    "start": "vite",
-    "build": "tsx && vite build"
+    "build": "vite build",
+    "prod": "exec vite preview"
   },
   "eslintConfig": {
     "extends": [

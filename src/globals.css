@@ -114,11 +114,6 @@
   src: url("@/fonts/Dico.ttf") format("truetype");
 }
 
-@font-face {
-  font-family: Bahnschrift;
-  src: url("@/fonts/BAHNSCHRIFT.TTF") format("truetype");
-}
-
 html {
   height: 100%;
   width: 100%;
