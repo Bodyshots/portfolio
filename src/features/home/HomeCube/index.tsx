@@ -282,7 +282,7 @@ const HomeCube = () => {
   return (
     <div className="flex justify-center items-center flex-col flex-nowrap">
       <div
-        className="relative size-[5.5em] touch-none cursor-grab active:cursor-grabbing"
+        className="relative size-[5.5em] touch-none overflow-clip cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -299,7 +299,7 @@ const HomeCube = () => {
             cssOverride={{ color: "var(--color-secondary-foreground)" }}
           />
         </div>
-        <Canvas className="touch-none overflow-visible transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="touch-none overflow-clip transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS
             cubeRef={cubeRef}
             dragRef={dragRef}
