@@ -10,9 +10,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { RingLoader } from "react-spinners";
 import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
+import LoadingSpinner from "@/features/global/LoadingSpinner";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
 interface CubeDrag {
@@ -294,10 +294,7 @@ const HomeCube = () => {
             isLoaded ? "opacity-0" : "opacity-100"
           }`}
         >
-          <RingLoader
-            color="currentColor"
-            cssOverride={{ color: "var(--color-secondary-foreground)" }}
-          />
+          <LoadingSpinner />
         </div>
         <Canvas className="touch-none overflow-clip transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CubeThreeJS

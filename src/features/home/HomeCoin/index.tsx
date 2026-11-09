@@ -4,9 +4,9 @@ import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motio
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
-import { RingLoader } from "react-spinners";
 import * as THREE from "three";
 import { CoinConstants } from "@/constants/coin";
+import LoadingSpinner from "@/features/global/LoadingSpinner";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
 interface CoinThreeJSProps {
@@ -130,10 +130,7 @@ const HomeCoin = () => {
             isLoaded ? "opacity-0" : "opacity-100"
           }`}
         >
-          <RingLoader
-            color="currentColor"
-            cssOverride={{ color: "var(--color-secondary-foreground)" }}
-          />
+          <LoadingSpinner />
         </div>
         <Canvas className="h-full w-full overflow-visible transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CoinThreeJS setIsLoaded={setIsLoaded} />

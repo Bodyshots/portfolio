@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ImageConstants } from "@/constants/image";
 import AnimatePage from "@/features/global/AnimatePage";
 import ProjectDescription from "@/features/project/ProjectDescription";
@@ -7,12 +9,20 @@ import ProjectHeader from "@/features/project/ProjectHeader";
 import ProjectImageModal from "@/features/project/ProjectImageModal";
 import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
-import { useProjectStore } from "@/store/useProjectStore";
+import { createProjectNameOptions } from "@/tanstack/queryFns/projects";
 import Loading from "../Loading";
 import NotFound from "../NotFound";
 
 function Project() {
-  const loading = useProjectStore((state) => state.loading);
+  const { projectName } = useParams<{ projectName: string }>();
+  const {
+    data: project,
+    isPending,
+    error,
+  } = useQuery({
+    ...createProjectNameOptions(projectName ?? ""),
+    enabled: Boolean(projectName),
+  });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
@@ -71,20 +81,26 @@ function Project() {
     }, ImageConstants.DEFAULT_TIMEOUT);
   };
 
-  if (loading) return <Loading />;
-  if (!loading && !useProjectStore.getState().selectedProject)
-    return <NotFound />;
+  if (!projectName) return <NotFound />;
+  if (isPending) return <Loading />;
+  if (error) return <NotFound />;
 
   return (
     <AnimatePage>
       <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
-        <ProjectHeader />
+        <ProjectHeader
+          title={project.name}
+          shortDesc={project.short_desc}
+          ghLink={project.github}
+        />
 
-        <div className="max-w-6xl mx-auto px-4 py-8 pt-0">
-          <ProjectVideo />
-          <ProjectDescription />
-          <ProjectTools />
+        <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
+          <ProjectVideo video={project.video} />
+          <ProjectDescription desc={project.long_desc} />
+          <ProjectTools tools={project.tools} />
           <ProjectGallery
+            images={project.images}
+            imageAtts={project.image_atts}
             openImage={openImageModal}
             setImageAtt={setSelectedImageAtt}
           />

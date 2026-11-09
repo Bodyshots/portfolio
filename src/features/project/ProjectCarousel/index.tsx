@@ -1,18 +1,15 @@
 import { useNavigate } from "react-router-dom";
 // @ts-expect-error react-slick does not provide declarations in this project
 import Slider from "react-slick";
-import { normTitleHTMLEscape } from "@/lib/utils";
+import { getProjectCarouselSettings } from "@/constants/carousel";
 import ProjectCard from "../ProjectCard";
 
 import "./projectcarousel.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {
-  disableProjectsLoading,
-  enableProjectsLoading,
-  setSelectedProject,
-  useProjectStore,
-} from "@/store/useProjectStore";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "@/features/global/LoadingSpinner";
+import { createProjectsOptions } from "@/tanstack/queryFns/projects";
 import type { Project } from "@/types";
 
 // Most carousel code from: https://www.youtube.com/watch?v=FLt2TveqHQM
@@ -20,15 +17,16 @@ import type { Project } from "@/types";
 
 const ProjectCarousel = () => {
   const navigate = useNavigate();
-  const projects = useProjectStore((state) => state.projects);
 
-  const open = (pid: number, name: string) => {
-    enableProjectsLoading();
-    setSelectedProject(pid);
-    disableProjectsLoading();
+  const {
+    data: projects,
+    isPending,
+    error,
+  } = useQuery(createProjectsOptions());
 
+  const open = (name: string) => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(`/project/${normTitleHTMLEscape(name)}`);
+    navigate(`/project/${encodeURIComponent(name.toLocaleLowerCase())}`);
   };
 
   const major_projects = projects
@@ -37,37 +35,30 @@ const ProjectCarousel = () => {
         .sort((a, b) => a.priority - b.priority)
     : [];
 
-  const settings = {
-    infinite: true,
-    centerPadding: "5px",
-    slidesToShow: Math.min(2, major_projects.length),
-    speed: 500,
-    responsive: [
-      {
-        breakpoint: 1384,
-        settings: {
-          slidesToShow: Math.min(1, major_projects.length),
-        },
-      },
-    ],
-  };
+  const settings = getProjectCarouselSettings(major_projects.length);
+
+  if (error) {
+    return (
+      <div className="text-center text-foreground justify-content align-items text-5xl my-58 mx-auto w-full">
+        Hmmm... There are no projects here!
+      </div>
+    );
+  }
 
   return (
-    <>
-      {major_projects && major_projects.length > 0 ? (
-        <div className="mx-auto my-6 w-4/5">
-          <Slider {...settings}>
-            {major_projects.map((item) => (
-              <ProjectCard key={item.id} item={item} open={open} />
-            ))}
-          </Slider>
-        </div>
+    <div className="mx-auto my-6 w-4/5">
+      {!isPending ? (
+        <Slider {...settings}>
+          {major_projects.map((item) => (
+            <ProjectCard key={item.id} item={item} open={open} />
+          ))}
+        </Slider>
       ) : (
-        <div className="text-center text-foreground justify-content align-items text-4xl my-30 mx-auto w-full h-full">
-          Hmmm... There are no projects here!
+        <div className="flex justify-center my-50.5">
+          <LoadingSpinner />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

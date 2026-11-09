@@ -7,7 +7,7 @@ import type { Project } from "@/types";
 
 interface ProjectCardProps {
   item: Project;
-  open: (id: number, name: string) => void;
+  open: (name: string) => void;
 }
 
 const CardTool = ({ tool }: { tool: string }) => {
@@ -25,7 +25,7 @@ const CardTools = ({ tools }: { tools: string[] | null }) => {
   const cardTools = ProjectConstants.CARD.TOOLS;
 
   return (
-    <div className="flex flex-row mt-2 mb-2 mx-5 flex-wrap gap-2">
+    <div className="flex flex-row mt-2 mb-2 mx-3 flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
         <CardTool key={tool} tool={tool} />
       ))}
@@ -43,9 +43,9 @@ function ProjectCard({ item, open }: ProjectCardProps) {
 
   return (
     <button
-      className="group relative m-8 flex h-100 flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-xl:h-auto max-md:mx-1 max-md:my-4"
+      className="group relative m-8 flex h-100 flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-xl:h-auto max-md:mx-1 max-md:my-4 hover:cursor-pointer"
       key={item.id}
-      onClick={() => open(item.id, item.name)}
+      onClick={() => open(item.name)}
       data-aos="fade-right"
       type="button"
     >

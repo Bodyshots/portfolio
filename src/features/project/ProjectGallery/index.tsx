@@ -1,15 +1,16 @@
-import { useProjectStore } from "@/store/useProjectStore";
-
 interface ProjectGalleryProps {
+  images: string[] | null;
+  imageAtts: string[] | null;
   openImage: (image: string, e: React.MouseEvent<HTMLButtonElement>) => void;
   setImageAtt: (imageAtt: string) => void;
 }
 
-const ProjectGallery = ({ openImage, setImageAtt }: ProjectGalleryProps) => {
-  const project = useProjectStore((state) => state.selectedProject);
-  const images = project?.images;
-  const image_atts = project?.image_atts;
-
+const ProjectGallery = ({
+  images,
+  imageAtts,
+  openImage,
+  setImageAtt,
+}: ProjectGalleryProps) => {
   return (
     <div className="mb-12">
       <h2 className="text-3xl text-secondary-foreground my-8">
@@ -22,18 +23,18 @@ const ProjectGallery = ({ openImage, setImageAtt }: ProjectGalleryProps) => {
             className="rounded-lg overflow-hidden shadow-lg border-2 cursor-pointer transition-transform hover:scale-105 border-accent"
             onClick={(e) => {
               openImage(image, e);
-              setImageAtt(image_atts?.[index] ?? "");
+              setImageAtt(imageAtts?.[index] ?? "");
             }}
             type="button"
           >
             <img
               src={image}
-              alt={image_atts?.[index] ?? ""}
+              alt={imageAtts?.[index] ?? ""}
               className="w-full h-64 object-cover"
             />
             <div className="p-4 bg-border">
               <p className="text-sm text-muted-foreground m-0">
-                {image_atts?.[index] ?? ""}
+                {imageAtts?.[index] ?? ""}
               </p>
             </div>
           </button>

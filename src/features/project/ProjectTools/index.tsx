@@ -1,10 +1,10 @@
-import { useProjectStore } from "@/store/useProjectStore";
 import ProjectTool from "./ProjectTool";
 
-// TODO: Loading state
-const ProjectTools = () => {
-  const tools = useProjectStore((store) => store.selectedProject?.tools);
+interface ProjectToolsProps {
+  tools: string[] | null;
+}
 
+const ProjectTools = ({ tools }: ProjectToolsProps) => {
   return (
     <div className="my-6">
       <h2 className="text-3xl mb-4 text-secondary-foreground">

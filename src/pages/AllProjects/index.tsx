@@ -1,53 +1,31 @@
-import AOS from "aos";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import supabase from "@/config/supabaseClient";
-import { OtherConstants } from "@/constants/other";
 import AnimatePage from "@/features/global/AnimatePage";
 import ProjectCard from "@/features/project/ProjectCard";
-import { normTitleHTMLEscape } from "@/lib/utils";
-import {
-  disableProjectsLoading,
-  enableProjectsLoading,
-  setSelectedProject,
-} from "@/store/useProjectStore";
-import type { Project } from "@/types";
+import { createProjectsOptions } from "@/tanstack/queryFns/projects";
 
 const AllProjects = () => {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const {
+    data: projects,
+    isPending,
+    error,
+  } = useQuery(createProjectsOptions());
 
-  const open = (pid: number, name: string) => {
-    enableProjectsLoading();
-    setSelectedProject(pid);
-    disableProjectsLoading();
-
+  const open = (name: string) => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    navigate(`/project/${normTitleHTMLEscape(name)}`);
+    navigate(`/project/${encodeURIComponent(name.toLowerCase())}`);
   };
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      // Get database from supabase - Has to be its exact name
-      const { data, error } = await supabase
-        .from(import.meta.env.VITE_PROJECT_DB_NAME)
-        .select();
+  // TODO: loading
+  if (isPending) {
+    return <div>loading...</div>;
+  }
 
-      if (error) {
-        setProjects([]);
-        console.error(error);
-      }
-
-      if (data) {
-        setProjects(data);
-      }
-    };
-
-    AOS.init({ duration: OtherConstants.AOS_DURATION }); // Init animation library
-    fetchProjects();
-
-    document.title = "Lanz Angeles | All Projects";
-  }, []);
+  // TODO: Error
+  if (error) {
+    return <div>Hmm... There's nothing here!</div>;
+  }
 
   const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
 

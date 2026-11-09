@@ -15,11 +15,11 @@ export interface WorkItem {
 export interface Project {
   id: number;
   created_at: string;
-  short_desc: string | null;
+  short_desc: string;
   name: string;
   major: boolean;
   video: string | null;
-  long_desc: string | null;
+  long_desc: string;
   tools: string[] | null;
   cover_img: string | null;
   priority: number;

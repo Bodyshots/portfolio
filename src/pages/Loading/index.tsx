@@ -1,16 +1,13 @@
-import { RingLoader } from "react-spinners";
+import LoadingSpinner from "@/features/global/LoadingSpinner";
 
 function Loading() {
   return (
     <div
-      className="flex min-h-screen items-center justify-center bg-accent-light-beige"
+      className="flex min-h-screen items-center justify-center bg-black/20"
       role="status"
       aria-label="Loading page"
     >
-      <RingLoader
-        color="currentColor"
-        cssOverride={{ color: "var(--color-secondary-foreground)" }}
-      />
+      <LoadingSpinner />
     </div>
   );
 }

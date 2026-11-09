@@ -1,5 +1,5 @@
 import { type ChangeEvent, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NavItems } from "@/constants/navbar";
 import { cn } from "@/lib/utils";
 import {
@@ -40,16 +40,19 @@ const NavItem = ({
 };
 
 function NavBar() {
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/" || pathname === "/home";
   const navVisibility = useUserStore((state) => state.navVisibility);
-  const navVisibilityBeforeMenu = useRef(navVisibility);
+  const isOpaque = navVisibility || !isHomePage;
+  const navVisibilityBeforeMenu = useRef(isOpaque);
   const restoreNavVisibility = () => {
-    if (navVisibilityBeforeMenu.current) setNavOpaque();
+    if (navVisibilityBeforeMenu.current || !isHomePage) setNavOpaque();
     else setNavTransparent();
   };
 
   const handleMenuToggle = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.checked) {
-      navVisibilityBeforeMenu.current = navVisibility;
+      navVisibilityBeforeMenu.current = isOpaque;
       setNavOpaque();
     } else {
       restoreNavVisibility();
@@ -70,7 +73,7 @@ function NavBar() {
     <div
       className={cn(
         "max-lg:collapse w-full fixed z-99 rounded-none transition-all duration-300",
-        navVisibility ? "bg-primary/80 backdrop-blur-xs" : "bg-transparent",
+        isOpaque ? "bg-primary/80 backdrop-blur-xs" : "bg-transparent",
       )}
     >
       <input

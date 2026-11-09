@@ -1,14 +1,14 @@
-import { useProjectStore } from "@/store/useProjectStore";
+interface ProjectVideoProps {
+  video: string | null;
+}
 
-function ProjectVideo() {
-  const projectVideo = useProjectStore((state) => state.selectedProject)?.video;
-
+function ProjectVideo({ video }: ProjectVideoProps) {
   return (
-    projectVideo && (
+    video && (
       <div className="rounded-lg shadow-lg mb-4">
         <iframe
-          className="w-full aspect-video my-8 rounded-lg bg-secondary border-accent"
-          src={projectVideo}
+          className="w-full aspect-video my-8 mt-0 rounded-lg bg-secondary border-accent"
+          src={video}
           title="YouTube video player"
           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"

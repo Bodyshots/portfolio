@@ -1,5 +1,4 @@
 interface ProjectImageModalProps {
-  title: string;
   image: string;
   imageAtt: string;
   imagePos: {
@@ -13,7 +12,6 @@ interface ProjectImageModalProps {
 }
 
 const ProjectImageModal = ({
-  title,
   image,
   imageAtt,
   imagePos,
@@ -55,7 +53,7 @@ const ProjectImageModal = ({
           <div className="rounded-lg overflow-hidden shadow-2xl h-full max-h-[90vh]">
             <img
               src={image}
-              alt={title}
+              alt={imageAtt}
               className={`w-full object-cover transition-all duration-500 ${
                 isOpen ? "h-auto max-h-[80vh] object-contain" : "h-full"
               }`}
