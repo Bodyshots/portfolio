@@ -9,10 +9,7 @@ const AllProjectsBtn = () => {
   return (
     <button
       className="-mt-6 mb-8 w-[11.5%] self-center rounded-lg bg-secondary-foreground text-lg text-primary shadow-sm transition-all duration-100 ease-in-out hover:scale-105 hover:cursor-pointer hover:bg-accent hover:text-primary-foreground hover:shadow-[-1px_-1px_1px_rgba(0,0,0,0.5)] max-lg:w-3/10 max-lg:p-0.5 max-w-56.25"
-      onClick={() => {
-        window.scrollTo({ top: 0, behavior: "instant" });
-        navigate("/allprojects");
-      }}
+      onClick={() => navigate("/allprojects")}
       type="button"
     >
       <span className="flex text-center justify-center align-center p-2">

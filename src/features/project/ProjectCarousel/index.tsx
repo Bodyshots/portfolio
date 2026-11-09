@@ -25,7 +25,6 @@ const ProjectCarousel = () => {
   } = useQuery(createProjectsOptions());
 
   const open = (name: string) => {
-    window.scrollTo({ top: 0, behavior: "instant" });
     navigate(`/project/${encodeURIComponent(name.toLocaleLowerCase())}`);
   };
 

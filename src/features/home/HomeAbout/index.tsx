@@ -1,6 +1,8 @@
+import { lazy } from "react";
 import { HomeSectionID } from "@/constants/home";
-import HomeCoin from "../HomeCoin";
 import SectionHeader from "../SectionHeader";
+
+const HomeCoin = lazy(() => import("../HomeCoin"));
 
 const HomeAbout = () => {
   return (

@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImageConstants } from "@/constants/image";
-import AnimatePage from "@/features/global/AnimatePage";
 import ProjectDescription from "@/features/project/ProjectDescription";
 import ProjectGallery from "@/features/project/ProjectGallery";
 import ProjectHeader from "@/features/project/ProjectHeader";
@@ -15,6 +14,10 @@ import NotFound from "../NotFound";
 
 function Project() {
   const { projectName } = useParams<{ projectName: string }>();
+  useLayoutEffect(() => {
+    if (projectName) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [projectName]);
+
   const {
     data: project,
     isPending,
@@ -86,34 +89,32 @@ function Project() {
   if (error) return <NotFound />;
 
   return (
-    <AnimatePage>
-      <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
-        <ProjectHeader
-          title={project.name}
-          shortDesc={project.short_desc}
-          ghLink={project.github}
-        />
+    <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
+      <ProjectHeader
+        title={project.name}
+        shortDesc={project.short_desc}
+        ghLink={project.github}
+      />
 
-        <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
-          <ProjectVideo video={project.video} />
-          <ProjectDescription desc={project.long_desc} />
-          <ProjectTools tools={project.tools} />
-          <ProjectGallery
-            images={project.images}
-            imageAtts={project.image_atts}
-            openImage={openImageModal}
-            setImageAtt={setSelectedImageAtt}
-          />
-          <ProjectImageModal
-            image={selectedImage}
-            imageAtt={selectedImageAtt}
-            imagePos={imagePosition}
-            isOpen={isModalOpen}
-            closeImage={closeImageModal}
-          />
-        </div>
+      <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
+        <ProjectVideo video={project.video} />
+        <ProjectDescription desc={project.long_desc} />
+        <ProjectTools tools={project.tools} />
+        <ProjectGallery
+          images={project.images}
+          imageAtts={project.image_atts}
+          openImage={openImageModal}
+          setImageAtt={setSelectedImageAtt}
+        />
+        <ProjectImageModal
+          image={selectedImage}
+          imageAtt={selectedImageAtt}
+          imagePos={imagePosition}
+          isOpen={isModalOpen}
+          closeImage={closeImageModal}
+        />
       </div>
-    </AnimatePage>
+    </div>
   );
 }
 

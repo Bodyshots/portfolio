@@ -1,12 +1,12 @@
-import { useLayoutEffect } from "react";
+import { lazy, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
-import AnimatePage from "@/features/global/AnimatePage";
 import "aos/dist/aos.css";
-import HomeAbout from "@/features/home/HomeAbout";
 import { HomeContact } from "@/features/home/HomeContact";
-import HomeExperience from "@/features/home/HomeExperience";
-import HomeHero from "@/features/home/HomeHero";
-import HomeProjects from "@/features/home/HomeProjects";
+
+const HomeHero = lazy(() => import("@/features/home/HomeHero"));
+const HomeAbout = lazy(() => import("@/features/home/HomeAbout"));
+const HomeExperience = lazy(() => import("@/features/home/HomeExperience"));
+const HomeProjects = lazy(() => import("@/features/home/HomeProjects"));
 
 const Home = () => {
   const { hash } = useLocation();
@@ -19,7 +19,7 @@ const Home = () => {
   }, [hash]);
 
   return (
-    <AnimatePage>
+    <>
       <title>Lanz Angeles | Homepage</title>
       <div className="min-h-screen">
         <HomeHero />
@@ -28,7 +28,7 @@ const Home = () => {
         <HomeProjects />
         <HomeContact />
       </div>
-    </AnimatePage>
+    </>
   );
 };
 

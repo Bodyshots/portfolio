@@ -1,5 +1,7 @@
-import HomeCube from "../HomeCube";
+import { lazy } from "react";
 import NameChanger from "../NameChanger";
+
+const HomeCube = lazy(() => import("../HomeCube"));
 
 const HomeHero = () => {
   return (
