@@ -94,7 +94,7 @@ function Project() {
   return (
     <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
       <title>{pageTitle}</title>
-      {true ? (
+      {isPending ? (
         <ProjectSkeleton />
       ) : (
         <>
