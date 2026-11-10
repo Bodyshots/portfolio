@@ -12,7 +12,7 @@ const ProjectTools = ({ tools }: ProjectToolsProps) => {
       </h2>
       <div className="flex flex-wrap justify-center gap-3">
         {tools?.map((tool) => (
-          <ProjectTool key={tool} tool={tool} />
+          <ProjectTool key={tool} tool={tool} className="text-md" />
         ))}
       </div>
     </div>

@@ -19,7 +19,7 @@ const ProjectHeader = ({ title, shortDesc, ghLink }: ProjectHeaderProps) => {
           href={ghLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="no-underline text-input inline-flex items-center px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 bg-secondary-foreground p-4 shadow-md hover:bg-primary-medium hover:transition-all hover:duration-100 flex-wrap gap-4 justify-center my-8 mt-0"
+          className="no-underline text-input inline-flex items-center px-4 py-2 rounded-lg font-medium transition-all hover:scale-105 bg-secondary-foreground p-4 shadow-md hover:bg-primary-medium hover:transition-all hover:duration-100 flex-wrap gap-4 justify-center my-8 mt-0 duration-100 ease-in-out hover:cursor-pointer hover:bg-accent hover:text-primary-foreground hover:shadow-[-1px_-1px_1px_color-mix(in_srgb,var(--foreground)_50%,transparent)]"
         >
           <IoLogoGithub className="w-5 h-5" />
           <span>View on GitHub</span>

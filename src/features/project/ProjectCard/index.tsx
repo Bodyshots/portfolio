@@ -2,6 +2,7 @@ import { MdOutlineImageNotSupported } from "react-icons/md";
 import { ProjectConstants } from "@/constants/project";
 import { displayDescription } from "@/lib/utils";
 import type { Project } from "@/types";
+import ProjectTool from "../ProjectTools/ProjectTool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
@@ -10,24 +11,13 @@ interface ProjectCardProps {
   open: (name: string) => void;
 }
 
-const CardTool = ({ tool }: { tool: string }) => {
-  return (
-    <div
-      className="mb-2 rounded-full border border-primary bg-secondary px-3 py-1 text-sm text-foreground shadow-[1px_1px_1px_color-mix(in_srgb,var(--color-foreground)_12%,transparent)] transition-all duration-100 group-hover:border-foreground group-hover:bg-foreground group-hover:text-primary"
-      key={tool}
-    >
-      {tool}
-    </div>
-  );
-};
-
 const CardTools = ({ tools }: { tools: string[] | null }) => {
   const cardTools = ProjectConstants.CARD.TOOLS;
 
   return (
     <div className="flex flex-row mt-2 mb-2 mx-3 flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
-        <CardTool key={tool} tool={tool} />
+        <ProjectTool key={tool} tool={tool} />
       ))}
     </div>
   );
@@ -43,7 +33,7 @@ function ProjectCard({ item, open }: ProjectCardProps) {
 
   return (
     <button
-      className="group relative w-11/12 m-8 flex h-100 flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-xl:h-auto max-md:mx-1 max-md:my-4 hover:cursor-pointer"
+      className="group relative w-11/12 h-16/17 m-2 flex flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-md:mx-1 max-md:my-4 hover:cursor-pointer"
       key={item.id}
       onClick={() => open(item.name)}
       type="button"
@@ -51,7 +41,7 @@ function ProjectCard({ item, open }: ProjectCardProps) {
       <div className="relative flex min-h-56.25 w-full flex-col items-stretch">
         {COVER_URL ? (
           <img
-            className="h-56.25 w-full rounded-t-3xl bg-transparent object-contain max-md:h-40"
+            className="h-50.25 w-full rounded-t-3xl bg-transparent object-contain max-md:h-40"
             src={COVER_URL}
             alt={NAME}
           />

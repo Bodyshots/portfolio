@@ -58,7 +58,7 @@ const HomeProjects = () => {
             Hmmm... There are no projects here!
           </div>
         ) : (
-          <div className="mx-auto grid w-11/12 max-w-6xl grid-cols-1 justify-items-center md:grid-cols-2 xl:grid-cols-2 mt-4">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 justify-items-center md:grid-cols-2 xl:grid-cols-2 mt-4">
             {majorProjects.map((project) => (
               <ProjectCard key={project.id} item={project} open={openProject} />
             ))}
