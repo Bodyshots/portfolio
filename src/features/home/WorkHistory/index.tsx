@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
-import { WorkHistoryConstants } from "@/constants/workhistory";
-import { createIds } from "@/lib/utils";
 import createExperienceOptions from "@/tanstack/queryFns/experiences";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
-
-const maxProjects = WorkHistoryConstants.LIMITS.MAX;
-const _LOADING_WORK_IDS = createIds(maxProjects, "workbubble-");
 
 export default function WorkHistory() {
   const [isActive, setIsActive] = useState(-1);

@@ -4,9 +4,9 @@ import "aos/dist/aos.css";
 import { HomeContact } from "@/features/home/HomeContact";
 
 const HomeHero = lazy(() => import("@/features/home/HomeHero"));
-const HomeAbout = lazy(() => import("@/features/home/HomeAbout"));
 const HomeExperience = lazy(() => import("@/features/home/HomeExperience"));
 const HomeProjects = lazy(() => import("@/features/home/HomeProjects"));
+const HomeAbout = lazy(() => import("@/features/home/HomeAbout"));
 
 const Home = () => {
   const { hash } = useLocation();
