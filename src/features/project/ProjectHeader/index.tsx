@@ -1,5 +1,4 @@
 import { IoLogoGithub } from "react-icons/io";
-import "react-loading-skeleton/dist/skeleton.css";
 
 interface ProjectHeaderProps {
   title: string;

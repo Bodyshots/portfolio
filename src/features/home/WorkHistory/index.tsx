@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
-import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import createExperienceOptions from "@/tanstack/queryFns/experiences";
+import LoadingWorkSkeleton from "./LoadingWorkSkeleton";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 
@@ -46,9 +46,18 @@ export default function WorkHistory() {
         </h1>
         <div className="relative">
           {isPending ? (
-            <div className="flex justify-center items-center h-screen">
-              <LoadingSpinner size={150} />
-            </div>
+            <>
+              <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />
+              {Array.from({ length: 4 }, (_, index) => {
+                const leftAlign = index % 2 === 1;
+                return (
+                  <LoadingWorkSkeleton
+                    key={crypto.randomUUID()}
+                    leftAlign={leftAlign}
+                  />
+                );
+              })}
+            </>
           ) : (
             <>
               <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />

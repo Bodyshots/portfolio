@@ -12,6 +12,7 @@ const NavItems: NavItem[] = [
     path: "/",
     onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }),
   },
+  { path: `/#${HomeSectionID.EXPERIENCE}`, label: "Experience" },
   { path: `/#${HomeSectionID.PROJECTS}`, label: "Projects" },
   { path: `/#${HomeSectionID.ABOUT}`, label: "About Me" },
   { path: `/#${HomeSectionID.CONTACT}`, label: "Contact" },

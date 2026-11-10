@@ -1,4 +1,5 @@
 import type { WorkItem } from "@/types";
+import HistoryCircle from "../HistoryCircle";
 
 interface WorkBubbleProps {
   job: WorkItem;
@@ -34,9 +35,7 @@ export const WorkBubble = ({ job, leftAlign, open }: WorkBubbleProps) => {
           <p className="text-sm leading-6 text-foreground">{job.description}</p>
         </button>
       </div>
-      <div className="absolute left-1/2 z-10 -translate-x-1/2">
-        <div className="h-4 w-4 rounded-full border-2 border-muted bg-card" />
-      </div>
+      <HistoryCircle />
     </div>
   );
 };

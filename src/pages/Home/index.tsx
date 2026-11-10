@@ -23,9 +23,9 @@ const Home = () => {
       <title>Home - Lanz Angeles</title>
       <div className="min-h-screen">
         <HomeHero />
-        <HomeAbout />
         <HomeExperience />
         <HomeProjects />
+        <HomeAbout />
         <HomeContact />
       </div>
     </>

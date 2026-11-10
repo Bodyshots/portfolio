@@ -5,13 +5,18 @@ const ProjectSkeleton = () => {
   return (
     <>
       {" "}
-      <div className="max-w-6xl px-4 py-8 pb-0 pt-4 mx-auto">
-        <LoadingSkeleton height="3em" width="24em" className="mt-8" />
-        <div className="my-8">
+      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pb-0 pt-4">
+        <LoadingSkeleton
+          height="3em"
+          width="100%"
+          className="mt-8 block max-w-[24em]"
+        />
+        <div className="my-8 w-full min-w-0">
           <LoadingSkeleton
             height="1.3em"
-            width={"30em"}
-            containerClassName="text-lg lg:text-xl"
+            width="100%"
+            className="block max-w-[30em]"
+            containerClassName="block w-full min-w-0 text-lg lg:text-xl"
           />
         </div>
         <button
@@ -24,37 +29,44 @@ const ProjectSkeleton = () => {
           <span>Loading...</span>
         </button>
       </div>
-      <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
-        <LoadingSkeleton className="aspect-video my-7 mt-0 rounded-lg!" />
-        <div className="my-8 mt-2">
+      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pt-0 sm:px-8">
+        <LoadingSkeleton className="my-6 mt-0 block aspect-video w-full max-w-full rounded-lg!" />
+        <div className="my-8 mt-2 min-w-0">
           <h2 className="mb-6 text-secondary-foreground py-0 text-3xl">
             About This Project
           </h2>
-          <p
-            className={`px-8 text-lg leading-relaxed text-muted-foreground m-0`}
-          >
-            <LoadingSkeleton width="52.5em" count={4} />
+          <p className="m-0 min-w-0 px-2 text-lg leading-relaxed text-muted-foreground sm:px-8">
+            <LoadingSkeleton
+              width="100%"
+              count={4}
+              className="block max-w-full"
+              containerClassName="block w-full min-w-0"
+            />
           </p>
         </div>
-        <div className="my-6">
+        <div className="my-6 min-w-0">
           <h2 className="text-3xl mb-4 text-secondary-foreground">
             Tools & Technologies
           </h2>
           <LoadingSkeleton
             count={4}
-            containerClassName="flex flex-row flex-1 justify-center gap-3"
-            className="mb-2 rounded-full! h-[1.5em] max-w-[10em]"
+            width="10em"
+            className="mb-2 h-[1.5em] max-w-full rounded-full!"
+            containerClassName="flex min-w-0 flex-wrap justify-center gap-3 [&>br]:hidden"
           />
         </div>
         <div className="mb-12">
           <h2 className="text-3xl text-secondary-foreground my-8">
             Project Gallery
           </h2>
-          <LoadingSkeleton
-            count={4}
-            containerClassName="mt-4 grid w-full grid-cols-2 gap-6 [&>br]:hidden"
-            className="h-64 w-full"
-          />
+          <div className="mt-4 grid min-w-0 grid-cols-2 gap-3 sm:gap-6">
+            <LoadingSkeleton
+              count={4}
+              width="100%"
+              className="block h-64 max-w-full"
+              containerClassName="contents [&>br]:hidden"
+            />
+          </div>
         </div>
       </div>
     </>
