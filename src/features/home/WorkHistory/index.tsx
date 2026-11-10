@@ -1,10 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
+import { WorkHistoryConstants } from "@/constants/workhistory";
+import { createIds } from "@/lib/utils";
 import createExperienceOptions from "@/tanstack/queryFns/experiences";
-import LoadingWorkSkeleton from "./LoadingWorkSkeleton";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
+
+const maxProjects = WorkHistoryConstants.LIMITS.MAX;
+const _LOADING_WORK_IDS = createIds(maxProjects, "workbubble-");
 
 export default function WorkHistory() {
   const [isActive, setIsActive] = useState(-1);
@@ -39,38 +43,22 @@ export default function WorkHistory() {
   }
 
   return (
-    <div className="bg-primary p-12">
+    <div className="p-12">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-16 text-center text-5xl text-foreground">
-          From present to oldest (2023)
+          From latest to oldest (2023)
         </h1>
         <div className="relative">
-          {isPending ? (
-            <>
-              <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />
-              {Array.from({ length: 4 }, (_, index) => {
-                const leftAlign = index % 2 === 1;
-                return (
-                  <LoadingWorkSkeleton
-                    key={crypto.randomUUID()}
-                    leftAlign={leftAlign}
-                  />
-                );
-              })}
-            </>
-          ) : (
-            <>
-              <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />
-              {experiences.map((job, index) => (
-                <WorkBubble
-                  key={job.id}
-                  job={job}
-                  leftAlign={index % 2 === 1}
-                  open={open}
-                />
-              ))}
-            </>
-          )}
+          <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />
+          {experiences.map((job, index) => (
+            <WorkBubble
+              key={job.id}
+              job={job}
+              isPending={isPending}
+              leftAlign={index % 2 === 1}
+              open={open}
+            />
+          ))}
         </div>
       </div>
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>

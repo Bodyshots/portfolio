@@ -19,7 +19,7 @@ const ProjectGallery = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         {images?.map((image, index) => (
           <button
-            key={crypto.randomUUID()}
+            key={image}
             className="rounded-lg overflow-hidden shadow-lg border-2 cursor-pointer transition-transform hover:scale-105 border-accent"
             onClick={(e) => {
               openImage(image, e);

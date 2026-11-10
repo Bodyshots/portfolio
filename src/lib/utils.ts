@@ -62,3 +62,7 @@ export function capitalizeString(str: string) {
 export function getFullName() {
   return `${OtherConstants.FIRST_NAME} ${OtherConstants.LAST_NAME}`;
 }
+
+export const createIds = (length: number, baseName: string) => {
+  return Array.from({ length }, (_, i) => `${baseName}${i}`);
+};

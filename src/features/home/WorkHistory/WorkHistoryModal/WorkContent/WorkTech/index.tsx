@@ -15,7 +15,7 @@ const WorkTech = ({ technologies }: WorkTechProps) => {
         {technologies ? (
           technologies.map((tech) => (
             <span
-              key={crypto.randomUUID()}
+              key={tech}
               className="rounded-full border border-primary! bg-secondary px-3 py-1 text-xs text-foreground"
             >
               {tech}

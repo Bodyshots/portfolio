@@ -10,6 +10,7 @@ interface LoadingSkeletonProps {
   count?: number;
   enableAnimation?: boolean;
   circle?: boolean;
+  direction?: "ltr" | "rtl";
 }
 
 const LoadingSkeleton = ({
@@ -20,6 +21,7 @@ const LoadingSkeleton = ({
   enableAnimation,
   count,
   circle,
+  direction,
 }: LoadingSkeletonProps) => {
   return (
     <Skeleton
@@ -32,6 +34,7 @@ const LoadingSkeleton = ({
       enableAnimation={enableAnimation}
       count={count}
       circle={circle}
+      direction={direction}
     />
   );
 };

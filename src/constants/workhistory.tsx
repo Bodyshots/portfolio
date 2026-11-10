@@ -20,6 +20,10 @@ const WorkHistoryConstants = Object.freeze({
       exit: { y: "100vh", opacity: 0 },
     },
   },
+  LIMITS: {
+    MIN: 1,
+    MAX: 4,
+  },
 });
 
 export { WorkHistoryConstants };

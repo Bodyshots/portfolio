@@ -2,10 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { HomeSectionID } from "@/constants/home";
 import { ProjectConstants } from "@/constants/project";
-import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
+import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
+import { createIds } from "@/lib/utils";
 import { createProjectsOptions } from "@/tanstack/queryFns/projects";
 import SectionHeader from "../SectionHeader";
+
+const projectLimits = ProjectConstants.HOME;
+const LOADING_PROJECT_IDS = createIds(
+  projectLimits.MAX,
+  "skeleton-project-card-",
+);
 
 const AllProjectsBtn = () => {
   const navigate = useNavigate();
@@ -25,13 +32,12 @@ const AllProjectsBtn = () => {
 
 const HomeProjects = () => {
   const navigate = useNavigate();
-  const projectLimits = ProjectConstants.HOME;
   const {
     data: projects,
     isPending,
     error,
   } = useQuery(createProjectsOptions());
-  const majorProjects = projects
+  const homeProjects = projects
     ? projects
         .filter((project) => project.major)
         .sort((a, b) => a.priority - b.priority)
@@ -44,23 +50,30 @@ const HomeProjects = () => {
   return (
     <>
       <SectionHeader text="Major Projects" id={HomeSectionID.PROJECTS} />
-      <div className="flex flex-col justify-center align-center bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_65%,transparent)_-95%,transparent)]">
+      <div className="flex flex-col justify-center align-center bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_65%,transparent)_-95%,transparent)] pt-4">
         {isPending ? (
           <div
-            className="flex min-h-100 items-center justify-center"
+            className="mx-auto mt-4 grid w-full max-w-6xl grid-cols-1 gap-6 px-4 justify-items-center md:grid-cols-2"
             role="status"
             aria-label="Loading major projects"
           >
-            <LoadingSpinner />
+            {LOADING_PROJECT_IDS.map((id) => (
+              <LoadingProjectCard key={id} />
+            ))}
           </div>
         ) : error ? (
           <div className="my-12 text-center text-foreground">
             Hmmm... There are no projects here!
           </div>
         ) : (
-          <div className="mx-auto grid max-w-6xl grid-cols-1 justify-items-center md:grid-cols-2 xl:grid-cols-2 mt-4">
-            {majorProjects.map((project) => (
-              <ProjectCard key={project.id} item={project} open={openProject} />
+          <div className="mx-auto mt-2 grid w-full max-w-6xl grid-cols-1 gap-6 px-4 justify-items-center md:grid-cols-2">
+            {homeProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                item={project}
+                open={openProject}
+                className="m-0 w-full max-md:m-0"
+              />
             ))}
           </div>
         )}

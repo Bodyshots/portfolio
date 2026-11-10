@@ -29,7 +29,7 @@ const BulletPointSection = ({
         <ul>
           {points.map((point) => (
             <li
-              key={crypto.randomUUID()}
+              key={point}
               className="flex items-start gap-2 text-sm text-foreground"
             >
               <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-muted" />
