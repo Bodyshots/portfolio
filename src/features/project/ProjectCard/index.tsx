@@ -13,7 +13,7 @@ interface ProjectCardProps {
 const CardTool = ({ tool }: { tool: string }) => {
   return (
     <div
-      className="mb-2 rounded-full border border-primary bg-secondary px-3 py-1 text-sm text-foreground shadow-[1px_1px_1px_color-mix(in_srgb,var(--color-foreground)_12%,transparent)] transition-all duration-150 group-hover:border-foreground group-hover:bg-foreground group-hover:text-primary"
+      className="mb-2 rounded-full border border-primary bg-secondary px-3 py-1 text-sm text-foreground shadow-[1px_1px_1px_color-mix(in_srgb,var(--color-foreground)_12%,transparent)] transition-all duration-100 group-hover:border-foreground group-hover:bg-foreground group-hover:text-primary"
       key={tool}
     >
       {tool}
@@ -43,10 +43,9 @@ function ProjectCard({ item, open }: ProjectCardProps) {
 
   return (
     <button
-      className="group relative m-8 flex h-100 flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-200 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-xl:h-auto max-md:mx-1 max-md:my-4 hover:cursor-pointer"
+      className="group relative w-11/12 m-8 flex h-100 flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-xl:h-auto max-md:mx-1 max-md:my-4 hover:cursor-pointer"
       key={item.id}
       onClick={() => open(item.name)}
-      data-aos="fade-right"
       type="button"
     >
       <div className="relative flex min-h-56.25 w-full flex-col items-stretch">

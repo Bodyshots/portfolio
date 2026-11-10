@@ -1,7 +1,7 @@
 import { type ChangeEvent, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { NavItems } from "@/constants/navbar";
-import { cn } from "@/lib/utils";
+import { cn, getFullName } from "@/lib/utils";
 import {
   setNavOpaque,
   setNavTransparent,
@@ -41,8 +41,8 @@ const NavItem = ({
 
 function NavBar() {
   const { pathname } = useLocation();
-  const isHomePage = pathname === "/" || pathname === "/home";
   const navVisibility = useUserStore((state) => state.navVisibility);
+  const isHomePage = pathname === "/" || pathname === "/home";
   const isOpaque = navVisibility || !isHomePage;
   const navVisibilityBeforeMenu = useRef(isOpaque);
   const restoreNavVisibility = () => {
@@ -91,7 +91,8 @@ function NavBar() {
         <div className="mr-8 p-2">
           <NavItem
             path="/"
-            label="Lanz Angeles"
+            label={getFullName()}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="text-2xl"
             hoverBg={false}
           />

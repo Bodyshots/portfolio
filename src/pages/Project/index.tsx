@@ -89,32 +89,35 @@ function Project() {
   if (error) return <NotFound />;
 
   return (
-    <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
-      <ProjectHeader
-        title={project.name}
-        shortDesc={project.short_desc}
-        ghLink={project.github}
-      />
+    <>
+      <title>{`${project.name} - Lanz Angeles`}</title>
+      <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
+        <ProjectHeader
+          title={project.name}
+          shortDesc={project.short_desc}
+          ghLink={project.github}
+        />
 
-      <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
-        <ProjectVideo video={project.video} />
-        <ProjectDescription desc={project.long_desc} />
-        <ProjectTools tools={project.tools} />
-        <ProjectGallery
-          images={project.images}
-          imageAtts={project.image_atts}
-          openImage={openImageModal}
-          setImageAtt={setSelectedImageAtt}
-        />
-        <ProjectImageModal
-          image={selectedImage}
-          imageAtt={selectedImageAtt}
-          imagePos={imagePosition}
-          isOpen={isModalOpen}
-          closeImage={closeImageModal}
-        />
+        <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
+          <ProjectVideo video={project.video} />
+          <ProjectDescription desc={project.long_desc} />
+          <ProjectTools tools={project.tools} />
+          <ProjectGallery
+            images={project.images}
+            imageAtts={project.image_atts}
+            openImage={openImageModal}
+            setImageAtt={setSelectedImageAtt}
+          />
+          <ProjectImageModal
+            image={selectedImage}
+            imageAtt={selectedImageAtt}
+            imagePos={imagePosition}
+            isOpen={isModalOpen}
+            closeImage={closeImageModal}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

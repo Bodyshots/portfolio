@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createProjectsOptions } from "@/tanstack/queryFns/projects";
 
 const AllProjects = () => {
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   const navigate = useNavigate();
   const {
     data: projects,
@@ -28,11 +33,14 @@ const AllProjects = () => {
   const sortedProjects = [...projects].sort((a, b) => a.priority - b.priority);
 
   return (
-    <div className="grid grid-cols-2 w-9/10 mx-auto mb-4 min-h-dvh justify-center text-center items-center pt-16">
-      {sortedProjects.map((project) => (
-        <ProjectCard key={project.id} item={project} open={open} />
-      ))}
-    </div>
+    <>
+      <title>All Projects - Lanz</title>
+      <div className="grid grid-cols-2 w-9/10 mx-auto mb-4 min-h-dvh justify-center text-center items-center pt-16">
+        {sortedProjects.map((project) => (
+          <ProjectCard key={project.id} item={project} open={open} />
+        ))}
+      </div>
+    </>
   );
 };
 

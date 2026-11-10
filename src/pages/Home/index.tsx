@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <>
-      <title>Lanz Angeles | Homepage</title>
+      <title>Home - Lanz Angeles</title>
       <div className="min-h-screen">
         <HomeHero />
         <HomeAbout />

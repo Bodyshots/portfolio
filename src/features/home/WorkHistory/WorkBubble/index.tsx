@@ -26,14 +26,7 @@ export const WorkBubble = ({ job, leftAlign, open }: WorkBubbleProps) => {
               : "border-secondary bg-card text-left"
           }`}
           onClick={() => open(job.id)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              open(job.id);
-            }
-          }}
           type="button"
-          tabIndex={0}
         >
           <h2 className="mb-1 text-xl text-foreground">{job.title}</h2>
           <h3 className="mb-1 text-lg text-accent">{job.company}</h3>

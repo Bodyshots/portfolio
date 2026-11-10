@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { OtherConstants } from "@/constants/other";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -56,4 +57,8 @@ export function displayDescription(text: string, limit: number = 0) {
 
 export function capitalizeString(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function getFullName() {
+  return `${OtherConstants.FIRST_NAME} ${OtherConstants.LAST_NAME}`;
 }
