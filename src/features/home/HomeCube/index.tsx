@@ -12,7 +12,7 @@ import {
 } from "react";
 import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
-import LoadingSpinner from "@/features/global/LoadingSpinner";
+import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
 interface CubeDrag {

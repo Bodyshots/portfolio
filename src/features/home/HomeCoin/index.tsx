@@ -6,7 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { CoinConstants } from "@/constants/coin";
-import LoadingSpinner from "@/features/global/LoadingSpinner";
+import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import { texturesLoaded, useTextures } from "@/lib/three";
 
 interface CoinThreeJSProps {

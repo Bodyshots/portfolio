@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
-import LoadingSpinner from "@/features/global/LoadingSpinner";
+import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import createExperienceOptions from "@/tanstack/queryFns/experiences";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";

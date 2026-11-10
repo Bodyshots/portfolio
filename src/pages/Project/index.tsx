@@ -6,17 +6,14 @@ import ProjectDescription from "@/features/project/ProjectDescription";
 import ProjectGallery from "@/features/project/ProjectGallery";
 import ProjectHeader from "@/features/project/ProjectHeader";
 import ProjectImageModal from "@/features/project/ProjectImageModal";
+import ProjectSkeleton from "@/features/project/ProjectSkeleton";
 import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
 import { createProjectNameOptions } from "@/tanstack/queryFns/projects";
-import Loading from "../Loading";
 import NotFound from "../NotFound";
 
 function Project() {
   const { projectName } = useParams<{ projectName: string }>();
-  useLayoutEffect(() => {
-    if (projectName) window.scrollTo({ top: 0, behavior: "instant" });
-  }, [projectName]);
 
   const {
     data: project,
@@ -26,6 +23,10 @@ function Project() {
     ...createProjectNameOptions(projectName ?? ""),
     enabled: Boolean(projectName),
   });
+
+  const pageTitle = project
+    ? `${project.name} - Lanz Angeles`
+    : "Loading project... - Lanz Angeles";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
@@ -84,40 +85,46 @@ function Project() {
     }, ImageConstants.DEFAULT_TIMEOUT);
   };
 
-  if (!projectName) return <NotFound />;
-  if (isPending) return <Loading />;
-  if (error) return <NotFound />;
+  useLayoutEffect(() => {
+    if (projectName) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [projectName]);
+
+  if (!projectName || error) return <NotFound />;
 
   return (
-    <>
-      <title>{`${project.name} - Lanz Angeles`}</title>
-      <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
-        <ProjectHeader
-          title={project.name}
-          shortDesc={project.short_desc}
-          ghLink={project.github}
-        />
+    <div className="flex flex-col max-w-full min-h-dvh w-full h-full justify-center align-middle text-center m-auto pt-16">
+      <title>{pageTitle}</title>
+      {isPending ? (
+        <ProjectSkeleton />
+      ) : (
+        <>
+          <ProjectHeader
+            title={project.name}
+            shortDesc={project.short_desc}
+            ghLink={project.github}
+          />
 
-        <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
-          <ProjectVideo video={project.video} />
-          <ProjectDescription desc={project.long_desc} />
-          <ProjectTools tools={project.tools} />
-          <ProjectGallery
-            images={project.images}
-            imageAtts={project.image_atts}
-            openImage={openImageModal}
-            setImageAtt={setSelectedImageAtt}
-          />
-          <ProjectImageModal
-            image={selectedImage}
-            imageAtt={selectedImageAtt}
-            imagePos={imagePosition}
-            isOpen={isModalOpen}
-            closeImage={closeImageModal}
-          />
-        </div>
-      </div>
-    </>
+          <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
+            <ProjectVideo video={project.video} />
+            <ProjectDescription desc={project.long_desc} />
+            <ProjectTools tools={project.tools} />
+            <ProjectGallery
+              images={project.images}
+              imageAtts={project.image_atts}
+              openImage={openImageModal}
+              setImageAtt={setSelectedImageAtt}
+            />
+            <ProjectImageModal
+              image={selectedImage}
+              imageAtt={selectedImageAtt}
+              imagePos={imagePosition}
+              isOpen={isModalOpen}
+              closeImage={closeImageModal}
+            />
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/features/global/LoadingSpinner";
+import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 
 function Loading() {
   return (

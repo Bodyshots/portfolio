@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { HomeSectionID } from "@/constants/home";
 import { ProjectConstants } from "@/constants/project";
-import LoadingSpinner from "@/features/global/LoadingSpinner";
+import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createProjectsOptions } from "@/tanstack/queryFns/projects";
 import SectionHeader from "../SectionHeader";

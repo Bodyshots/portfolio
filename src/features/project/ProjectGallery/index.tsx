@@ -1,6 +1,6 @@
 interface ProjectGalleryProps {
-  images: string[] | null;
-  imageAtts: string[] | null;
+  images?: string[] | null;
+  imageAtts?: string[] | null;
   openImage: (image: string, e: React.MouseEvent<HTMLButtonElement>) => void;
   setImageAtt: (imageAtt: string) => void;
 }
