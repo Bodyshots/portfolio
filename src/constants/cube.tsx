@@ -89,6 +89,7 @@ const CubeConstants = Object.freeze({
     },
     SENSITIVITY: 0.01,
     SMOOTHING: 0.35,
+    THRESHOLD: 0.001,
   },
 });
 

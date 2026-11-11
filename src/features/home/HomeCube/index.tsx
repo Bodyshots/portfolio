@@ -14,6 +14,7 @@ import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
 import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 import { texturesLoaded, useTextures } from "@/lib/three";
+import { getElapsedSeconds } from "@/lib/time";
 
 interface CubeDrag {
   pointerId: number;
@@ -24,6 +25,7 @@ interface CubeDrag {
   deltaX: number;
   deltaY: number;
   started: boolean;
+  ended: boolean;
 }
 
 interface CubeThreeJSProps {
@@ -33,54 +35,71 @@ interface CubeThreeJSProps {
   setIsLoaded: Dispatch<SetStateAction<boolean>>;
 }
 
+// Object creation
+const AXIS_X = new THREE.Vector3(1, 0, 0);
+const AXIS_Y = new THREE.Vector3(0, 1, 0);
+
+const horizontalQuaternion = new THREE.Quaternion();
+const verticalQuaternion = new THREE.Quaternion();
+
+const worldMatrix = new THREE.Matrix4();
+const worldNormal = new THREE.Vector3();
+const cameraDirection = new THREE.Vector3();
+
+// Constants
+const CUBE_DIMENSIONS = CubeConstants.DIMENSIONS;
+const CUBE_EDGES = CubeConstants.EDGE;
+const CUBE_LIGHTS = CubeConstants.LIGHT;
+const CUBE_FACES = CubeConstants.FACES;
+const CUBE_ROTATION = CubeConstants.ROTATION;
+const CUBE_VELOCITY = CubeConstants.VELOCITY;
+const CUBE_DRAG_SENSITIVITY = CubeConstants.VELOCITY.SENSITIVITY;
+const CUBE_VELOCITY_THRESHOLD = CUBE_VELOCITY.THRESHOLD;
+
+const BASE_ROTATIONS = CUBE_ROTATION.BASE;
+const CUBE_ROTATION_SPEED = CUBE_ROTATION.SPEED;
+const ROTATION_AMPLITUDE = THREE.MathUtils.degToRad(CUBE_ROTATION.AMPLITUDE);
+const IDLE_ROTATION_AXES = [
+  ["x", BASE_ROTATIONS.X, CUBE_ROTATION_SPEED.X],
+  ["y", BASE_ROTATIONS.Y, CUBE_ROTATION_SPEED.Y],
+  ["z", BASE_ROTATIONS.Z, CUBE_ROTATION_SPEED.Z],
+] as const;
+
 const CubeThreeJS = ({
   cubeRef,
   dragRef,
   handleFaceChange,
   setIsLoaded,
 }: CubeThreeJSProps) => {
-  const dragGroupRef = useRef<THREE.Group | null>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-  let maxDot = -Infinity;
-
-  // Camera
   const { camera } = useThree();
-
-  // Dimensions
-  const cubeDimensions = CubeConstants.DIMENSIONS;
-
-  // Edges
-  const cubeEdges = CubeConstants.EDGE;
-
-  // Lights
-  const cubeLights = CubeConstants.LIGHT;
-
-  // Faces
-  let closestFace: string | null = null;
-  const faces = CubeConstants.FACES;
-  const loadedTextures = useTextures(faces.map((face) => face.image));
-
-  // Rotation
-  const cubeRotation = CubeConstants.ROTATION;
-  const rotationAmplitude = THREE.MathUtils.degToRad(cubeRotation.AMPLITUDE);
-  const baseRotations = cubeRotation.BASE;
-
-  // Colors
-  const themeColors = getComputedStyle(document.documentElement);
-  const edgeColor = themeColors.getPropertyValue(cubeEdges.COLOR);
-  const lightColor = themeColors.getPropertyValue(cubeLights.COLOR);
-
-  // Velocity
-  const dragSensitivity = CubeConstants.VELOCITY.SENSITIVITY;
-  const cubeVelocity = CubeConstants.VELOCITY;
+  const dragGroupRef = useRef<THREE.Group | null>(null);
+  const faceCheckElapsed = useRef(0); // Face check clock
+  const idleElapsed = useRef(0); // Idle animation clock
+  const faceCheckPending = useRef(false); // Marks dirty face
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const loadedTextures = useTextures(CUBE_FACES.map((face) => face.image));
   const dragVelocity = useRef({
-    x: cubeVelocity.INITIAL.X,
-    y: cubeVelocity.INITIAL.Y,
+    x: CUBE_VELOCITY.INITIAL.X,
+    y: CUBE_VELOCITY.INITIAL.Y,
+  });
+  const [themeColors, setThemeColors] = useState({
+    edge: "",
+    light: "",
   });
 
+  // Note: Remember to update dep array if supporting multi themes
+  useEffect(() => {
+    const styles = getComputedStyle(document.documentElement);
+
+    setThemeColors({
+      edge: styles.getPropertyValue(CUBE_EDGES.COLOR).trim(),
+      light: styles.getPropertyValue(CUBE_LIGHTS.COLOR).trim(),
+    });
+  }, []);
+
   const resetVelocity = () => {
-    dragVelocity.current.x = cubeVelocity.INITIAL.X;
-    dragVelocity.current.y = cubeVelocity.INITIAL.Y;
+    dragVelocity.current.x = CUBE_VELOCITY.INITIAL.X;
+    dragVelocity.current.y = CUBE_VELOCITY.INITIAL.Y;
   };
 
   const updateDragVelocity = (
@@ -90,24 +109,33 @@ const CubeThreeJS = ({
   ) => {
     dragVelocity.current.x = THREE.MathUtils.lerp(
       dragVelocity.current.x,
-      (deltaX * dragSensitivity) / elapsedTime,
+      (deltaX * CUBE_DRAG_SENSITIVITY) / elapsedTime,
       CubeConstants.VELOCITY.SMOOTHING,
     );
     dragVelocity.current.y = THREE.MathUtils.lerp(
       dragVelocity.current.y,
-      (deltaY * dragSensitivity) / elapsedTime,
+      (deltaY * CUBE_DRAG_SENSITIVITY) / elapsedTime,
       CubeConstants.VELOCITY.SMOOTHING,
     );
   };
 
+  // Basically, weakens spin
   const applyDamping = (delta: number) => {
-    const damping = Math.exp(cubeVelocity.DAMPING * delta);
+    const damping = Math.exp(CUBE_VELOCITY.DAMPING * delta);
     dragVelocity.current.x *= damping;
     dragVelocity.current.y *= damping;
+
+    if (
+      Math.abs(dragVelocity.current.x) < CUBE_VELOCITY_THRESHOLD &&
+      Math.abs(dragVelocity.current.y) < CUBE_VELOCITY_THRESHOLD
+    ) {
+      dragVelocity.current.x = 0;
+      dragVelocity.current.y = 0;
+    }
   };
 
   const getIdleRotation = (elapsedTime: number, speed: number) =>
-    Math.sin(elapsedTime * speed) * rotationAmplitude;
+    Math.sin(elapsedTime * speed) * ROTATION_AMPLITUDE;
 
   const updateRotation = (
     horizontalRotation: number,
@@ -116,88 +144,117 @@ const CubeThreeJS = ({
     const group = dragGroupRef.current;
     if (!group) return;
 
-    const horizontalQuaternion = new THREE.Quaternion().setFromAxisAngle(
-      new THREE.Vector3(0, 1, 0),
-      horizontalRotation,
-    );
-    const verticalQuaternion = new THREE.Quaternion().setFromAxisAngle(
-      new THREE.Vector3(1, 0, 0),
-      verticalRotation,
-    );
+    horizontalQuaternion.setFromAxisAngle(AXIS_Y, horizontalRotation);
+    verticalQuaternion.setFromAxisAngle(AXIS_X, verticalRotation);
 
-    group.quaternion.premultiply(horizontalQuaternion);
-    group.quaternion.premultiply(verticalQuaternion);
+    group.quaternion
+      .premultiply(horizontalQuaternion)
+      .premultiply(verticalQuaternion);
   };
 
   const checkVisibleFace = () => {
     const cube = cubeRef.current;
     if (!cube) return;
 
-    const matrix = new THREE.Matrix4();
-    cube.updateMatrixWorld();
-    matrix.copy(cube.matrixWorld);
+    cube.updateMatrixWorld(true);
+    worldMatrix.copy(cube.matrixWorld);
 
-    const cameraDirection = new THREE.Vector3();
     camera.getWorldDirection(cameraDirection);
 
-    for (const face of faces) {
-      const worldNormal = face.normal.clone().applyMatrix4(matrix).normalize();
+    let maxDot = -Infinity;
+    let closestFace: string | null = null;
+
+    for (const face of CUBE_FACES) {
+      worldNormal.copy(face.normal).transformDirection(worldMatrix);
+
       const dotProduct = cameraDirection.dot(worldNormal);
-      if (dotProduct > maxDot || dotProduct >= CubeConstants.FACE_THRESHOLD) {
+      if (dotProduct > maxDot) {
         maxDot = dotProduct;
         closestFace = face.name;
       }
     }
-    handleFaceChange(closestFace);
+    if (maxDot >= CubeConstants.FACE_THRESHOLD) handleFaceChange(closestFace);
   };
 
-  useFrame(({ clock }, delta) => {
+  const markDirtyFace = () => {
+    faceCheckPending.current = true;
+  };
+
+  const markCleanFace = () => {
+    faceCheckPending.current = false;
+  };
+
+  useFrame((_, delta) => {
     const cube = cubeRef.current;
     if (!cube) return;
 
     const drag = dragRef.current;
     if (drag) {
+      // User begins interacting with the cube
       if (drag.started) {
         resetVelocity();
         drag.started = false;
       }
 
+      // User actively moving the cube
       if (drag.deltaX !== 0 || drag.deltaY !== 0) {
         const elapsedTime = Math.max(
-          (drag.time - drag.lastAppliedTime) / 1000,
+          getElapsedSeconds(drag.lastAppliedTime, drag.time),
           0.001,
         );
         updateRotation(
-          drag.deltaX * dragSensitivity,
-          drag.deltaY * dragSensitivity,
+          drag.deltaX * CUBE_DRAG_SENSITIVITY,
+          drag.deltaY * CUBE_DRAG_SENSITIVITY,
         );
+        markDirtyFace();
+
         updateDragVelocity(drag.deltaX, drag.deltaY, elapsedTime);
         drag.deltaX = 0;
         drag.deltaY = 0;
         drag.lastAppliedTime = drag.time;
       }
     } else if (dragGroupRef.current) {
+      // Cube intertia
       if (prefersReducedMotion) resetVelocity();
-      else {
+      else if (dragVelocity.current.x !== 0 || dragVelocity.current.y !== 0) {
         updateRotation(
           dragVelocity.current.x * delta,
           dragVelocity.current.y * delta,
         );
+        markDirtyFace();
         applyDamping(delta);
       }
     }
 
-    if (!prefersReducedMotion) {
-      for (const [axis, base, speed] of [
-        ["x", baseRotations.X, cubeRotation.SPEED.X],
-        ["y", baseRotations.Y, cubeRotation.SPEED.Y],
-        ["z", baseRotations.Z, cubeRotation.SPEED.Z],
-      ] as const) {
-        cube.rotation[axis] = base + getIdleRotation(clock.elapsedTime, speed);
+    const isInteracting =
+      drag !== null ||
+      dragVelocity.current.x !== 0 ||
+      dragVelocity.current.y !== 0;
+
+    // Idle animation
+    if (!prefersReducedMotion && !isInteracting) {
+      idleElapsed.current += delta;
+
+      for (const [axis, base, speed] of IDLE_ROTATION_AXES) {
+        cube.rotation[axis] =
+          base + getIdleRotation(idleElapsed.current, speed);
       }
+      markDirtyFace();
     }
 
-    checkVisibleFace();
+    if (drag?.ended && drag.deltaX === 0 && drag.deltaY === 0) {
+      dragRef.current = null;
+    }
+
+    if (faceCheckPending.current) {
+      faceCheckElapsed.current += delta;
+
+      if (faceCheckElapsed.current >= 0.1) {
+        checkVisibleFace();
+        markCleanFace();
+        faceCheckElapsed.current = 0;
+      }
+    }
   });
 
   useEffect(() => {
@@ -208,28 +265,28 @@ const CubeThreeJS = ({
     <>
       <ambientLight
         intensity={CubeConstants.LIGHT.INTENSITY}
-        color={lightColor}
+        color={themeColors.light}
       />
       <group ref={dragGroupRef}>
         <mesh
           ref={cubeRef}
-          rotation={[baseRotations.X, baseRotations.Y, baseRotations.Z]}
+          rotation={[BASE_ROTATIONS.X, BASE_ROTATIONS.Y, BASE_ROTATIONS.Z]}
         >
           <boxGeometry
             args={[
-              cubeDimensions.WIDTH,
-              cubeDimensions.HEIGHT,
-              cubeDimensions.DEPTH,
+              CUBE_DIMENSIONS.WIDTH,
+              CUBE_DIMENSIONS.HEIGHT,
+              CUBE_DIMENSIONS.DEPTH,
             ]}
           />
-          {faces.map((face, index) => (
+          {CUBE_FACES.map((face, index) => (
             <meshStandardMaterial
               key={face.name}
               map={loadedTextures[index]}
               attach={`material-${face.materialIndex}`}
             />
           ))}
-          <Edges color={edgeColor} lineWidth={cubeEdges.LINE_WIDTH} />
+          <Edges color={themeColors.edge} lineWidth={CUBE_EDGES.LINE_WIDTH} />
         </mesh>
       </group>
     </>
@@ -256,6 +313,7 @@ const HomeCube = () => {
       deltaX: 0,
       deltaY: 0,
       started: true,
+      ended: false,
     };
   };
 
@@ -271,8 +329,9 @@ const HomeCube = () => {
   };
 
   const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragRef.current?.pointerId !== event.pointerId) return;
-    dragRef.current = null;
+    const drag = dragRef.current;
+    if (drag?.pointerId !== event.pointerId) return;
+    drag.ended = true;
   };
 
   const handleFaceChange = (face: string | null) => {
