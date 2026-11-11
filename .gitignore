@@ -6,6 +6,7 @@
 .pnp.js
 venv
 dist
+.env
 
 # testing
 /coverage

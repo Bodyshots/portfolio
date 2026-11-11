@@ -1,0 +1,131 @@
+/* Colour palette: https://coolors.co/fae8bc-f9c9a2-4e313a-291d22-9d5550 */
+@import "tailwindcss";
+@plugin "daisyui";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(41 52% 73%);
+  --foreground: hsl(342 100% 19%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(342 100% 19%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(342 100% 19%);
+
+  --primary: hsl(52, 52%, 79%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(49, 52%, 87%);
+  --secondary-foreground: hsl(342 100% 19%);
+
+  --muted: hsl(23, 30%, 61%);
+  --muted-foreground: hsl(342, 100%, 19%);
+
+  --accent: hsl(356, 32%, 42%);
+  --accent-foreground: hsl(342 100% 19%);
+
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+
+  --border: hsl(52 52% 79%);
+  --input: hsl(41 52% 73%);
+  --ring: hsl(342 100% 19%);
+
+  --radius: 0.5rem;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+}
+
+.dark {
+  --background: hsl(41 52% 73%);
+  --foreground: hsl(342 100% 19%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(342 100% 19%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(342 100% 19%);
+
+  --primary: hsl(52, 52%, 79%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(49, 52%, 87%);
+  --secondary-foreground: hsl(342 100% 19%);
+
+  --muted: hsl(23, 30%, 61%);
+  --muted-foreground: hsl(342, 100%, 19%);
+
+  --accent: hsl(356, 32%, 42%);
+  --accent-foreground: hsl(342 100% 19%);
+
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+
+  --border: hsl(23 30% 61%);
+  --input: hsl(23 30% 61%);
+  --ring: hsl(49 52% 87%);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+}
+
+@theme inline {
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Custom font */
+@font-face {
+  font-family: PixelFont;
+  src: url("@/fonts/Dico.ttf") format("truetype");
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  font-family: "PixelFont", sans-serif;
+}
+
+body,
+#root {
+  background-color: var(--primary);
+}
+
+.text_highlight {
+  -webkit-text-stroke-width: 0.65px;
+  -webkit-text-stroke-color: var(--accent);
+}
