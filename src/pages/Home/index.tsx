@@ -1,6 +1,5 @@
 import { lazy, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "aos/dist/aos.css";
 import { HomeContact } from "@/features/home/HomeContact";
 
 const HomeHero = lazy(() => import("@/features/home/HomeHero"));
