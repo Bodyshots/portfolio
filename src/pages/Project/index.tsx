@@ -104,7 +104,7 @@ function Project() {
             ghLink={project.github}
           />
 
-          <div className="max-w-6xl mx-auto px-8 py-8 pt-0">
+          <main className="max-w-6xl mx-auto px-8 py-8 pt-0">
             <ProjectVideo video={project.video} />
             <ProjectDescription desc={project.long_desc} />
             <ProjectTools tools={project.tools} />
@@ -121,7 +121,7 @@ function Project() {
               isOpen={isModalOpen}
               closeImage={closeImageModal}
             />
-          </div>
+          </main>
         </>
       )}
     </div>

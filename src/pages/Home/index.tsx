@@ -21,13 +21,13 @@ const Home = () => {
   return (
     <>
       <title>Home - Lanz Angeles</title>
-      <div className="min-h-screen">
+      <main className="min-h-screen">
         <HomeHero />
         <HomeExperience />
         <HomeProjects />
         <HomeAbout />
         <HomeContact />
-      </div>
+      </main>
     </>
   );
 };
