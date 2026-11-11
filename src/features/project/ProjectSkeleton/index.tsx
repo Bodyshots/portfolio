@@ -63,7 +63,7 @@ const ProjectSkeleton = () => {
             <LoadingSkeleton
               count={4}
               width="100%"
-              className="block h-64 max-w-full"
+              className="block h-64 max-w-full rounded-lg!"
               containerClassName="contents [&>br]:hidden"
             />
           </div>

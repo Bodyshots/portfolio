@@ -26,8 +26,7 @@ const App = () => {
     <Router>
       <ScrollBreakpoint />
       <NavBar />
-      <Routes location={location} key={location.pathname}>
-        <Route path="" element={<Home />} />
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/allprojects" element={<AllProjects />} />
