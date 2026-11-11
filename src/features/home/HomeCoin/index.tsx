@@ -13,6 +13,29 @@ interface CoinThreeJSProps {
   setIsLoaded: (value: boolean) => void;
 }
 
+const COIN_ROTATION = CoinConstants.ROTATION;
+const COIN_TEXTURES = CoinConstants.TEXTURES;
+const BASE_ROTATIONS = COIN_ROTATION.BASE;
+const COIN_SPEED = COIN_ROTATION.SPEED;
+
+const BASE_ROTATIONS_RADIANS = {
+  X: THREE.MathUtils.degToRad(BASE_ROTATIONS.X),
+  Y: THREE.MathUtils.degToRad(BASE_ROTATIONS.Y),
+  Z: THREE.MathUtils.degToRad(BASE_ROTATIONS.Z),
+};
+
+const WOBBLE_RADIANS = {
+  X: THREE.MathUtils.degToRad(COIN_ROTATION.WOBBLE.X),
+  Z: THREE.MathUtils.degToRad(COIN_ROTATION.WOBBLE.Z),
+};
+
+const SPIN_AMPLITUDE_RADIANS = THREE.MathUtils.degToRad(
+  COIN_ROTATION.AMPLITUDE,
+);
+
+// Polar Angle
+const polarAngles = CoinConstants.POLAR_ANGLE;
+
 const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
   const spinRef = useRef<THREE.Group | null>(null);
   const coinRef = useRef<THREE.Mesh | null>(null);
@@ -20,28 +43,29 @@ const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
   const idlePhase = useRef(0);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Polar Angle
-  const polarAngles = CoinConstants.POLAR_ANGLE;
-
   // Textures
-  const textures = CoinConstants.TEXTURES;
-  const loadedTextures = useTextures(textures.map((texture) => texture.image));
-  loadedTextures.forEach((loadedTexture, index) => {
-    const texture = textures[index];
-    if (texture.wrapS !== undefined) loadedTexture.wrapS = texture.wrapS;
-    if (texture.repeat) loadedTexture.repeat.set(...texture.repeat);
-    if (texture.offset) loadedTexture.offset.set(...texture.offset);
-  });
+  const loadedTextures = useTextures(
+    COIN_TEXTURES.map((texture) => texture.image),
+  );
 
-  // Rotation
-  const coinRotation = CoinConstants.ROTATION;
-  const baseRotations = coinRotation.BASE;
-  const baseRotationsRadians = {
-    X: THREE.MathUtils.degToRad(baseRotations.X),
-    Y: THREE.MathUtils.degToRad(baseRotations.Y),
-    Z: THREE.MathUtils.degToRad(baseRotations.Z),
-  };
-  const wobble = coinRotation.WOBBLE;
+  useEffect(() => {
+    loadedTextures.forEach((loadedTexture, index) => {
+      const texture = COIN_TEXTURES[index];
+
+      if (
+        texture.wrapS !== undefined &&
+        loadedTexture.wrapS !== texture.wrapS
+      ) {
+        loadedTexture.wrapS = texture.wrapS;
+        loadedTexture.needsUpdate = true;
+      }
+
+      if (texture.repeat) loadedTexture.repeat.set(...texture.repeat);
+      if (texture.offset) loadedTexture.offset.set(...texture.offset);
+    });
+
+    setIsLoaded(texturesLoaded(loadedTextures));
+  }, [loadedTextures, setIsLoaded]);
 
   useFrame((_, delta) => {
     const spin = spinRef.current;
@@ -54,44 +78,36 @@ const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
 
     spin.rotation.y = prefersReducedMotion
       ? 0
-      : Math.sin(idlePhase.current * coinRotation.SPEED.Y) *
-        THREE.MathUtils.degToRad(coinRotation.AMPLITUDE);
+      : Math.sin(idlePhase.current * COIN_SPEED.Y) * SPIN_AMPLITUDE_RADIANS;
 
     if (!prefersReducedMotion) {
       coin.rotation.x =
-        baseRotationsRadians.X +
-        Math.sin(idlePhase.current * coinRotation.SPEED.X) *
-          THREE.MathUtils.degToRad(wobble.X);
-      coin.rotation.y = baseRotationsRadians.Y;
+        BASE_ROTATIONS_RADIANS.X +
+        Math.sin(idlePhase.current * COIN_SPEED.X) * WOBBLE_RADIANS.X;
+      coin.rotation.y = BASE_ROTATIONS_RADIANS.Y;
       coin.rotation.z =
-        baseRotationsRadians.Z +
-        Math.sin(idlePhase.current * coinRotation.SPEED.Z) *
-          THREE.MathUtils.degToRad(wobble.Z);
+        BASE_ROTATIONS_RADIANS.Z +
+        Math.sin(idlePhase.current * COIN_SPEED.Z) * WOBBLE_RADIANS.Z;
     }
   });
-
-  useEffect(() => {
-    setIsLoaded(texturesLoaded(loadedTextures));
-  }, [loadedTextures, setIsLoaded]);
 
   return (
     <>
       <OrbitControls
         enableZoom={false}
         enablePan={false}
-        target={[0, 0, 0]}
         minPolarAngle={polarAngles.MIN}
         maxPolarAngle={polarAngles.MAX}
         onStart={() => (isInteracting.current = true)}
         onEnd={() => (isInteracting.current = false)}
       />
-      <group ref={spinRef} position={[0, 0, 0]}>
+      <group ref={spinRef}>
         <mesh
           ref={coinRef}
           rotation={[
-            baseRotationsRadians.X,
-            baseRotationsRadians.Y,
-            baseRotationsRadians.Z,
+            BASE_ROTATIONS_RADIANS.X,
+            BASE_ROTATIONS_RADIANS.Y,
+            BASE_ROTATIONS_RADIANS.Z,
           ]}
         >
           <cylinderGeometry
@@ -102,7 +118,7 @@ const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
               CoinConstants.GEOMETRY.RADIAL_SEGMENTS,
             ]}
           />
-          {textures.map((texture, index) => (
+          {COIN_TEXTURES.map((texture, index) => (
             <meshBasicMaterial
               key={texture.name}
               map={loadedTextures[index]}
