@@ -82,7 +82,7 @@ const CubeConstants = Object.freeze({
     },
   },
   VELOCITY: {
-    DAMPING: -5, // Will be multiplied by delta time to reduce velocity over time
+    DAMPING: -5, // Multiplied by delta time to reduce velocity over time
     INITIAL: {
       X: 0,
       Y: 0,
