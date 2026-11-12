@@ -15,13 +15,17 @@ const dropInAnimation: Variants = {
     y: "0",
     opacity: 1,
     transition: {
-      duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
+      duration: 0.4,
+      ease: [0.27, 0.01, 0.07, 1],
     },
   },
-  exit: { y: "100vh", opacity: 0 },
+  exit: {
+    y: "100vh",
+    opacity: 0,
+    transition: {
+      duration: 0.4,
+    },
+  },
 };
 
 interface WorkHistoryModalProps {
