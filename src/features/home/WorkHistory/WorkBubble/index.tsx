@@ -1,6 +1,10 @@
+import { motion, type Variants } from "framer-motion";
+import { AnimationConstants } from "@/constants/animation";
 import type { WorkItem } from "@/types";
 import HistoryCircle from "../HistoryCircle";
 import LoadingWorkSkeleton from "../LoadingWorkSkeleton";
+
+const EASING = AnimationConstants.EASING;
 
 interface WorkBubbleProps {
   job: WorkItem;
@@ -9,22 +13,45 @@ interface WorkBubbleProps {
   open: (id: number) => void;
 }
 
+const getBubbleAnimation = (leftAlign: boolean): Variants => {
+  return {
+    hidden: {
+      x: leftAlign ? -20 : 20,
+      opacity: 0,
+    },
+    whileInView: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 1.2,
+        ease: EASING,
+      },
+    },
+  };
+};
+
 export const WorkBubble = ({
   job,
   leftAlign,
   isPending,
   open,
 }: WorkBubbleProps) => {
+  const bubbleAnim = getBubbleAnimation(leftAlign);
+
   return (
     <div
       className={`relative mb-16 flex w-full items-center ${
         leftAlign ? "justify-start" : "justify-end"
       }`}
     >
-      <div
+      <motion.div
         className={`flex w-1/2 px-8 ${
           leftAlign ? "justify-end text-right" : "justify-start text-left"
         }`}
+        variants={bubbleAnim}
+        initial="hidden"
+        whileInView="whileInView"
+        viewport={{ once: true }}
       >
         {isPending ? (
           <LoadingWorkSkeleton leftAlign={leftAlign} />
@@ -46,7 +73,7 @@ export const WorkBubble = ({
             </p>
           </button>
         )}
-      </div>
+      </motion.div>
       <HistoryCircle />
     </div>
   );
