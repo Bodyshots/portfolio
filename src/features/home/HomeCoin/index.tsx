@@ -3,6 +3,7 @@
 import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { CoinConstants } from "@/constants/coin";
@@ -135,9 +136,12 @@ const CoinThreeJS = ({ setIsLoaded }: CoinThreeJSProps) => {
 const HomeCoin = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
-    <div
-      data-aos="fade-down"
+    <motion.div
       className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2"
+      initial={{ opacity: 0, y: -20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
     >
       <div className="relative flex h-100 w-100 items-center justify-center max-lg:h-82 max-lg:w-82">
         <div
@@ -152,7 +156,7 @@ const HomeCoin = () => {
           <CoinThreeJS setIsLoaded={setIsLoaded} />
         </Canvas>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
