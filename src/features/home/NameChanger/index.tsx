@@ -1,20 +1,20 @@
+import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { useEffect, useState } from "react";
 import { ROLES } from "@/constants/role";
 
 function NameChanger() {
   const [currIndex, setCurrIndex] = useState(0);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (currIndex === ROLES.length - 1) {
-      setCurrIndex(0);
-    }
+    if (prefersReducedMotion) return;
+
     const interval = setInterval(() => {
-      const newRole = currIndex + 1;
-      setCurrIndex(newRole);
+      setCurrIndex((index) => (index + 1) % ROLES.length);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [currIndex]);
+  }, [prefersReducedMotion]);
 
   return (
     <div className="flex flex-col gap-8">

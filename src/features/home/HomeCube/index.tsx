@@ -75,6 +75,7 @@ const CubeThreeJS = ({
   const dragGroupRef = useRef<THREE.Group | null>(null);
   const faceCheckElapsed = useRef(0); // Face check clock
   const idleElapsed = useRef(0); // Idle animation clock
+  const initialFaceCheckComplete = useRef(false);
   const faceCheckPending = useRef(false); // Marks dirty face
   const prefersReducedMotion = usePrefersReducedMotion();
   const loadedTextures = useTextures(CUBE_FACES.map((face) => face.image));
@@ -187,6 +188,11 @@ const CubeThreeJS = ({
   useFrame((_, delta) => {
     const cube = cubeRef.current;
     if (!cube) return;
+
+    if (!initialFaceCheckComplete.current) {
+      checkVisibleFace();
+      initialFaceCheckComplete.current = true;
+    }
 
     const drag = dragRef.current;
     if (drag) {

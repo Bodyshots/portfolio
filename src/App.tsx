@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import { BrowserRouter as Router } from "react-router-dom";
 import Footer from "./features/global/Footer";
 import NavBar from "./features/global/NavBar";
@@ -13,18 +14,20 @@ const Project = lazy(() => import("@/pages/Project"));
 
 const App = () => {
   return (
-    <Router>
-      <ScrollBreakpoint />
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/allprojects" element={<AllProjects />} />
-        <Route path="/project/:projectName" element={<Project />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <MotionConfig reducedMotion="user">
+      <Router>
+        <ScrollBreakpoint />
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/allprojects" element={<AllProjects />} />
+          <Route path="/project/:projectName" element={<Project />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </MotionConfig>
   );
 };
 
