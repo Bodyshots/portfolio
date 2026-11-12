@@ -1,20 +1,23 @@
 import { motion, type Variants } from "framer-motion";
 import { lazy } from "react";
+import { AnimationConstants } from "@/constants/animation";
 import NameChanger from "../NameChanger";
 
 const HomeCube = lazy(() => import("../HomeCube"));
+
+const EASING = AnimationConstants.EASING;
 
 const homeCubeAnimation: Variants = {
   hidden: {
     y: 100,
     opacity: 0,
   },
-  visible: {
+  whileInView: {
     y: 0,
     opacity: 1,
     transition: {
       duration: 1.5,
-      ease: [0.27, 0.01, 0.07, 1],
+      ease: EASING,
     },
   },
 };
@@ -24,12 +27,12 @@ const nameChangerAnimation: Variants = {
     x: 100,
     opacity: 0,
   },
-  visible: {
+  whileInView: {
     x: 0,
     opacity: 1,
     transition: {
       duration: 1.2,
-      ease: [0.27, 0.01, 0.07, 1], // [x1, y1, x2, y2]
+      ease: EASING,
     },
   },
 };
@@ -40,10 +43,11 @@ const HomeHero = () => {
       <div className="relative top-0 m-auto flex h-full max-h-full w-full max-w-full flex-col justify-center text-center text-8xl text-white max-lg:overflow-hidden">
         <div className="mb-4 flex h-full flex-row flex-nowrap justify-center  max-lg:h-120 max-lg:w-full max-lg:flex-col-reverse">
           <motion.div
+            className="relative ml-10 flex items-center justify-center max-lg:ml-0 max-lg:w-full"
             variants={homeCubeAnimation}
             initial="hidden"
-            animate="visible"
-            className="relative ml-10 flex items-center justify-center max-lg:ml-0 max-lg:w-full"
+            animate="whileInView"
+            viewport={{ once: true }}
           >
             <HomeCube />
           </motion.div>
@@ -51,7 +55,8 @@ const HomeHero = () => {
             className="ml-2 mr-10 flex w-3/10 items-center justify-center max-lg:m-0 max-lg:mt-4 max-lg:w-full"
             variants={nameChangerAnimation}
             initial="hidden"
-            animate="visible"
+            animate="whileInView"
+            viewport={{ once: true }}
           >
             <NameChanger />
           </motion.div>

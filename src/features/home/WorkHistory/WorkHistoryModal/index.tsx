@@ -1,7 +1,10 @@
 import { motion, type Variants } from "framer-motion";
+import { AnimationConstants } from "@/constants/animation";
 import type { WorkItem } from "@/types";
 import WorkContent from "./WorkContent";
 import WorkHeader from "./WorkHeader";
+
+const EASING = AnimationConstants.EASING;
 
 const backdropAnimation: Variants = {
   hidden: { opacity: 0 },
@@ -16,7 +19,7 @@ const dropInAnimation: Variants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: [0.27, 0.01, 0.07, 1],
+      ease: EASING,
     },
   },
   exit: {
