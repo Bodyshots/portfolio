@@ -47,7 +47,7 @@ const WorkHeader = ({ selectedJob, close }: WorkHeaderProps) => {
         </div>
         <button
           onClick={close}
-          className="rounded-full p-2 transition-colors duration-200 hover:bg-secondary"
+          className="rounded-lg p-2 transition-colors duration-100 hover:bg-secondary hover:cursor-pointer"
           aria-label="Close"
           type="button"
         >

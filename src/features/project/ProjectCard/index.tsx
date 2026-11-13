@@ -4,7 +4,7 @@ import { AnimationConstants } from "@/constants/animation";
 import { ProjectConstants } from "@/constants/project";
 import { cn, displayDescription } from "@/lib/utils";
 import type { Project } from "@/types";
-import ProjectTool from "../ProjectTools/ProjectTool";
+import Tool from "../../global/Tool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
@@ -37,7 +37,7 @@ const CardTools = ({ tools }: { tools: string[] | null }) => {
   return (
     <div className="flex flex-row flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
-        <ProjectTool key={tool} tool={tool} />
+        <Tool key={tool} tool={tool} />
       ))}
     </div>
   );

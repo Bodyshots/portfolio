@@ -17,7 +17,7 @@ const ThemeSwitcher = () => {
     <button
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      className="fixed right-6 bottom-6 z-40 flex size-12 items-center justify-center rounded-full border border-foreground bg-secondary text-secondary-foreground shadow-lg hover:bg-accent/20 hover:text-accent-foreground/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring transition-all duration-100"
+      className="fixed right-6 bottom-6 z-40 flex size-12 items-center justify-center rounded-full border border-foreground bg-secondary text-secondary-foreground shadow-lg hover:bg-gray-50 hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring transition-all duration-100 opacity-50 hover:opacity-100"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <ThemedIcon

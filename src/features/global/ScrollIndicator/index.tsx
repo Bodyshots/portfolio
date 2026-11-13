@@ -11,7 +11,8 @@ const ScrollIndicator = () => {
       const height =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-      const progress = height > 0 ? Math.min((winScroll / height) * 100, 100) : 0;
+      const progress =
+        height > 0 ? Math.min((winScroll / height) * 100, 100) : 0;
 
       if (progressRef.current) {
         progressRef.current.style.width = `${progress}%`;
@@ -39,7 +40,7 @@ const ScrollIndicator = () => {
   return (
     <div
       ref={progressRef}
-      className="h-1 bg-accent opacity-60 [transition:all_0.5s_ease-in-out,width_0s_ease-in-out]"
+      className="h-1 bg-accent opacity-60 transition-colors duration-100"
     />
   );
 };

@@ -27,7 +27,7 @@ function NavBar() {
             path="/"
             label={getFullName()}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-2xl"
+            className="text-2xl transition-colors duration-100"
             hoverBg={false}
           />
         </div>
