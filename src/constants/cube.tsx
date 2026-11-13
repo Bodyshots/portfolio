@@ -1,10 +1,4 @@
 import * as THREE from "three";
-import cImg from "@/images/faces/C_face.avif";
-import javaImg from "@/images/faces/java_face.avif";
-import htmlImg from "@/images/faces/javascript_face.avif";
-import nextjsImg from "@/images/faces/nextjs_face.avif";
-import pythonImg from "@/images/faces/python_face.avif";
-import reactImg from "@/images/faces/react_face.avif";
 
 interface CubeFace {
   name: string;
@@ -17,37 +11,37 @@ const CubeFaces: CubeFace[] = [
   {
     name: "Python",
     normal: new THREE.Vector3(-1, 0, 0),
-    image: pythonImg,
+    image: "pythonFace.avif",
     materialIndex: 0,
   },
   {
     name: "JavaScript",
     normal: new THREE.Vector3(1, 0, 0),
-    image: htmlImg,
+    image: "javascriptFace.avif",
     materialIndex: 1,
   },
   {
     name: "C/C++",
     normal: new THREE.Vector3(0, -1, 0),
-    image: cImg,
+    image: "CFace.avif",
     materialIndex: 2,
   },
   {
     name: "Java",
     normal: new THREE.Vector3(0, 1, 0),
-    image: javaImg,
+    image: "javaFace.avif",
     materialIndex: 3,
   },
   {
     name: "React",
     normal: new THREE.Vector3(0, 0, -1),
-    image: reactImg,
+    image: "reactFace.avif",
     materialIndex: 4,
   },
   {
     name: "Next.js",
     normal: new THREE.Vector3(0, 0, 1),
-    image: nextjsImg,
+    image: "nextjsFace.avif",
     materialIndex: 5,
   },
 ];
@@ -63,9 +57,16 @@ const CubeConstants = Object.freeze({
     LINE_WIDTH: 0.5,
   },
   FACES: CubeFaces,
+  FACE_PATH: {
+    LIGHT: "/cube/light/",
+    DARK: "/cube/dark/",
+  },
   FACE_THRESHOLD: 0.7,
   LIGHT: {
-    COLOR: "--secondary",
+    COLOR: {
+      LIGHT: "--secondary",
+      DARK: "white",
+    },
     INTENSITY: 3.19,
   },
   ROTATION: {

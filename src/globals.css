@@ -42,31 +42,31 @@
 }
 
 .dark {
-  --background: hsl(41 52% 73%);
-  --foreground: hsl(342 100% 19%);
+  --background: hsl(40, 43%, 3%);
+  --foreground: #3783df;
 
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(342 100% 19%);
+  --card: #f0f4f8;
+  --card-foreground: hsl(234, 100%, 19%);
 
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(342 100% 19%);
+  --popover-foreground: hsl(234, 100%, 19%);
 
-  --primary: hsl(52, 52%, 79%);
+  --primary: #27272b;
   --primary-foreground: hsl(0 0% 100%);
 
-  --secondary: hsl(49, 52%, 87%);
-  --secondary-foreground: hsl(342 100% 19%);
+  --secondary: hsl(240, 2%, 9%);
+  --secondary-foreground: hsl(234, 54%, 45%);
 
-  --muted: hsl(23, 30%, 61%);
-  --muted-foreground: hsl(342, 100%, 19%);
+  --muted: #000000;
+  --muted-foreground: hsl(234, 100%, 19%);
 
-  --accent: hsl(356, 32%, 42%);
-  --accent-foreground: hsl(342 100% 19%);
+  --accent: hsl(240, 64%, 47%);
+  --accent-foreground: hsl(234, 100%, 19%);
 
   --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: hsl(0 0% 98%);
 
-  --border: hsl(23 30% 61%);
+  --border: hsl(240, 3%, 13%);
   --input: hsl(23 30% 61%);
   --ring: hsl(49 52% 87%);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -76,6 +76,7 @@
   --chart-5: oklch(0.645 0.246 16.439);
 }
 
+/* Don't remove. For some reason, affects a whole lot */
 @theme inline {
   /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
@@ -108,7 +109,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Custom font */
 @font-face {
   font-family: PixelFont;
   src: url("@/fonts/Dico.ttf") format("truetype");

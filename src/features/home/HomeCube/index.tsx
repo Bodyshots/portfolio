@@ -1,6 +1,7 @@
 import { usePrefersReducedMotion } from "@anatoliygatt/use-prefers-reduced-motion";
 import { Edges } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useTheme } from "@teispace/next-themes/client";
 import {
   type Dispatch,
   type PointerEvent as ReactPointerEvent,
@@ -13,7 +14,8 @@ import {
 import * as THREE from "three";
 import { CubeConstants } from "@/constants/cube";
 import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
-import { texturesLoaded, useTextures } from "@/lib/three";
+import { getFacePath } from "@/lib/cube";
+import { texturesLoaded, useTexturesWithBlackFallback } from "@/lib/three";
 import { getElapsedSeconds } from "@/lib/time";
 
 interface CubeDrag {
@@ -32,7 +34,8 @@ interface CubeThreeJSProps {
   cubeRef: RefObject<THREE.Mesh | null>;
   dragRef: RefObject<CubeDrag | null>;
   handleFaceChange: (face: string | null) => void;
-  setIsLoaded: Dispatch<SetStateAction<boolean>>;
+  resolvedTheme: string | undefined;
+  setLoadedFacePath: Dispatch<SetStateAction<string | null>>;
 }
 
 // Object creation
@@ -49,7 +52,7 @@ const cameraDirection = new THREE.Vector3();
 // Constants
 const CUBE_DIMENSIONS = CubeConstants.DIMENSIONS;
 const CUBE_EDGES = CubeConstants.EDGE;
-const CUBE_LIGHTS = CubeConstants.LIGHT;
+const CUBE_LIGHTING = CubeConstants.LIGHT;
 const CUBE_FACES = CubeConstants.FACES;
 const CUBE_ROTATION = CubeConstants.ROTATION;
 const CUBE_VELOCITY = CubeConstants.VELOCITY;
@@ -59,6 +62,7 @@ const CUBE_VELOCITY_THRESHOLD = CUBE_VELOCITY.THRESHOLD;
 const BASE_ROTATIONS = CUBE_ROTATION.BASE;
 const CUBE_ROTATION_SPEED = CUBE_ROTATION.SPEED;
 const ROTATION_AMPLITUDE = THREE.MathUtils.degToRad(CUBE_ROTATION.AMPLITUDE);
+
 const IDLE_ROTATION_AXES = [
   ["x", BASE_ROTATIONS.X, CUBE_ROTATION_SPEED.X],
   ["y", BASE_ROTATIONS.Y, CUBE_ROTATION_SPEED.Y],
@@ -69,7 +73,8 @@ const CubeThreeJS = ({
   cubeRef,
   dragRef,
   handleFaceChange,
-  setIsLoaded,
+  resolvedTheme,
+  setLoadedFacePath,
 }: CubeThreeJSProps) => {
   const { camera } = useThree();
   const dragGroupRef = useRef<THREE.Group | null>(null);
@@ -78,25 +83,29 @@ const CubeThreeJS = ({
   const initialFaceCheckComplete = useRef(false);
   const faceCheckPending = useRef(false); // Marks dirty face
   const prefersReducedMotion = usePrefersReducedMotion();
-  const loadedTextures = useTextures(CUBE_FACES.map((face) => face.image));
+  const facePath = getFacePath(resolvedTheme);
+  const loadedTextures = useTexturesWithBlackFallback(
+    CUBE_FACES.map((face) => `${facePath}${face.image}`),
+  );
   const dragVelocity = useRef({
     x: CUBE_VELOCITY.INITIAL.X,
     y: CUBE_VELOCITY.INITIAL.Y,
   });
-  const [themeColors, setThemeColors] = useState({
-    edge: "",
-    light: "",
-  });
+  const [themeColors, setThemeColors] = useState({ edge: "", light: "" });
 
-  // Note: Remember to update dep array if supporting multi themes
   useEffect(() => {
+    if (!resolvedTheme) return;
+
     const styles = getComputedStyle(document.documentElement);
 
     setThemeColors({
       edge: styles.getPropertyValue(CUBE_EDGES.COLOR).trim(),
-      light: styles.getPropertyValue(CUBE_LIGHTS.COLOR).trim(),
+      light:
+        resolvedTheme === "dark"
+          ? CUBE_LIGHTING.COLOR.DARK
+          : styles.getPropertyValue(CUBE_LIGHTING.COLOR.LIGHT).trim(),
     });
-  }, []);
+  }, [resolvedTheme]);
 
   const resetVelocity = () => {
     dragVelocity.current.x = CUBE_VELOCITY.INITIAL.X;
@@ -264,13 +273,13 @@ const CubeThreeJS = ({
   });
 
   useEffect(() => {
-    setIsLoaded(texturesLoaded(loadedTextures));
-  }, [loadedTextures, setIsLoaded]);
+    if (texturesLoaded(loadedTextures)) setLoadedFacePath(facePath);
+  }, [facePath, loadedTextures, setLoadedFacePath]);
 
   return (
     <>
       <ambientLight
-        intensity={CubeConstants.LIGHT.INTENSITY}
+        intensity={CUBE_LIGHTING.INTENSITY}
         color={themeColors.light}
       />
       <group ref={dragGroupRef}>
@@ -300,10 +309,13 @@ const CubeThreeJS = ({
 };
 
 const HomeCube = () => {
+  const { resolvedTheme } = useTheme();
   const cubeRef = useRef<THREE.Mesh | null>(null);
   const dragRef = useRef<CubeDrag | null>(null);
   const [faceVisible, setFaceVisible] = useState<string | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const facePath = getFacePath(resolvedTheme);
+  const [loadedFacePath, setLoadedFacePath] = useState<string | null>(null);
+  const isLoaded = loadedFacePath === facePath;
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.button !== 0 || !event.isPrimary) return;
@@ -355,8 +367,10 @@ const HomeCube = () => {
       >
         <div
           aria-hidden={isLoaded}
-          className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
-            isLoaded ? "opacity-0" : "opacity-100"
+          className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center ${
+            isLoaded
+              ? "opacity-0 transition-opacity duration-300"
+              : "opacity-100"
           }`}
         >
           <LoadingSpinner />
@@ -366,11 +380,12 @@ const HomeCube = () => {
             cubeRef={cubeRef}
             dragRef={dragRef}
             handleFaceChange={handleFaceChange}
-            setIsLoaded={setIsLoaded}
+            resolvedTheme={resolvedTheme}
+            setLoadedFacePath={setLoadedFacePath}
           />
         </Canvas>
       </div>
-      <div className="-mt-1 flex flex-col text-5xl text-primary-foreground [-webkit-text-stroke-color:var(--accent)] [-webkit-text-stroke-width:0.65px]">
+      <div className="-mt-1 flex flex-col text-5xl text-primary-foreground text_highlight">
         {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
       </div>
     </div>

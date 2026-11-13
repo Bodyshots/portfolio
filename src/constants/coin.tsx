@@ -1,6 +1,4 @@
 import * as THREE from "three";
-import sideImg from "@/images/circumference.avif";
-import faceImg from "@/images/headshot.avif";
 
 interface CoinTexture {
   name: string;
@@ -14,21 +12,21 @@ interface CoinTexture {
 const CoinTextures: CoinTexture[] = [
   {
     name: "side",
-    image: sideImg,
+    image: "/coin/circumference.avif",
     materialIndex: 0,
     wrapS: THREE.RepeatWrapping,
     repeat: [30, 0],
   },
   {
     name: "heads",
-    image: faceImg,
+    image: "/coin/headshot.avif",
     materialIndex: 1,
     repeat: [1, -1],
     offset: [0, 1],
   },
   {
     name: "tails",
-    image: faceImg,
+    image: "/coin/headshot.avif",
     materialIndex: 2,
     repeat: [1, 1],
     offset: [0, 0],

@@ -60,7 +60,7 @@ export function WorkHistoryModal({
         onKeyDown={(e) => e.stopPropagation()}
       >
         <motion.div
-          className="max-h-[80vh] w-full max-w-260 overflow-y-auto rounded-lg bg-border shadow-[0_8px_32px_0_color-mix(in_srgb,var(--color-foreground)_16%,transparent)]"
+          className="max-h-[80vh] w-full max-w-260 overflow-y-auto rounded-lg bg-border shadow-[0_8px_32px_0_color-mix(in_srgb,var(--foreground)_16%,transparent)]"
           variants={dropInAnimation}
           initial="hidden"
           animate="visible"

@@ -12,7 +12,7 @@ const LoadingProjectCard = ({ className }: LoadingProjectCardProps) => {
   return (
     <div
       className={cn(
-        "m-0 flex h-full w-full flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] max-h-87.5",
+        "m-0 flex h-full w-full flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left shadow-[0_4px_24px_0_color-mix(in_srgb,var(--foreground)_10%,transparent)] max-h-87.5",
         className,
       )}
     >

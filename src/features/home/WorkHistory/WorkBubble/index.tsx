@@ -57,7 +57,7 @@ export const WorkBubble = ({
           <LoadingWorkSkeleton leftAlign={leftAlign} />
         ) : (
           <button
-            className={`inline-block cursor-pointer rounded-lg border-2 p-6 shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_8%,transparent)] transition-transform duration-200 hover:scale-105 ${
+            className={`inline-block cursor-pointer rounded-lg border-2 p-6 shadow-[0_4px_24px_0_color-mix(in_srgb,var(--foreground)_8%,transparent)] transition-transform duration-200 hover:scale-105 ${
               leftAlign
                 ? "border-primary bg-secondary text-right"
                 : "border-secondary bg-card text-left"

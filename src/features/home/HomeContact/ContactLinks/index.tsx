@@ -12,7 +12,7 @@ const ContactLink = ({ href, ariaLabel, icon: Icon }: ContactLinkProps) => {
     <a
       aria-label={ariaLabel}
       href={href}
-      className="flex items-center justify-center rounded-sm transition-all duration-150 hover:bg-foreground hover:text-primary-foreground hover:shadow-[3px_3px_3px_color-mix(in_srgb,var(--color-foreground)_30%,transparent)] gap-4"
+      className="flex items-center justify-center rounded-sm transition-all duration-150 hover:bg-foreground hover:text-primary-foreground hover:shadow-[3px_3px_3px_color-mix(in_srgb,var(--foreground)_30%,transparent)] gap-4"
     >
       <Icon className="h-12 w-12 md:h-15 md:w-15 p-0.5" />
     </a>
