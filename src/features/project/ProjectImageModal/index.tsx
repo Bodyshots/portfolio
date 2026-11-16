@@ -63,7 +63,7 @@ const ProjectImageModal = ({
                 isOpen ? "opacity-100" : "opacity-0"
               }`}
             >
-              <p className="text-base text-muted-foreground m-0">{imageAtt}</p>
+              <p className="text-base text-card-foreground m-0">{imageAtt}</p>
             </div>
           </div>
         </button>

@@ -17,7 +17,7 @@ const ProjectGallery = ({
     <ProjectSection
       title="Project Gallery"
       wrapperClassName="mb-12"
-      textClassName="text-3xl text-secondary-foreground my-8"
+      textClassName="text-3xl text-foreground my-8"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         {images?.map((image, index) => (
@@ -36,7 +36,7 @@ const ProjectGallery = ({
               className="w-full h-64 object-cover"
             />
             <div className="p-4 bg-border">
-              <p className="text-sm text-muted-foreground m-0">
+              <p className="text-sm text-card-foreground m-0">
                 {imageAtts?.[index] ?? ""}
               </p>
             </div>

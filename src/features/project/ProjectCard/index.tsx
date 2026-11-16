@@ -83,7 +83,7 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
               <p className="text-xl text-left text-foreground max-md:text-md mt-2">
                 {NAME}
               </p>
-              <p className="text-left text-base text-accent max-md:text-md">
+              <p className="text-left text-card-foreground max-md:text-md">
                 {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>

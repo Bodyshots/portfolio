@@ -40,7 +40,7 @@ const ScrollIndicator = () => {
   return (
     <div
       ref={progressRef}
-      className="h-1 bg-accent opacity-60 transition-colors duration-100"
+      className="h-1 bg-nav-foreground opacity-60 transition-colors duration-100"
     />
   );
 };

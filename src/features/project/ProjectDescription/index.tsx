@@ -9,10 +9,10 @@ const ProjectDescription = ({ desc }: ProjectDescriptionProps) => {
     <ProjectSection
       title="About this project"
       wrapperClassName="my-8 mt-2"
-      textClassName="mb-6 text-secondary-foreground py-0 text-3xl"
+      textClassName="mb-6 text-foreground py-0 text-3xl"
     >
       <p
-        className={`px-8 text-lg leading-relaxed text-muted-foreground m-0 ${desc ? "text-left" : "text-center"}`}
+        className={`px-8 text-lg leading-relaxed text-foreground m-0 ${desc ? "text-left" : "text-center"}`}
       >
         {desc ? desc : "No long description available"}
       </p>

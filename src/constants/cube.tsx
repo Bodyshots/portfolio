@@ -65,9 +65,12 @@ const CubeConstants = Object.freeze({
   LIGHT: {
     COLOR: {
       LIGHT: "--secondary",
-      DARK: "hsla(0, 0%, 100%, 0.422)",
+      DARK: "hsla(0, 0%, 100%, 1)",
     },
-    INTENSITY: 3.19,
+    INTENSITY: {
+      LIGHT: 2.5,
+      DARK: 2.25,
+    },
   },
   ROTATION: {
     AMPLITUDE: 3, // in degrees

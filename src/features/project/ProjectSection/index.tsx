@@ -16,9 +16,7 @@ const ProjectSection = ({
 }: ProjectSectionProps) => {
   return (
     <div className={cn("my-6", wrapperClassName)}>
-      <h2
-        className={cn("text-3xl mb-4 text-secondary-foreground", textClassName)}
-      >
+      <h2 className={cn("text-3xl mb-4 text-foreground", textClassName)}>
         {title}
       </h2>
       {children}

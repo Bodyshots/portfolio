@@ -26,9 +26,9 @@ const BulletPointSection = ({
       {points.map((point) => (
         <li
           key={point}
-          className="flex items-start gap-2 text-sm text-card-foreground"
+          className="flex items-start gap-2 text-sm text-card-foreground dark:text-card"
         >
-          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-muted" />
+          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-card-foreground/50 dark:bg-foreground/50" />
           {point}
         </li>
       ))}
@@ -43,7 +43,7 @@ const CardSection = ({
 }: CardSectionProps) => {
   return (
     <div className="text-left mb-4">
-      <h3 className="mb-3 flex items-center gap-2 text-lg text-foreground dark:text-shadow-md dark:text-shadow-black ">
+      <h3 className="mb-3 flex items-center gap-2 text-lg text-foreground">
         <TitleIcon className="h-5 w-5" />
         {title}
       </h3>

@@ -137,7 +137,7 @@ const HomeCoin = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <motion.div
-      className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2"
+      className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2 motion-reduce:transition-none"
       initial={{ opacity: 0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

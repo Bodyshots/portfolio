@@ -52,7 +52,9 @@ const cameraDirection = new THREE.Vector3();
 // Constants
 const CUBE_DIMENSIONS = CubeConstants.DIMENSIONS;
 const CUBE_EDGES = CubeConstants.EDGE;
-const CUBE_LIGHTING = CubeConstants.LIGHT;
+const _CUBE_LIGHTING = CubeConstants.LIGHT;
+const CUBE_LIGHT_COLOR = CubeConstants.LIGHT.COLOR;
+const CUBE_LIGHT_INTENSITIES = CubeConstants.LIGHT.INTENSITY;
 const CUBE_FACES = CubeConstants.FACES;
 const CUBE_ROTATION = CubeConstants.ROTATION;
 const CUBE_VELOCITY = CubeConstants.VELOCITY;
@@ -91,19 +93,24 @@ const CubeThreeJS = ({
     x: CUBE_VELOCITY.INITIAL.X,
     y: CUBE_VELOCITY.INITIAL.Y,
   });
-  const [themeColors, setThemeColors] = useState({ edge: "", light: "" });
+  const [themeColors, setThemeColors] = useState({
+    edge: "",
+    color: "",
+    light: 0,
+  });
 
   useEffect(() => {
     if (!resolvedTheme) return;
 
     const styles = getComputedStyle(document.documentElement);
+    const isDark = resolvedTheme === "dark";
 
     setThemeColors({
       edge: styles.getPropertyValue(CUBE_EDGES.COLOR).trim(),
-      light:
-        resolvedTheme === "dark"
-          ? CUBE_LIGHTING.COLOR.DARK
-          : styles.getPropertyValue(CUBE_LIGHTING.COLOR.LIGHT).trim(),
+      color: isDark ? CUBE_LIGHT_COLOR.DARK : CUBE_LIGHT_COLOR.LIGHT,
+      light: isDark
+        ? CUBE_LIGHT_INTENSITIES.DARK
+        : CUBE_LIGHT_INTENSITIES.LIGHT,
     });
   }, [resolvedTheme]);
 
@@ -278,10 +285,7 @@ const CubeThreeJS = ({
 
   return (
     <>
-      <ambientLight
-        intensity={CUBE_LIGHTING.INTENSITY}
-        color={themeColors.light}
-      />
+      <ambientLight intensity={themeColors.light} color={themeColors.color} />
       <group ref={dragGroupRef}>
         <mesh
           ref={cubeRef}
