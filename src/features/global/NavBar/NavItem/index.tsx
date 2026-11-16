@@ -20,7 +20,7 @@ const NavItem = ({
     <Link
       to={path}
       className={cn(
-        "no-underline text-accent hover:text-white transition-all text-lg w-auto",
+        "no-underline text-nav-foreground hover:text-white [transition:all_500ms,color_100ms,background-color_100ms] text-lg w-auto motion-reduce:transition-none",
         hoverBg && "hover:bg-black/5",
         className,
       )}

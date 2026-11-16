@@ -20,12 +20,12 @@ const ProjectSkeleton = () => {
           />
         </div>
         <button
-          className="inline-flex items-center justify-center gap-4 rounded-lg p-4 py-2 font-medium no-underline min-w-10 my-8 mt-0 cursor-not-allowed bg-muted text-muted-foreground opacity-70 w-47"
+          className="inline-flex items-center justify-center gap-4 rounded-lg p-4 py-2 font-medium no-underline min-w-10 my-8 mt-0 cursor-not-allowed bg-muted text-secondary-foreground opacity-70 max-w-47 w-full "
           type="button"
           disabled
           aria-disabled="true"
         >
-          <LoadingSpinner color="var(--muted-foreground)" size={10} />
+          <LoadingSpinner color="var(--secondary-foreground)" size={20} />
           <span>Loading...</span>
         </button>
       </div>
@@ -45,7 +45,7 @@ const ProjectSkeleton = () => {
           </p>
         </div>
         <div className="my-6 min-w-0">
-          <h2 className="text-3xl mb-4 text-secondary-foreground">
+          <h2 className="text-3xl mb-4 text-secondary-foreground wrap-break-word">
             Tools & Technologies
           </h2>
           <LoadingSkeleton

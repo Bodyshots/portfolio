@@ -15,7 +15,7 @@ const LoadingSpinner = ({
     <RingLoader
       color="currentColor"
       cssOverride={{
-        color: color ? color : "var(--color-secondary-foreground)",
+        color: color ? color : "var(--secondary-foreground)",
       }}
       className={className}
       size={size}

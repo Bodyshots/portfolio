@@ -40,7 +40,7 @@ export const WorkBubble = ({
 
   return (
     <div
-      className={`relative mb-16 flex w-full items-center ${
+      className={`relative mb-16 flex w-full items-center motion-reduce:transition-none ${
         leftAlign ? "justify-start" : "justify-end"
       }`}
     >
@@ -57,18 +57,18 @@ export const WorkBubble = ({
           <LoadingWorkSkeleton leftAlign={leftAlign} />
         ) : (
           <button
-            className={`inline-block cursor-pointer rounded-lg border-2 p-6 shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_8%,transparent)] transition-transform duration-200 hover:scale-105 ${
+            className={`inline-block cursor-pointer rounded-lg border-2 p-6 transition-transform duration-200 hover:scale-105 ${
               leftAlign
                 ? "border-primary bg-secondary text-right"
-                : "border-secondary bg-card text-left"
+                : "border-secondary bg-white text-left"
             }`}
             onClick={() => open(job.id)}
             type="button"
           >
-            <h2 className="mb-1 text-xl text-foreground">{job.title}</h2>
-            <h3 className="mb-1 text-lg text-accent">{job.company}</h3>
-            <p className="mb-3 text-base text-accent">{job.years}</p>
-            <p className="text-sm leading-6 text-foreground">
+            <h2 className="mb-1 text-xl text-card-primary">{job.title}</h2>
+            <h3 className="mb-1 text-lg text-card-secondary">{job.company}</h3>
+            <p className="mb-3 text-base text-card-secondary">{job.years}</p>
+            <p className="text-sm leading-6 text-card-primary">
               {job.description}
             </p>
           </button>

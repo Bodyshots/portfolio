@@ -34,10 +34,10 @@ const WorkHeader = ({ selectedJob, close }: WorkHeaderProps) => {
           <h1 className="mb-2 text-left text-3xl text-foreground">
             {selectedJob.title}
           </h1>
-          <h2 className="mb-1 text-left text-xl text-accent">
+          <h2 className="mb-1 text-left text-xl text-card-secondary/90">
             {selectedJob.company}
           </h2>
-          <div className="mt-2 flex flex-wrap gap-4 text-sm text-accent">
+          <div className="mt-2 flex flex-wrap gap-4 text-sm text-card-primary">
             <HeaderBullet icon={CalendarIcon} text={selectedJob.years ?? ""} />
             <HeaderBullet icon={MapPinIcon} text={selectedJob.location ?? ""} />
             {selectedJob.team_size && (
@@ -47,11 +47,11 @@ const WorkHeader = ({ selectedJob, close }: WorkHeaderProps) => {
         </div>
         <button
           onClick={close}
-          className="rounded-full p-2 transition-colors duration-200 hover:bg-secondary"
+          className="rounded-lg p-2 transition-colors duration-100 hover:bg-secondary hover:cursor-pointer"
           aria-label="Close"
           type="button"
         >
-          <XIcon className="h-6 w-6 text-accent" />
+          <XIcon className="h-6 w-6 text-foreground" />
         </button>
       </div>
     </div>

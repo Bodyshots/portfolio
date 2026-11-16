@@ -4,7 +4,7 @@ import { AnimationConstants } from "@/constants/animation";
 import { ProjectConstants } from "@/constants/project";
 import { cn, displayDescription } from "@/lib/utils";
 import type { Project } from "@/types";
-import ProjectTool from "../ProjectTools/ProjectTool";
+import Tool from "../../global/Tool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
 
@@ -37,7 +37,7 @@ const CardTools = ({ tools }: { tools: string[] | null }) => {
   return (
     <div className="flex flex-row flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
-        <ProjectTool key={tool} tool={tool} />
+        <Tool key={tool} tool={tool} />
       ))}
     </div>
   );
@@ -61,7 +61,7 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     >
       <button
         className={cn(
-          "group relative w-11/12 h-16/17 m-2 flex flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-md:mx-1 max-md:my-4 hover:cursor-pointer max-h-90",
+          "group relative w-11/12 h-16/17 m-2 flex flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-md:mx-1 max-md:my-4 hover:cursor-pointer max-h-90",
           className,
         )}
         key={item.id}
@@ -83,7 +83,7 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
               <p className="text-xl text-left text-foreground max-md:text-md mt-2">
                 {NAME}
               </p>
-              <p className="text-left text-base text-accent max-md:text-md">
+              <p className="text-left text-card-foreground max-md:text-md">
                 {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>

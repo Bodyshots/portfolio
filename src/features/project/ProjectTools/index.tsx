@@ -1,4 +1,5 @@
-import ProjectTool from "./ProjectTool";
+import Tool from "../../global/Tool";
+import ProjectSection from "../ProjectSection";
 
 interface ProjectToolsProps {
   tools: string[] | null;
@@ -6,16 +7,13 @@ interface ProjectToolsProps {
 
 const ProjectTools = ({ tools }: ProjectToolsProps) => {
   return (
-    <div className="my-6">
-      <h2 className="text-3xl mb-4 text-secondary-foreground">
-        Tools & Technologies
-      </h2>
+    <ProjectSection title="Tools & Technologies">
       <div className="flex flex-wrap justify-center gap-3">
         {tools?.map((tool) => (
-          <ProjectTool key={tool} tool={tool} className="text-md" />
+          <Tool key={tool} tool={tool} className="text-md" />
         ))}
       </div>
-    </div>
+    </ProjectSection>
   );
 };
 

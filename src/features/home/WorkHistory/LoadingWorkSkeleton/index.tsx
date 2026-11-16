@@ -9,7 +9,7 @@ const LoadingWorkSkeleton = ({ leftAlign }: LoadingWorkSkeletonProps) => {
   return (
     <div
       className={`min-h-40 w-full rounded-lg border-2 p-6 ${
-        leftAlign ? "border-primary bg-secondary" : "border-secondary bg-card"
+        leftAlign ? "border-primary bg-secondary" : "border-secondary bg-white"
       }`}
     >
       <LoadingSkeleton

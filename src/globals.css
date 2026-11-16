@@ -5,11 +5,16 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(41 52% 73%);
+  --background: hsl(52, 52%, 79%);
   --foreground: hsl(342 100% 19%);
 
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(342 100% 19%);
+  --nav-background: hsl(52, 52%, 79%);
+  --nav-foreground: hsl(356, 32%, 42%);
+
+  --card: #dadcdf;
+  --card-primary: hsl(342 100% 19%);
+  --card-secondary: hsl(356, 32%, 42%);
+  --card-foreground: hsl(356, 32%, 42%);
 
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(342 100% 19%);
@@ -42,32 +47,37 @@
 }
 
 .dark {
-  --background: hsl(41 52% 73%);
-  --foreground: hsl(342 100% 19%);
+  --background: #27272b;
+  --foreground: #5a8fcf;
 
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(342 100% 19%);
+  --nav-background: #27272b;
+  --nav-foreground: #9393f3;
+
+  --card: #dadcdf;
+  --card-primary: #5a8fcf;
+  --card-secondary: #9393f3;
+  --card-foreground: #9393f3;
 
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(342 100% 19%);
+  --popover-foreground: hsl(234, 100%, 19%);
 
-  --primary: hsl(52, 52%, 79%);
+  --primary: #27272b;
   --primary-foreground: hsl(0 0% 100%);
 
-  --secondary: hsl(49, 52%, 87%);
-  --secondary-foreground: hsl(342 100% 19%);
+  --secondary: hsl(240, 2%, 9%);
+  --secondary-foreground: hsl(234, 54%, 45%);
 
-  --muted: hsl(23, 30%, 61%);
-  --muted-foreground: hsl(342, 100%, 19%);
+  --muted: hsla(234, 70%, 71%, 0.767);
+  --muted-foreground: hsl(234, 100%, 19%);
 
-  --accent: hsl(356, 32%, 42%);
-  --accent-foreground: hsl(342 100% 19%);
+  --accent: #7979eb6c;
+  --accent-foreground: hsl(234, 100%, 19%);
 
   --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: hsl(0 0% 98%);
 
-  --border: hsl(23 30% 61%);
-  --input: hsl(23 30% 61%);
+  --border: hsl(240, 3%, 13%);
+  --input: hsl(234, 17%, 88%);
   --ring: hsl(49 52% 87%);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -76,11 +86,15 @@
   --chart-5: oklch(0.645 0.246 16.439);
 }
 
+/* Don't remove. For some reason, affects a whole lot */
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-nav-background: var(--nav-background);
+  --color-nav-foreground: var(--nav-foreground);
   --color-card: var(--card);
+  --color-card-primary: var(--card-primary);
+  --color-card-secondary: var(--card-secondary);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
@@ -108,7 +122,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Custom font */
 @font-face {
   font-family: PixelFont;
   src: url("@/fonts/Dico.ttf") format("truetype");

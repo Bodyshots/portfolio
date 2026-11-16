@@ -11,8 +11,8 @@ function NavBar() {
   return (
     <div
       className={cn(
-        "max-lg:collapse w-full fixed z-99 rounded-none transition-all duration-500",
-        navVisibility ? "bg-primary/80 backdrop-blur-xs" : "bg-transparent",
+        "max-lg:collapse w-full fixed z-99 rounded-none [transition:all_500ms,color_100ms,background-color_100ms] motion-reduce:transition-none",
+        navVisibility ? "bg-nav-background backdrop-blur-xs" : "bg-transparent",
       )}
     >
       <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
@@ -21,7 +21,7 @@ function NavBar() {
         aria-label="Close navigation menu"
         className="fixed inset-0 hidden max-lg:peer-checked:block duration-500 transition-all"
       ></label>
-      <div className="collapse-title navbar flex max-lg:justify-between cursor-default py-0">
+      <div className="collapse-title navbar flex max-lg:justify-between cursor-default py-0 flex-wrap">
         <div className="mr-8 p-2">
           <NavItem
             path="/"
@@ -33,7 +33,7 @@ function NavBar() {
         </div>
         <label
           htmlFor="navbar-1-toggle"
-          className="btn btn-ghost border-0 lg:hidden hover:shadow-lg hover:bg-accent transition-all duration-150"
+          className="btn btn-ghost border-0 lg:hidden hover:shadow-lg hover:bg-accent [transition:all_500ms,color_100ms,background-color_100ms] motion-reduce:transition-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
