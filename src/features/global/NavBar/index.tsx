@@ -21,7 +21,7 @@ function NavBar() {
         aria-label="Close navigation menu"
         className="fixed inset-0 hidden max-lg:peer-checked:block duration-500 transition-all"
       ></label>
-      <div className="collapse-title navbar flex max-lg:justify-between cursor-default py-0">
+      <div className="collapse-title navbar flex max-lg:justify-between cursor-default py-0 flex-wrap">
         <div className="mr-8 p-2">
           <NavItem
             path="/"
