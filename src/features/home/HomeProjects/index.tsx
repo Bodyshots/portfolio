@@ -50,7 +50,7 @@ const HomeProjects = () => {
   return (
     <>
       <SectionHeader text="Major Projects" id={HomeSectionID.PROJECTS} />
-      <div className="flex flex-col justify-center align-center bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_65%,transparent)_-95%,transparent)] pt-4">
+      <div className="flex flex-col justify-center align-center bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_45%,transparent)_-95%,transparent)] pt-4">
         {isPending ? (
           <div
             className="mx-auto mt-4 grid w-full max-w-6xl grid-cols-1 gap-6 px-4 justify-items-center md:grid-cols-2"
