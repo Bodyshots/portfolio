@@ -6,7 +6,7 @@ const HomeExperience = () => {
   return (
     <>
       <SectionHeader text="Experience" id={HomeSectionID.EXPERIENCE} />
-      <div className="flex justify-center align-center items-center m-6">
+      <div className="flex justify-center align-center items-center">
         <WorkHistory />
       </div>
     </>

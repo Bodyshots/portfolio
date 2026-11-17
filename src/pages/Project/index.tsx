@@ -92,7 +92,7 @@ function Project() {
   if (!projectName || error) return <NotFound />;
 
   return (
-    <div className="flex flex-col max-w-full min-h-screen w-full h-full justify-center align-middle text-center m-auto pt-16">
+    <div className="flex min-w-0 w-full max-w-full min-h-screen h-full flex-col justify-center align-middle text-center m-auto pt-16 max-xs:pt-24">
       <title>{pageTitle}</title>
       {isPending ? (
         <ProjectSkeleton />
@@ -104,7 +104,7 @@ function Project() {
             ghLink={project.github}
           />
 
-          <main className="max-w-6xl mx-auto px-8 py-8 pt-0">
+          <main className="mx-auto w-full min-w-0 max-w-6xl px-8 py-8 pt-0 max-xs:px-2">
             <ProjectVideo video={project.video} />
             <ProjectDescription desc={project.long_desc} />
             <ProjectTools tools={project.tools} />

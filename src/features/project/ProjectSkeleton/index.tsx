@@ -5,7 +5,7 @@ const ProjectSkeleton = () => {
   return (
     <>
       {" "}
-      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pb-0 pt-4">
+      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pb-0 pt-4 max-xs:px-2">
         <LoadingSkeleton
           height="3em"
           width="100%"
@@ -20,7 +20,7 @@ const ProjectSkeleton = () => {
           />
         </div>
         <button
-          className="inline-flex items-center justify-center gap-4 rounded-lg p-4 py-2 font-medium no-underline min-w-10 my-8 mt-0 cursor-not-allowed bg-muted text-secondary-foreground opacity-70 max-w-47 w-full "
+          className="my-8 mt-0 inline-flex w-full max-w-47 min-w-0 flex-wrap items-center justify-center gap-2 rounded-lg bg-muted p-2 font-medium text-secondary-foreground opacity-70 max-xs:text-sm"
           type="button"
           disabled
           aria-disabled="true"
@@ -29,13 +29,13 @@ const ProjectSkeleton = () => {
           <span>Loading...</span>
         </button>
       </div>
-      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pt-0 sm:px-8">
+      <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 pt-0 sm:px-8 max-xs:px-2">
         <LoadingSkeleton className="my-6 mt-0 block aspect-video w-full max-w-full rounded-lg!" />
         <div className="my-8 mt-2 min-w-0">
-          <h2 className="mb-6 text-secondary-foreground py-0 text-3xl">
+          <h2 className="mb-6 wrap-break-word py-0 text-3xl text-foreground max-xs:text-xl">
             About This Project
           </h2>
-          <p className="m-0 min-w-0 px-2 text-lg leading-relaxed text-muted-foreground sm:px-8">
+          <p className="m-0 min-w-0 wrap-break-word px-2 text-lg leading-relaxed text-muted-foreground max-xs:px-1 max-xs:text-base sm:px-8">
             <LoadingSkeleton
               width="100%"
               count={4}
@@ -45,7 +45,7 @@ const ProjectSkeleton = () => {
           </p>
         </div>
         <div className="my-6 min-w-0">
-          <h2 className="text-3xl mb-4 text-secondary-foreground wrap-break-word">
+          <h2 className="mb-4 wrap-break-word text-3xl text-foreground max-xs:text-xl">
             Tools & Technologies
           </h2>
           <LoadingSkeleton
@@ -56,10 +56,10 @@ const ProjectSkeleton = () => {
           />
         </div>
         <div className="mb-12">
-          <h2 className="text-3xl text-secondary-foreground my-8">
+          <h2 className="my-8 wrap-break-word text-3xl text-foreground max-xs:text-xl">
             Project Gallery
           </h2>
-          <div className="mt-4 grid min-w-0 grid-cols-2 gap-3 sm:gap-6">
+          <div className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6">
             <LoadingSkeleton
               count={4}
               width="100%"

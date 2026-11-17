@@ -137,13 +137,13 @@ const HomeCoin = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <motion.div
-      className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2 motion-reduce:transition-none"
+      className="flex flex-col flex-nowrap items-center justify-center w-auto mx-auto my-2"
       initial={{ opacity: 0, y: -20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <div className="relative flex h-100 w-100 items-center justify-center max-lg:h-82 max-lg:w-82">
+      <div className="relative flex size-[min(82vw,25rem)] items-center justify-center overflow-clip max-lg:size-[min(82vw,20.5rem)]">
         <div
           aria-hidden={isLoaded}
           className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center transition-opacity duration-300 ${
@@ -152,7 +152,7 @@ const HomeCoin = () => {
         >
           <LoadingSpinner />
         </div>
-        <Canvas className="h-full w-full overflow-visible transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
+        <Canvas className="h-full w-full overflow-clip transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:cursor-grab active:cursor-grabbing motion-reduce:transform-none motion-reduce:transition-none">
           <CoinThreeJS setIsLoaded={setIsLoaded} />
         </Canvas>
       </div>
