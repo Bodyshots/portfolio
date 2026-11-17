@@ -35,9 +35,13 @@ const CardTools = ({ tools }: { tools: string[] | null }) => {
   const cardTools = ProjectConstants.CARD.TOOLS;
 
   return (
-    <div className="flex flex-row flex-wrap gap-2">
+    <div className="flex w-full min-w-0 flex-row flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
-        <Tool key={tool} tool={tool} />
+        <Tool
+          key={tool}
+          tool={tool}
+          className="min-w-0 max-w-full wrap-break-word"
+        />
       ))}
     </div>
   );
@@ -61,14 +65,14 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     >
       <button
         className={cn(
-          "group relative w-11/12 h-16/17 m-2 flex flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-md:mx-1 max-md:my-4 hover:cursor-pointer max-h-90",
+          "group relative m-2 flex h-auto w-11/12 min-w-0 max-w-full flex-col justify-start overflow-hidden rounded-3xl border-2 border-primary bg-linear-to-br from-secondary to-primary text-left text-foreground transition-all duration-100 hover:-translate-y-1 hover:scale-[1.025] hover:border-foreground hover:bg-linear-to-bl hover:from-primary hover:to-secondary max-md:mx-1 max-md:my-4 hover:cursor-pointer",
           className,
         )}
         key={item.id}
         onClick={() => open(item.name)}
         type="button"
       >
-        <div className="relative flex min-h-56.25 w-full flex-col items-stretch">
+        <div className="relative flex min-h-56.25 w-full min-w-0 flex-col items-stretch max-md:min-h-40">
           {COVER_URL ? (
             <img
               className="h-50.25 w-full rounded-t-3xl bg-transparent object-contain max-md:h-40"
@@ -78,12 +82,12 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
           ) : (
             <MdOutlineImageNotSupported className="flex h-56.25 w-full items-center justify-center rounded-t-3xl bg-secondary text-4xl text-muted max-md:h-40" />
           )}
-          <div className="flex flex-col px-5 mt-2 mb-10 gap-2">
-            <div className="flex flex-col">
-              <p className="text-xl text-left text-foreground max-md:text-base mt-2">
+          <div className="flex min-w-0 flex-col px-5 mt-2 mb-10 gap-2">
+            <div className="flex min-w-0 flex-col">
+              <p className="mt-2 wrap-break-word text-left text-xl text-foreground max-md:text-base">
                 {NAME}
               </p>
-              <p className="text-left text-card-foreground max-md:text-base">
+              <p className="wrap-break-word text-left text-card-foreground max-md:text-base">
                 {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>
