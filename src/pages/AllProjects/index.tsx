@@ -36,7 +36,7 @@ const AllProjects = () => {
     <>
       <title>All Projects - Lanz Angeles</title>
       <main className="flex flex-col pt-24">
-        <span className="text-5xl text-center text-foreground mb-4">
+        <span className="text-5xl text-center text-foreground mb-4 max-xs:pt-8 wrap-break-word">
           All Projects
         </span>
         {error ? (
@@ -52,9 +52,9 @@ const AllProjects = () => {
             </span>
           </div>
         ) : (
-          <div className="grid grid-cols-2 w-11/12 mx-auto my-4 min-h-screen justify-center text-center">
+          <div className="mx-auto my-4 grid min-h-screen w-11/12 grid-cols-1 justify-center text-center md:grid-cols-2">
             {isPending ? (
-              <div className="col-span-2 mx-auto grid w-full grid-cols-2 auto-rows-[20em] justify-items-center gap-y-4 gap-x-2 md:auto-rows-[22.5em]">
+              <div className="col-span-1 mx-auto grid w-full grid-cols-1 auto-rows-[20em] justify-items-center gap-x-2 gap-y-4 md:col-span-2 md:grid-cols-2 md:auto-rows-[22.5em]">
                 {LOADING_PROJECT_IDS.map((id) => (
                   <LoadingProjectCard
                     key={id}
