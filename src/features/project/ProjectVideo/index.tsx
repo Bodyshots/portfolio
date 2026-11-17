@@ -5,9 +5,9 @@ interface ProjectVideoProps {
 function ProjectVideo({ video }: ProjectVideoProps) {
   return (
     video && (
-      <div className="rounded-lg shadow-lg mb-4">
+      <div className="mb-4 min-w-0 rounded-lg shadow-lg">
         <iframe
-          className="w-full aspect-video my-8 mt-0 rounded-lg bg-secondary border-accent"
+          className="my-8 mt-0 block aspect-video w-full min-w-0 rounded-lg border-accent bg-secondary"
           src={video}
           title="YouTube video player"
           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

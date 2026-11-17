@@ -23,7 +23,7 @@ const AllProjectsBtn = () => {
       onClick={() => navigate("/allprojects")}
       type="button"
     >
-      <span className="flex text-center text-input justify-center align-center p-2">
+      <span className="flex text-center text-input justify-center align-center p-2 max-sm:break-all">
         View more projects
       </span>
     </button>

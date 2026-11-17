@@ -17,13 +17,13 @@ const ProjectGallery = ({
     <ProjectSection
       title="Project Gallery"
       wrapperClassName="mb-12"
-      textClassName="text-3xl text-foreground my-8"
+      textClassName="text-foreground my-8"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+      <div className="mt-4 grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
         {images?.map((image, index) => (
           <button
             key={image}
-            className="rounded-lg overflow-hidden shadow-lg border-2 cursor-pointer transition-transform hover:scale-105 border-accent"
+            className="min-w-0 max-w-full overflow-hidden rounded-lg border-2 border-accent shadow-lg transition-transform hover:scale-105 hover:cursor-pointer"
             onClick={(e) => {
               openImage(image, e);
               setImageAtt(imageAtts?.[index] ?? "");
@@ -33,10 +33,10 @@ const ProjectGallery = ({
             <img
               src={image}
               alt={imageAtts?.[index] ?? ""}
-              className="w-full h-64 object-cover"
+              className="h-64 w-full max-w-full object-cover"
             />
-            <div className="p-4 bg-border">
-              <p className="text-sm text-card-foreground m-0">
+            <div className="bg-border p-4 max-xs:p-2">
+              <p className="m-0 wrap-break-word text-sm text-card-foreground max-xs:text-xs">
                 {imageAtts?.[index] ?? ""}
               </p>
             </div>
