@@ -46,7 +46,7 @@ export function WorkHistoryModal({
 }: WorkHistoryModalProps) {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 motion-reduce:transition-none"
+      className="fixed inset-0 z-50 flex min-w-0 items-center justify-center bg-black/50 p-4 motion-reduce:transition-none max-xs:p-2"
       variants={backdropAnimation}
       initial="hidden"
       animate="visible"
@@ -54,13 +54,14 @@ export function WorkHistoryModal({
       onClick={close}
     >
       <div
+        className="w-full min-w-0 max-w-260"
         key={selectedJob.id}
         onClick={() => (modalOpen ? close() : open(selectedJob.id))}
         role="dialog"
         onKeyDown={(e) => e.stopPropagation()}
       >
         <motion.div
-          className="max-h-[80vh] w-full max-w-260 overflow-y-auto rounded-lg bg-border"
+          className="max-h-[80vh] w-full min-w-0 max-w-260 overflow-y-auto overscroll-contain rounded-lg bg-border"
           variants={dropInAnimation}
           initial="hidden"
           animate="visible"

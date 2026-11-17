@@ -26,7 +26,7 @@ const BulletPointSection = ({
       {points.map((point) => (
         <li
           key={point}
-          className="flex items-start gap-2 text-sm text-card-foreground dark:text-card"
+          className="flex min-w-0 items-start gap-2 wrap-break-word text-sm text-card-foreground dark:text-card"
         >
           <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-card-foreground/50 dark:bg-foreground/50" />
           {point}
@@ -42,9 +42,9 @@ const CardSection = ({
   children,
 }: CardSectionProps) => {
   return (
-    <div className="text-left mb-4">
-      <h3 className="mb-3 flex items-center gap-2 text-lg text-foreground">
-        <TitleIcon className="h-5 w-5" />
+    <div className="mb-4 min-w-0 text-left">
+      <h3 className="mb-3 flex min-w-0 flex-wrap items-center gap-2 wrap-break-word text-lg text-foreground">
+        <TitleIcon className="h-5 w-5 shrink-0" />
         {title}
       </h3>
       {children}
@@ -54,7 +54,7 @@ const CardSection = ({
 
 const WorkContent = ({ selectedJob }: { selectedJob: WorkItem }) => {
   return (
-    <div className="flex flex-col p-6">
+    <div className="flex min-w-0 flex-col p-6 max-xs:p-3">
       <CardSection title={"Key Responsibilities"} titleIcon={BriefcaseIcon}>
         <BulletPointSection
           points={selectedJob.responsibilities}
@@ -68,9 +68,13 @@ const WorkContent = ({ selectedJob }: { selectedJob: WorkItem }) => {
         />
       </CardSection>
       <CardSection title={"Technologies & Tools"} titleIcon={WrenchIcon}>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex min-w-0 flex-wrap gap-2">
           {selectedJob.technologies?.map((tech) => (
-            <Tool key={tech} tool={tech} />
+            <Tool
+              key={tech}
+              tool={tech}
+              className="min-w-0 max-w-full wrap-break-word"
+            />
           )) ?? (
             <span className="text-left">
               No technologies available. Check back later!
