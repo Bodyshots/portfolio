@@ -38,8 +38,8 @@ export default function WorkHistory() {
   }
 
   return (
-    <div className="p-12">
-      <div className="mx-auto max-w-5xl">
+    <>
+      <div className="mx-auto max-w-5xl overflow-hidden p-12 ">
         <h1 className="mb-16 text-center text-5xl text-foreground">
           From latest to oldest (2023)
         </h1>
@@ -66,6 +66,6 @@ export default function WorkHistory() {
           />
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }

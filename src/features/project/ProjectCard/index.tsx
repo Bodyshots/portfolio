@@ -80,10 +80,10 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
           )}
           <div className="flex flex-col px-5 mt-2 mb-10 gap-2">
             <div className="flex flex-col">
-              <p className="text-xl text-left text-foreground max-md:text-md mt-2">
+              <p className="text-xl text-left text-foreground max-md:text-base mt-2">
                 {NAME}
               </p>
-              <p className="text-left text-card-foreground max-md:text-md">
+              <p className="text-left text-card-foreground max-md:text-base">
                 {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>

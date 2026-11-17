@@ -363,7 +363,7 @@ const HomeCube = () => {
   return (
     <div className="flex justify-center items-center flex-col flex-nowrap">
       <div
-        className="relative size-[5.5em] touch-none overflow-clip cursor-grab active:cursor-grabbing"
+        className="relative size-[min(82vw,5.5em)] touch-none overflow-clip cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -389,7 +389,7 @@ const HomeCube = () => {
           />
         </Canvas>
       </div>
-      <div className="-mt-1 flex flex-col text-5xl text-primary-foreground text_highlight">
+      <div className="-mt-1 flex flex-col text-5xl text-primary-foreground text_highlight max-xs:text-2xl">
         {faceVisible || <span style={{ opacity: 0.5 }}>Loading…</span>}
       </div>
     </div>

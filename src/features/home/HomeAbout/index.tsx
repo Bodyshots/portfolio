@@ -11,7 +11,8 @@ const HomeAbout = () => {
       <div
         className="flex flex-col justify-between align-center m-auto min-h-full py-4 px-0 lg:flex-row lg:flex-wrap gap-2
       bg-[radial-gradient(circle_at_50%_85%,color-mix(in_srgb,var(--accent)_35%,transparent)_15%,var(--background)_65%,var(--background)_45%)]
-      lg:bg-[radial-gradient(circle_at_85%_center,color-mix(in_srgb,var(--accent)_45%,transparent)_15%,var(--background)_55%,var(--background)_65%)]"
+      lg:bg-[radial-gradient(circle_at_85%_center,color-mix(in_srgb,var(--accent)_45%,transparent)_15%,var(--background)_55%,var(--background)_65%)]
+      max-sm:break-all"
       >
         <div className="flex flex-col flex-nowrap justify-between text-foreground m-8 h-full self-center lg:w-1/2">
           <span className="text-6xl h-1/5 p-2 text-center mb-4 lg:text-left">

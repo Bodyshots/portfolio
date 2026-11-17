@@ -30,25 +30,15 @@ const ProjectImageModal = ({
           type="button"
         />
 
-        <button
-          className="fixed z-50 transition-all duration-500 ease-out border-0 bg-transparent p-0 text-left"
+        <div
+          className="fixed z-50 text-left transition-all duration-500 ease-out"
           style={{
             top: isOpen ? "50%" : `${imagePos.top}px`,
             left: isOpen ? "50%" : `${imagePos.left}px`,
             transform: isOpen ? "translate(-50%, -50%)" : "translate(0, 0)",
-            width: isOpen ? "40vw" : `${imagePos.width}px`,
+            width: isOpen ? "min(90vw, 40rem)" : `${imagePos.width}px`,
             height: isOpen ? "auto" : `${imagePos.height}px`,
           }}
-          onClick={closeImage}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              closeImage();
-            }
-          }}
-          type="button"
-          tabIndex={0}
-          aria-label="Close image modal"
         >
           <div className="rounded-lg overflow-hidden shadow-2xl h-full max-h-[90vh]">
             <img
@@ -59,14 +49,16 @@ const ProjectImageModal = ({
               }`}
             />
             <div
-              className={`p-6 bg-border transition-opacity duration-500 ${
+              className={`bg-border p-6 transition-opacity duration-500 max-xs:p-2 ${
                 isOpen ? "opacity-100" : "opacity-0"
               }`}
             >
-              <p className="text-base text-card-foreground m-0">{imageAtt}</p>
+              <p className="m-0 wrap-break-word text-base text-card-foreground">
+                {imageAtt}
+              </p>
             </div>
           </div>
-        </button>
+        </div>
       </>
     )
   );
