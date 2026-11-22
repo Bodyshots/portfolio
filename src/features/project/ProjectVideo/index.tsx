@@ -4,8 +4,11 @@ import { getProjectVideoUrl } from "@/lib/videos";
 import { createProjectVideosOptions } from "@/tanstack/queryFns/videos";
 
 function ProjectVideo({ projectName }: { projectName: string }) {
-  // TODO: Handle <error>
-  const { data: videos, isPending } = useQuery({
+  const {
+    data: videos,
+    isPending,
+    isError,
+  } = useQuery({
     ...createProjectVideosOptions(projectName),
     enabled: Boolean(projectName),
   });
@@ -13,6 +16,19 @@ function ProjectVideo({ projectName }: { projectName: string }) {
   if (isPending) {
     return (
       <LoadingSkeleton className="my-6 mt-0 block aspect-video w-full max-w-full rounded-lg!" />
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="mb-4 min-w-0 rounded-lg shadow-lg">
+        <div
+          className="my-8 mt-0 flex aspect-video w-full min-w-0 items-center justify-center rounded-lg border-accent bg-secondary px-4 text-center text-foreground text-5xl max-sm:text-3xl max-xs:text-xl"
+          role="alert"
+        >
+          Failed to load video
+        </div>
+      </div>
     );
   }
 

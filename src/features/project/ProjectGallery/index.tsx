@@ -14,8 +14,11 @@ interface ProjectGalleryProps {
 }
 
 const ProjectGallery = ({ projectName, openImage }: ProjectGalleryProps) => {
-  // TODO: Handle <error>
-  const { data: images, isPending } = useQuery({
+  const {
+    data: images,
+    isPending,
+    isError,
+  } = useQuery({
     ...createProjectGalleryImagesOptions(projectName),
     enabled: Boolean(projectName),
   });
@@ -27,6 +30,23 @@ const ProjectGallery = ({ projectName, openImage }: ProjectGalleryProps) => {
         textClassName="text-foreground my-8"
       >
         <LoadingGallery />
+      </ProjectSection>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ProjectSection
+        title="Project Gallery"
+        textClassName="text-foreground my-8"
+        wrapperClassName="my-0"
+      >
+        <span
+          className="mt-4 flex w-full items-center justify-center wrap-break-word text-2xl text-foreground"
+          role="alert"
+        >
+          Failed to load images
+        </span>
       </ProjectSection>
     );
   }
