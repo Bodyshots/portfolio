@@ -1,8 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import { motion, type Variants } from "framer-motion";
+import { useState } from "react";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 import { AnimationConstants } from "@/constants/animation";
 import { ProjectConstants } from "@/constants/project";
-import { cn, displayDescription } from "@/lib/utils";
+import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
+import { getProjectCoverUrl } from "@/lib/images";
+import { cn, displayCardDescription } from "@/lib/utils";
+import { createProjectCoverImagesOptions } from "@/tanstack/queryFns/images";
 import type { Project } from "@/types";
 import Tool from "../../global/Tool";
 
@@ -53,7 +58,20 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
   const SHORT_DESC_LIMIT = cardConstants.SHORT_DESC_LIMIT;
 
   const NAME = item.name;
-  const COVER_URL = item.cover_img;
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [hasImageError, setHasImageError] = useState(false);
+  const {
+    data: images,
+    isPending: isCoverPending,
+    isError: isCoverError,
+  } = useQuery({
+    ...createProjectCoverImagesOptions(item.name),
+    enabled: Boolean(item.name),
+  });
+
+  const COVER_URL = images ? getProjectCoverUrl(images) : null;
+  const showCoverError =
+    isCoverError || hasImageError || (!isCoverPending && !COVER_URL);
 
   return (
     <motion.div
@@ -73,14 +91,36 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
         type="button"
       >
         <div className="relative flex min-h-56.25 w-full min-w-0 flex-col items-stretch max-md:min-h-40">
-          {COVER_URL ? (
-            <img
-              className="h-50.25 w-full rounded-t-3xl bg-transparent object-contain max-md:h-40"
-              src={COVER_URL}
-              alt={NAME}
+          {isCoverPending ? (
+            <LoadingSkeleton
+              width="100%"
+              containerClassName="flex h-50.25 w-full max-md:h-40"
+              className="block h-50.25 w-full rounded-t-3xl max-md:h-40"
+              enableAnimation
+            />
+          ) : showCoverError ? (
+            <MdOutlineImageNotSupported
+              aria-label={`Cover image unavailable for ${NAME}`}
+              className="flex h-56.25 w-full items-center justify-center rounded-t-3xl bg-secondary text-4xl text-muted max-md:h-40"
             />
           ) : (
-            <MdOutlineImageNotSupported className="flex h-56.25 w-full items-center justify-center rounded-t-3xl bg-secondary text-4xl text-muted max-md:h-40" />
+            <div className="relative h-50.25 w-full max-md:h-40">
+              <img
+                className="h-50.25 w-full rounded-t-3xl bg-transparent object-contain max-md:h-40"
+                src={COVER_URL ?? undefined}
+                alt={NAME}
+                onLoad={() => setIsImageLoaded(true)}
+                onError={() => setHasImageError(true)}
+              />
+              {!isImageLoaded && (
+                <LoadingSkeleton
+                  width="100%"
+                  containerClassName="absolute inset-0 flex h-50.25 w-full max-md:h-40"
+                  className="block h-50.25 w-full rounded-t-3xl max-md:h-40"
+                  enableAnimation
+                />
+              )}
+            </div>
           )}
           <div className="flex min-w-0 flex-col px-5 mt-2 mb-10 gap-2">
             <div className="flex min-w-0 flex-col">
@@ -88,7 +128,7 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
                 {NAME}
               </p>
               <p className="wrap-break-word text-left text-card-foreground max-md:text-base">
-                {displayDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
+                {displayCardDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>
             <CardTools tools={item.tools} />

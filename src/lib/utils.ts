@@ -49,7 +49,7 @@ export function resolveActualNameFromUrlSafeName(
   return matches.length === 1 ? matches[0] : null;
 }
 
-export function displayDescription(text: string, limit: number = 0) {
+export function displayCardDescription(text: string, limit: number = 0) {
   return limit || text.length <= limit
     ? text
     : `${text.substring(0, limit)}...`;

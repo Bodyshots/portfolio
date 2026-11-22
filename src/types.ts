@@ -21,9 +21,20 @@ export interface Project {
   video: string | null;
   long_desc: string;
   tools: string[] | null;
-  cover_img: string | null;
   priority: number;
   github: string | null;
-  images: string[] | null;
-  image_atts: string[] | null;
+}
+
+export enum ProjectImageType {
+  COVER = "cover",
+  GALLERY = "gallery",
+}
+
+export interface ProjectImage {
+  project_name: string;
+  type: ProjectImageType;
+  name: string;
+  created_at: string;
+  attribution: string;
+  priority: number;
 }
