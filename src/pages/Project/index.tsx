@@ -11,6 +11,7 @@ import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
 import { createProjectGalleryImagesOptions } from "@/tanstack/queryFns/images";
 import { createProjectNameOptions } from "@/tanstack/queryFns/projects";
+import { createProjectVideosOptions } from "@/tanstack/queryFns/videos";
 import NotFound from "../NotFound";
 
 function Project() {
@@ -31,6 +32,15 @@ function Project() {
     error: imagesError,
   } = useQuery({
     ...createProjectGalleryImagesOptions(project?.name ?? ""),
+    enabled: Boolean(projectName),
+  });
+
+  const {
+    data: projectVideos,
+    isPending: videosIsPending,
+    error: videosError,
+  } = useQuery({
+    ...createProjectVideosOptions(project?.name ?? ""),
     enabled: Boolean(projectName),
   });
 
@@ -101,7 +111,7 @@ function Project() {
     if (projectName) window.scrollTo({ top: 0, behavior: "instant" });
   }, [projectName]);
 
-  if (!projectName || error || imagesError) return <NotFound />;
+  if (!projectName || error || imagesError || videosError) return <NotFound />;
 
   return (
     <div className="flex min-w-0 w-full max-w-full min-h-screen h-full flex-col justify-center align-middle text-center m-auto pt-16 max-xs:pt-24">
@@ -117,7 +127,10 @@ function Project() {
           />
 
           <main className="mx-auto w-full min-w-0 max-w-6xl px-8 py-8 pt-0 max-xs:px-2">
-            <ProjectVideo video={project.video} />
+            <ProjectVideo
+              isPending={videosIsPending}
+              video={projectVideos?.[0] ?? null}
+            />
             <ProjectDescription desc={project.long_desc} />
             <ProjectTools tools={project.tools} />
             <ProjectGallery
