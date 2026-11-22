@@ -19,7 +19,6 @@ export interface Project {
   name: string;
   major: boolean;
   long_desc: string;
-  tools: string[] | null;
   priority: number;
   github: string | null;
 }
@@ -36,7 +35,7 @@ export interface ProjectImage {
   type: ProjectImageType;
   name: string;
   attribution: string;
-  priority: number;
+  priority: number | null;
 }
 
 export interface ProjectVideo {
@@ -44,5 +43,13 @@ export interface ProjectVideo {
   created_at: string;
   project_name: string;
   name: string;
-  priority: number;
+  priority: number | null;
+}
+
+export interface ProjectTool {
+  id: number;
+  created_at: string;
+  project_name: string;
+  tool: string;
+  priority: number | null;
 }

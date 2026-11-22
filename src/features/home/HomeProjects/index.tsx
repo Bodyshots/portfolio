@@ -40,7 +40,6 @@ const HomeProjects = () => {
   const homeProjects = projects
     ? projects
         .filter((project) => project.major)
-        .sort((a, b) => a.priority - b.priority)
         .slice(projectLimits.MIN, projectLimits.MAX)
     : [];
   const openProject = (name: string) => {

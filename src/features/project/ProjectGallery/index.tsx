@@ -1,12 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import { getProjectImageUrl } from "@/lib/images";
-import type { ProjectImage } from "@/types";
+import { createProjectGalleryImagesOptions } from "@/tanstack/queryFns/images";
 import ProjectSection from "../ProjectSection";
 
 interface ProjectGalleryProps {
-  isPending: boolean;
   projectName: string;
-  images?: ProjectImage[] | null;
   openImage: (
     image: string,
     attribution: string,
@@ -14,12 +13,13 @@ interface ProjectGalleryProps {
   ) => void;
 }
 
-const ProjectGallery = ({
-  isPending,
-  projectName,
-  images,
-  openImage,
-}: ProjectGalleryProps) => {
+const ProjectGallery = ({ projectName, openImage }: ProjectGalleryProps) => {
+  // TODO: Handle <error>
+  const { data: images, isPending } = useQuery({
+    ...createProjectGalleryImagesOptions(projectName),
+    enabled: Boolean(projectName),
+  });
+
   if (isPending) {
     return (
       <ProjectSection

@@ -8,7 +8,8 @@ import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectCoverUrl } from "@/lib/images";
 import { cn, displayCardDescription } from "@/lib/utils";
 import { createProjectCoverImagesOptions } from "@/tanstack/queryFns/images";
-import type { Project } from "@/types";
+import { createProjectToolsOptions } from "@/tanstack/queryFns/tools";
+import type { Project, ProjectTool } from "@/types";
 import Tool from "../../global/Tool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
@@ -36,15 +37,34 @@ const cardAnimation: Variants = {
   },
 };
 
-const CardTools = ({ tools }: { tools: string[] | null }) => {
+const CardTools = ({
+  tools,
+  isPending,
+}: {
+  tools: ProjectTool[] | null;
+  isPending: boolean;
+}) => {
   const cardTools = ProjectConstants.CARD.TOOLS;
+
+  if (isPending) {
+    return (
+      <LoadingSkeleton
+        count={cardTools.MAX}
+        width="5rem"
+        height="1.5rem"
+        containerClassName="flex min-w-0 flex-wrap gap-2 [&>br]:hidden"
+        className="block rounded-full!"
+        enableAnimation
+      />
+    );
+  }
 
   return (
     <div className="flex w-full min-w-0 flex-row flex-wrap gap-2">
       {(tools ?? []).slice(cardTools.MIN, cardTools.MAX).map((tool) => (
         <Tool
-          key={tool}
-          tool={tool}
+          key={tool.tool}
+          tool={tool.tool}
           className="min-w-0 max-w-full wrap-break-word"
         />
       ))}
@@ -66,6 +86,10 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     isError: isCoverError,
   } = useQuery({
     ...createProjectCoverImagesOptions(item.name),
+    enabled: Boolean(item.name),
+  });
+  const { data: tools, isPending: toolsPending } = useQuery({
+    ...createProjectToolsOptions(item.name),
     enabled: Boolean(item.name),
   });
 
@@ -131,7 +155,7 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
                 {displayCardDescription(SHORT_DESC, SHORT_DESC_LIMIT)}
               </p>
             </div>
-            <CardTools tools={item.tools} />
+            <CardTools tools={tools ?? null} isPending={toolsPending} />
           </div>
         </div>
       </button>

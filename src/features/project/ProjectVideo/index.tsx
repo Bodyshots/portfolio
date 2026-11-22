@@ -1,15 +1,26 @@
-import LoadingVideo from "@/features/global/Skeletons/LoadingVideo";
+import { useQuery } from "@tanstack/react-query";
+import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectVideoUrl } from "@/lib/videos";
-import type { ProjectVideo } from "@/types";
+import { createProjectVideosOptions } from "@/tanstack/queryFns/videos";
 
-interface ProjectVideoProps {
-  isPending: boolean;
-  video: ProjectVideo | null;
-}
+function ProjectVideo({ projectName }: { projectName: string }) {
+  // TODO: Handle <error>
+  const { data: videos, isPending } = useQuery({
+    ...createProjectVideosOptions(projectName),
+    enabled: Boolean(projectName),
+  });
 
-function ProjectVideoComp({ isPending, video }: ProjectVideoProps) {
-  if (isPending) return <LoadingVideo />;
-  if (!video) return null;
+  if (isPending) {
+    return (
+      <LoadingSkeleton className="my-6 mt-0 block aspect-video w-full max-w-full rounded-lg!" />
+    );
+  }
+
+  if (!videos || videos.length <= 0) return null;
+
+  // Open to having more videos (eg. carousel)
+  // For now, we'll only select one if there are multiple
+  const video = videos[0];
 
   return (
     <div className="mb-4 min-w-0 rounded-lg shadow-lg">
@@ -28,4 +39,4 @@ function ProjectVideoComp({ isPending, video }: ProjectVideoProps) {
   );
 }
 
-export default ProjectVideoComp;
+export default ProjectVideo;
