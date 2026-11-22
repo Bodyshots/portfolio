@@ -51,6 +51,7 @@ function Project() {
 
   const openImageModal = (
     image: string,
+    attribution: string,
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     const imageElement = event.currentTarget.querySelector("img");
@@ -68,6 +69,7 @@ function Project() {
     });
 
     setSelectedImage(image);
+    setSelectedImageAtt(attribution);
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -104,7 +106,7 @@ function Project() {
   return (
     <div className="flex min-w-0 w-full max-w-full min-h-screen h-full flex-col justify-center align-middle text-center m-auto pt-16 max-xs:pt-24">
       <title>{pageTitle}</title>
-      {isPending || imagesIsPending ? (
+      {isPending ? (
         <ProjectSkeleton />
       ) : (
         <>
@@ -119,10 +121,10 @@ function Project() {
             <ProjectDescription desc={project.long_desc} />
             <ProjectTools tools={project.tools} />
             <ProjectGallery
+              isPending={imagesIsPending}
               projectName={project.name ?? projectName}
               images={projectImages}
               openImage={openImageModal}
-              setImageAtt={setSelectedImageAtt}
             />
             <ProjectImageModal
               image={selectedImage}
