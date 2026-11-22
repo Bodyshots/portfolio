@@ -13,7 +13,7 @@ export const getProjectImageUrl = ({
   name,
 }: getProjectImageUrlProps): string => {
   return supabase.storage
-    .from(import.meta.env.VITE_IMAGE_BUCKET)
+    .from(import.meta.env.VITE_PROJECT_BUCKET)
     .getPublicUrl(`${projectName}/${imageType}/${name}`).data.publicUrl;
 };
 
