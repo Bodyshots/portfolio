@@ -5,19 +5,33 @@ import Tool from "../../global/Tool";
 import ProjectSection from "../ProjectSection";
 
 const ProjectTools = ({ projectName }: { projectName: string }) => {
-  const { data: tools, isPending } = useQuery({
+  const {
+    data: tools,
+    isPending,
+    isError,
+  } = useQuery({
     ...createProjectToolsOptions(projectName),
     enabled: Boolean(projectName),
   });
 
   if (isPending) {
     return (
-      <div className="my-6 min-w-0">
-        <h2 className="mb-4 wrap-break-word text-3xl text-foreground max-xs:text-xl">
-          Tools & Technologies
-        </h2>
+      <ProjectSection title="Tools & Technologies">
         <LoadingTools />
-      </div>
+      </ProjectSection>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ProjectSection title="Tools & Technologies" wrapperClassName="my-0">
+        <span
+          className="mt-4 flex w-full items-center justify-center wrap-break-word text-2xl text-foreground"
+          role="alert"
+        >
+          Failed to load tools
+        </span>
+      </ProjectSection>
     );
   }
 
