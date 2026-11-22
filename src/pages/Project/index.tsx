@@ -9,6 +9,7 @@ import ProjectImageModal from "@/features/project/ProjectImageModal";
 import ProjectSkeleton from "@/features/project/ProjectSkeleton";
 import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
+import { createProjectGalleryImagesOptions } from "@/tanstack/queryFns/images";
 import { createProjectNameOptions } from "@/tanstack/queryFns/projects";
 import NotFound from "../NotFound";
 
@@ -21,6 +22,15 @@ function Project() {
     error,
   } = useQuery({
     ...createProjectNameOptions(projectName ?? ""),
+    enabled: Boolean(projectName),
+  });
+
+  const {
+    data: projectImages,
+    isPending: imagesIsPending,
+    error: imagesError,
+  } = useQuery({
+    ...createProjectGalleryImagesOptions(project?.name ?? ""),
     enabled: Boolean(projectName),
   });
 
@@ -41,6 +51,7 @@ function Project() {
 
   const openImageModal = (
     image: string,
+    attribution: string,
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     const imageElement = event.currentTarget.querySelector("img");
@@ -58,6 +69,7 @@ function Project() {
     });
 
     setSelectedImage(image);
+    setSelectedImageAtt(attribution);
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -89,7 +101,7 @@ function Project() {
     if (projectName) window.scrollTo({ top: 0, behavior: "instant" });
   }, [projectName]);
 
-  if (!projectName || error) return <NotFound />;
+  if (!projectName || error || imagesError) return <NotFound />;
 
   return (
     <div className="flex min-w-0 w-full max-w-full min-h-screen h-full flex-col justify-center align-middle text-center m-auto pt-16 max-xs:pt-24">
@@ -109,10 +121,10 @@ function Project() {
             <ProjectDescription desc={project.long_desc} />
             <ProjectTools tools={project.tools} />
             <ProjectGallery
-              images={project.images}
-              imageAtts={project.image_atts}
+              isPending={imagesIsPending}
+              projectName={project.name ?? projectName}
+              images={projectImages}
               openImage={openImageModal}
-              setImageAtt={setSelectedImageAtt}
             />
             <ProjectImageModal
               image={selectedImage}

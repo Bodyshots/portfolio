@@ -1,3 +1,4 @@
+import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
 
@@ -59,14 +60,7 @@ const ProjectSkeleton = () => {
           <h2 className="my-8 wrap-break-word text-3xl text-foreground max-xs:text-xl">
             Project Gallery
           </h2>
-          <div className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6">
-            <LoadingSkeleton
-              count={4}
-              width="100%"
-              className="block h-64 max-w-full rounded-lg!"
-              containerClassName="contents [&>br]:hidden"
-            />
-          </div>
+          <LoadingGallery />
         </div>
       </div>
     </>

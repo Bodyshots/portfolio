@@ -10,6 +10,8 @@ interface ImportMetaEnv {
   readonly VITE_ANON_KEY: string;
   readonly VITE_PROJECT_DB_NAME: string;
   readonly VITE_WORK_DB_NAME: string;
+  readonly VITE_IMAGE_DB_NAME: string;
+  readonly VITE_IMAGE_BUCKET: string;
 }
 
 export interface ImportMeta {
