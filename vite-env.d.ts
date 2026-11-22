@@ -11,7 +11,9 @@ interface ImportMetaEnv {
   readonly VITE_PROJECT_DB_NAME: string;
   readonly VITE_WORK_DB_NAME: string;
   readonly VITE_IMAGE_DB_NAME: string;
-  readonly VITE_IMAGE_BUCKET: string;
+  readonly VITE_VIDEO_DB_NAME: string;
+  readonly VITE_PROJECT_BUCKET: string;
+  readonly VITE_VIDEOS_FOLDER: string;
 }
 
 export interface ImportMeta {

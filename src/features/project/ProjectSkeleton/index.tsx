@@ -1,6 +1,7 @@
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
+import LoadingVideo from "@/features/global/Skeletons/LoadingVideo";
 
 const ProjectSkeleton = () => {
   return (
@@ -12,14 +13,7 @@ const ProjectSkeleton = () => {
           width="100%"
           className="mt-8 block max-w-[24em]"
         />
-        <div className="my-8 w-full min-w-0">
-          <LoadingSkeleton
-            height="1.3em"
-            width="100%"
-            className="block max-w-[30em]"
-            containerClassName="block w-full min-w-0 text-lg lg:text-xl"
-          />
-        </div>
+        <LoadingVideo />
         <button
           className="my-8 mt-0 inline-flex w-full max-w-47 min-w-0 flex-wrap items-center justify-center gap-2 rounded-lg bg-muted p-2 font-medium text-secondary-foreground opacity-70 max-xs:text-sm"
           type="button"

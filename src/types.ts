@@ -18,7 +18,6 @@ export interface Project {
   short_desc: string;
   name: string;
   major: boolean;
-  video: string | null;
   long_desc: string;
   tools: string[] | null;
   priority: number;
@@ -31,10 +30,19 @@ export enum ProjectImageType {
 }
 
 export interface ProjectImage {
+  id: number;
+  created_at: string;
   project_name: string;
   type: ProjectImageType;
   name: string;
-  created_at: string;
   attribution: string;
+  priority: number;
+}
+
+export interface ProjectVideo {
+  id: number;
+  created_at: string;
+  project_name: string;
+  name: string;
   priority: number;
 }

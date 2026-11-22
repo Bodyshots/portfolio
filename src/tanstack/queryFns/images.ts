@@ -6,14 +6,14 @@ import {
 
 export const createProjectGalleryImagesOptions = (projectName: string) => {
   return queryOptions({
-    queryKey: ["project-gallery-images", projectName],
+    queryKey: ["projectGalleryImages", projectName],
     queryFn: () => getProjectGalleryImages(projectName),
   });
 };
 
 export const createProjectCoverImagesOptions = (projectName: string) => {
   return queryOptions({
-    queryKey: ["project-cover-images", projectName],
+    queryKey: ["projectCoverImages", projectName],
     queryFn: () => getProjectCoverImages(projectName),
   });
 };
