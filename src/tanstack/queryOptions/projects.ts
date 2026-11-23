@@ -5,7 +5,8 @@ import type { Project } from "@/types";
 export const getProjects = async (): Promise<Project[]> => {
   const { data, error } = await supabase
     .from(import.meta.env.VITE_PROJECT_DB_NAME)
-    .select();
+    .select()
+    .order("priority");
 
   if (error) throw new Error(`Error fetching projects: ${error}`);
   return data;
@@ -16,7 +17,8 @@ export const getProjectByName = async (
 ): Promise<Project> => {
   const { data, error } = await supabase
     .from(import.meta.env.VITE_PROJECT_DB_NAME)
-    .select();
+    .select()
+    .order("priority");
 
   if (error) {
     throw new Error(`Error fetching projects: ${error.message}`);

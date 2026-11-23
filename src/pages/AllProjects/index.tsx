@@ -28,10 +28,6 @@ const AllProjects = () => {
     navigate(`/project/${encodeURIComponent(name.toLowerCase())}`);
   };
 
-  const sortedProjects = [...(projects ?? [])].sort(
-    (a, b) => a.priority - b.priority,
-  );
-
   return (
     <>
       <title>All Projects - Lanz Angeles</title>
@@ -63,7 +59,7 @@ const AllProjects = () => {
                 ))}
               </div>
             ) : (
-              sortedProjects.map((project) => (
+              projects.map((project) => (
                 <ProjectCard key={project.id} item={project} open={open} />
               ))
             )}

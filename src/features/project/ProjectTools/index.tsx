@@ -1,18 +1,47 @@
+import { useQuery } from "@tanstack/react-query";
+import LoadingTools from "@/features/global/Skeletons/LoadingTools";
+import { createProjectToolsOptions } from "@/tanstack/queryFns/tools";
 import Tool from "../../global/Tool";
 import ProjectSection from "../ProjectSection";
 
-interface ProjectToolsProps {
-  tools: string[] | null;
-}
+const ProjectTools = ({ projectName }: { projectName: string }) => {
+  const {
+    data: tools,
+    isPending,
+    isError,
+  } = useQuery({
+    ...createProjectToolsOptions(projectName),
+    enabled: Boolean(projectName),
+  });
 
-const ProjectTools = ({ tools }: ProjectToolsProps) => {
+  if (isPending) {
+    return (
+      <ProjectSection title="Tools & Technologies">
+        <LoadingTools />
+      </ProjectSection>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ProjectSection title="Tools & Technologies" wrapperClassName="my-0">
+        <span
+          className="mt-4 flex w-full items-center justify-center wrap-break-word text-2xl text-foreground"
+          role="alert"
+        >
+          Failed to load tools
+        </span>
+      </ProjectSection>
+    );
+  }
+
   return (
     <ProjectSection title="Tools & Technologies">
       <div className="flex w-full min-w-0 flex-wrap justify-center gap-3">
         {tools?.map((tool) => (
           <Tool
-            key={tool}
-            tool={tool}
+            key={tool.tool}
+            tool={tool.tool}
             className="min-w-0 max-w-full wrap-break-word text-base"
           />
         ))}

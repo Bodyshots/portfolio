@@ -1,7 +1,7 @@
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import LoadingSpinner from "@/features/global/Skeletons/LoadingSpinner";
-import LoadingVideo from "@/features/global/Skeletons/LoadingVideo";
+import LoadingTools from "@/features/global/Skeletons/LoadingTools";
 
 const ProjectSkeleton = () => {
   return (
@@ -13,7 +13,14 @@ const ProjectSkeleton = () => {
           width="100%"
           className="mt-8 block max-w-[24em]"
         />
-        <LoadingVideo />
+        <div className="my-8 w-full min-w-0">
+          <LoadingSkeleton
+            height="1.3em"
+            width="100%"
+            className="block max-w-[30em]"
+            containerClassName="block w-full min-w-0 text-lg lg:text-xl"
+          />
+        </div>
         <button
           className="my-8 mt-0 inline-flex w-full max-w-47 min-w-0 flex-wrap items-center justify-center gap-2 rounded-lg bg-muted p-2 font-medium text-secondary-foreground opacity-70 max-xs:text-sm"
           type="button"
@@ -43,12 +50,7 @@ const ProjectSkeleton = () => {
           <h2 className="mb-4 wrap-break-word text-3xl text-foreground max-xs:text-xl">
             Tools & Technologies
           </h2>
-          <LoadingSkeleton
-            count={4}
-            width="10em"
-            className="mb-2 h-[1.5em] max-w-full rounded-full!"
-            containerClassName="flex min-w-0 flex-wrap justify-center gap-3 [&>br]:hidden"
-          />
+          <LoadingTools />
         </div>
         <div className="mb-12">
           <h2 className="my-8 wrap-break-word text-3xl text-foreground max-xs:text-xl">

@@ -1,12 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import { getProjectImageUrl } from "@/lib/images";
-import type { ProjectImage } from "@/types";
+import { createProjectGalleryImagesOptions } from "@/tanstack/queryFns/images";
 import ProjectSection from "../ProjectSection";
 
 interface ProjectGalleryProps {
-  isPending: boolean;
   projectName: string;
-  images?: ProjectImage[] | null;
   openImage: (
     image: string,
     attribution: string,
@@ -14,12 +13,16 @@ interface ProjectGalleryProps {
   ) => void;
 }
 
-const ProjectGallery = ({
-  isPending,
-  projectName,
-  images,
-  openImage,
-}: ProjectGalleryProps) => {
+const ProjectGallery = ({ projectName, openImage }: ProjectGalleryProps) => {
+  const {
+    data: images,
+    isPending,
+    isError,
+  } = useQuery({
+    ...createProjectGalleryImagesOptions(projectName),
+    enabled: Boolean(projectName),
+  });
+
   if (isPending) {
     return (
       <ProjectSection
@@ -27,6 +30,23 @@ const ProjectGallery = ({
         textClassName="text-foreground my-8"
       >
         <LoadingGallery />
+      </ProjectSection>
+    );
+  }
+
+  if (isError) {
+    return (
+      <ProjectSection
+        title="Project Gallery"
+        textClassName="text-foreground my-8"
+        wrapperClassName="my-0"
+      >
+        <span
+          className="mt-4 flex w-full items-center justify-center wrap-break-word text-2xl text-foreground"
+          role="alert"
+        >
+          Failed to load images
+        </span>
       </ProjectSection>
     );
   }
