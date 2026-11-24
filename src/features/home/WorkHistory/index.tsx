@@ -29,8 +29,8 @@ export default function WorkHistory() {
 
   if (error) {
     return (
-      <div className="my-12 h-full w-full text-center text-4xl text-foreground">
-        Hmmm... There's nothing here!
+      <div className="my-12 h-full w-full text-center text-4xl text-foreground break-all">
+        Hmmm... There are no jobs here!
       </div>
     );
   }

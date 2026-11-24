@@ -43,13 +43,15 @@ const AllProjects = () => {
         {error ? (
           <div className="flex flex-col text-foreground justify-center min-h-screen text-center gap-8">
             <div className="flex flex-col gap-2">
-              <span className="text-5xl">Hmm... There's nothing here!</span>
+              <span className="text-5xl break-all">
+                Hmm... There are no projects here!
+              </span>
               <span className="text-2xl">
                 Cause: {error?.cause ? String(error.cause) : "Unknown"}
               </span>
             </div>
             <span className="text-xl">
-              Please contact me about this error so I can get it fixed... :/
+              Please contact me so I can get this fixed... :/
             </span>
           </div>
         ) : (

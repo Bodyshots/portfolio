@@ -69,7 +69,7 @@ const HomeProjects = () => {
             ))}
           </div>
         ) : error ? (
-          <div className="my-12 text-center text-foreground">
+          <div className="my-12 text-center text-foreground break-all text-4xl">
             Hmmm... There are no projects here!
           </div>
         ) : (
