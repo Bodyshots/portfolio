@@ -52,18 +52,18 @@ type QueryTables = {
 export const QUERY_TABLES: QueryTables = Object.freeze({
   PROJECT: {
     [ProjectQueryKey.PROJECT]: new QueryTable<Project>({
-      database: import.meta.env.VITE_PROJECT_DB as string,
+      database: import.meta.env.VITE_PROJECT_TABLE as string,
       queryFn: (projectName?: string) => getProject(projectName ?? ""),
     }),
     [ProjectQueryKey.PROJECTS]: new QueryTable<Project[]>({
-      database: import.meta.env.VITE_PROJECT_DB as string,
+      database: import.meta.env.VITE_PROJECT_TABLE as string,
       queryFn: () =>
         projectGetter<Project[]>({
           key: ProjectQueryKey.PROJECTS,
         }),
     }),
     [ProjectQueryKey.COVER]: new QueryTable<ProjectImage[]>({
-      database: import.meta.env.VITE_IMAGE_DB as string,
+      database: import.meta.env.VITE_IMAGE_TABLE as string,
       queryFn: (projectName?: string) =>
         projectGetter<ProjectImage[]>({
           key: ProjectQueryKey.COVER,
@@ -72,7 +72,7 @@ export const QUERY_TABLES: QueryTables = Object.freeze({
         }),
     }),
     [ProjectQueryKey.GALLERY]: new QueryTable<ProjectImage[]>({
-      database: import.meta.env.VITE_IMAGE_DB as string,
+      database: import.meta.env.VITE_IMAGE_TABLE as string,
       queryFn: (projectName?: string) =>
         projectGetter<ProjectImage[]>({
           key: ProjectQueryKey.GALLERY,
@@ -81,7 +81,7 @@ export const QUERY_TABLES: QueryTables = Object.freeze({
         }),
     }),
     [ProjectQueryKey.TOOLS]: new QueryTable<ProjectTool[]>({
-      database: import.meta.env.VITE_TOOL_DB as string,
+      database: import.meta.env.VITE_TOOL_TABLE as string,
       queryFn: (projectName?: string) =>
         projectGetter<ProjectTool[]>({
           key: ProjectQueryKey.TOOLS,
@@ -89,7 +89,7 @@ export const QUERY_TABLES: QueryTables = Object.freeze({
         }),
     }),
     [ProjectQueryKey.VIDEOS]: new QueryTable<ProjectVideo[]>({
-      database: import.meta.env.VITE_VIDEO_DB as string,
+      database: import.meta.env.VITE_VIDEO_TABLE as string,
       queryFn: (projectName?: string) =>
         projectGetter<ProjectVideo[]>({
           key: ProjectQueryKey.VIDEOS,
@@ -99,22 +99,22 @@ export const QUERY_TABLES: QueryTables = Object.freeze({
   },
   WORK: {
     [WorkQueryKey.WORK]: new QueryTable<WorkItem[]>({
-      database: import.meta.env.VITE_WORK_DB as string,
+      database: import.meta.env.VITE_WORK_TABLE as string,
       queryFn: (workId?: string) =>
         workGetter({ queryKey: WorkQueryKey.WORK, workId }),
     }),
     [WorkQueryKey.ACHIEVEMENTS]: new QueryTable<WorkItemList[]>({
-      database: import.meta.env.VITE_ACHIEVEMENT_DB as string,
+      database: import.meta.env.VITE_ACHIEVEMENT_TABLE as string,
       queryFn: (workId?: string) =>
         workGetter({ queryKey: WorkQueryKey.ACHIEVEMENTS, workId }),
     }),
     [WorkQueryKey.RESPONSIBILITIES]: new QueryTable<WorkItemList[]>({
-      database: import.meta.env.VITE_RESPONSIBILITY_DB as string,
+      database: import.meta.env.VITE_RESPONSIBILITY_TABLE as string,
       queryFn: (workId?: string) =>
         workGetter({ queryKey: WorkQueryKey.RESPONSIBILITIES, workId }),
     }),
     [WorkQueryKey.TECHNOLOGIES]: new QueryTable<WorkItemList[]>({
-      database: import.meta.env.VITE_TECHNOLOGY_DB as string,
+      database: import.meta.env.VITE_TECHNOLOGY_TABLE as string,
       queryFn: (workId?: string) =>
         workGetter({ queryKey: WorkQueryKey.TECHNOLOGIES, workId }),
     }),
