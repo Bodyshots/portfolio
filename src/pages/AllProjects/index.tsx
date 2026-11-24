@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
-import { createProjectsOptions } from "@/tanstack/queryFns/projects";
+import { createProjectOptions } from "@/tanstack/queryFns/project";
+import { type Project, ProjectQueryKey } from "@/types";
 
 const LOADING_PROJECT_COUNT = 4;
 const LOADING_PROJECT_IDS = createIds(
@@ -22,7 +23,9 @@ const AllProjects = () => {
     data: projects,
     isPending,
     error,
-  } = useQuery(createProjectsOptions());
+  } = useQuery(
+    createProjectOptions<Project[]>({ key: ProjectQueryKey.PROJECTS }),
+  );
 
   const open = (name: string) => {
     navigate(`/project/${encodeURIComponent(name.toLowerCase())}`);

@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
-import createExperienceOptions from "@/tanstack/queryFns/experiences";
+import { createWorkOptions } from "@/tanstack/queryFns/work";
+import { WorkQueryKey } from "@/types";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 
@@ -13,7 +14,7 @@ export default function WorkHistory() {
     data: experience,
     isPending,
     error,
-  } = useQuery(createExperienceOptions());
+  } = useQuery(createWorkOptions({ key: WorkQueryKey.WORK }));
 
   const open = (id: number) => {
     setIsActive(id);

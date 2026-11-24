@@ -6,9 +6,13 @@ import { ProjectConstants } from "@/constants/project";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectCoverUrl } from "@/lib/images";
 import { cn, displayCardDescription } from "@/lib/utils";
-import { createProjectCoverImagesOptions } from "@/tanstack/queryFns/images";
-import { createProjectToolsOptions } from "@/tanstack/queryFns/tools";
-import type { Project, ProjectTool } from "@/types";
+import { createProjectOptions } from "@/tanstack/queryFns/project";
+import {
+  type Project,
+  type ProjectImage,
+  ProjectQueryKey,
+  type ProjectTool,
+} from "@/types";
 import Tool from "../../global/Tool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */
@@ -132,7 +136,10 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     isPending: isCoverPending,
     isError: isCoverError,
   } = useQuery({
-    ...createProjectCoverImagesOptions(item.name),
+    ...createProjectOptions<ProjectImage[]>({
+      key: ProjectQueryKey.COVER,
+      projectName: item.name,
+    }),
     enabled: Boolean(item.name),
   });
   const {
@@ -140,7 +147,10 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     isPending: toolsPending,
     isError: toolsError,
   } = useQuery({
-    ...createProjectToolsOptions(item.name),
+    ...createProjectOptions<ProjectTool[]>({
+      key: ProjectQueryKey.TOOLS,
+      projectName: item.name,
+    }),
     enabled: Boolean(item.name),
   });
 

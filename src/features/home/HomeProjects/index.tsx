@@ -5,7 +5,8 @@ import { ProjectConstants } from "@/constants/project";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
-import { createProjectsOptions } from "@/tanstack/queryFns/projects";
+import { createProjectOptions } from "@/tanstack/queryFns/project";
+import { type Project, ProjectQueryKey } from "@/types";
 import SectionHeader from "../SectionHeader";
 
 const projectLimits = ProjectConstants.HOME;
@@ -36,7 +37,9 @@ const HomeProjects = () => {
     data: projects,
     isPending,
     error,
-  } = useQuery(createProjectsOptions());
+  } = useQuery(
+    createProjectOptions<Project[]>({ key: ProjectQueryKey.PROJECTS }),
+  );
   const homeProjects = projects
     ? projects
         .filter((project) => project.major)

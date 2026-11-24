@@ -10,6 +10,38 @@ export interface WorkItem {
   achievements: string[] | null;
   technologies: string[] | null;
   team_size: string | null;
+  priority: number | null;
+}
+
+export enum WorkItemListType {
+  RESPONSIBILITY = "workResponsibility",
+  TECHNOLOGY = "workTechnology",
+  ACHIEVEMENT = "workAchievement",
+}
+
+export enum ProjectQueryKey {
+  PROJECT = "project",
+  PROJECTS = "projects",
+  COVER = "projectCover",
+  GALLERY = "projectGallery",
+  TOOLS = "projectTools",
+  VIDEOS = "projectVideos",
+}
+
+export enum WorkQueryKey {
+  WORK = "work",
+  RESPONSIBILITIES = "workResponsibilities",
+  TECHNOLOGIES = "workTechnologies",
+  ACHIEVEMENTS = "workAchievements",
+}
+
+export type TableQueryKey = ProjectQueryKey | WorkQueryKey;
+export interface WorkItemList {
+  id: number;
+  created_at: string;
+  project_id: number;
+  type: WorkItemListType;
+  content: string;
 }
 
 export interface Project {
