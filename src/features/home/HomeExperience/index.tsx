@@ -1,6 +1,6 @@
-import { HomeSectionID } from "@/constants/home";
 import SectionHeader from "@/features/home/SectionHeader";
 import WorkHistory from "@/features/home/WorkHistory";
+import { HomeSectionID } from "@/types";
 
 const HomeExperience = () => {
   return (

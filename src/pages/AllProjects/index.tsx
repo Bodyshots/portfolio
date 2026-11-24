@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
-import { createProjectsOptions } from "@/tanstack/queryFns/projects";
+import { type Project, QueryTableType } from "@/models";
+import { createOptions } from "@/tanstack/queryFns";
 
 const LOADING_PROJECT_COUNT = 4;
 const LOADING_PROJECT_IDS = createIds(
@@ -22,7 +23,11 @@ const AllProjects = () => {
     data: projects,
     isPending,
     error,
-  } = useQuery(createProjectsOptions());
+  } = useQuery(
+    createOptions<Project[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projects" },
+    }),
+  );
 
   const open = (name: string) => {
     navigate(`/project/${encodeURIComponent(name.toLowerCase())}`);
@@ -38,13 +43,15 @@ const AllProjects = () => {
         {error ? (
           <div className="flex flex-col text-foreground justify-center min-h-screen text-center gap-8">
             <div className="flex flex-col gap-2">
-              <span className="text-5xl">Hmm... There's nothing here!</span>
+              <span className="text-5xl break-all">
+                Hmm... There are no projects here!
+              </span>
               <span className="text-2xl">
                 Cause: {error?.cause ? String(error.cause) : "Unknown"}
               </span>
             </div>
             <span className="text-xl">
-              Please contact me about this error so I can get it fixed... :/
+              Please contact me so I can get this fixed... :/
             </span>
           </div>
         ) : (

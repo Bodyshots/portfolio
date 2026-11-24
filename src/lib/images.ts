@@ -1,5 +1,5 @@
 import supabase from "@/config/supabaseClient";
-import { type ProjectImage, ProjectImageType } from "@/types";
+import { type ProjectImage, ProjectImageType } from "@/models";
 
 interface getProjectImageUrlProps {
   projectName: string;

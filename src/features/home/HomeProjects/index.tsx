@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { HomeSectionID } from "@/constants/home";
 import { ProjectConstants } from "@/constants/project";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
-import { createProjectsOptions } from "@/tanstack/queryFns/projects";
+import { type Project, QueryTableType } from "@/models";
+import { createOptions } from "@/tanstack/queryFns";
+import { HomeSectionID } from "@/types";
 import SectionHeader from "../SectionHeader";
 
 const projectLimits = ProjectConstants.HOME;
@@ -36,7 +37,14 @@ const HomeProjects = () => {
     data: projects,
     isPending,
     error,
-  } = useQuery(createProjectsOptions());
+  } = useQuery(
+    createOptions<Project[]>({
+      query: {
+        queryTable: QueryTableType.PROJECT,
+        queryKey: "projects",
+      },
+    }),
+  );
   const homeProjects = projects
     ? projects
         .filter((project) => project.major)
@@ -61,7 +69,7 @@ const HomeProjects = () => {
             ))}
           </div>
         ) : error ? (
-          <div className="my-12 text-center text-foreground">
+          <div className="my-12 text-center text-foreground break-all text-4xl">
             Hmmm... There are no projects here!
           </div>
         ) : (

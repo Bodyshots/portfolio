@@ -1,15 +1,13 @@
 import { motion, type Variants } from "framer-motion";
 import { AnimationConstants } from "@/constants/animation";
-import type { WorkItem } from "@/types";
+import type { WorkItem } from "@/models";
 import HistoryCircle from "../HistoryCircle";
-import LoadingWorkSkeleton from "../LoadingWorkSkeleton";
 
 const EASING = AnimationConstants.EASING;
 
 interface WorkBubbleProps {
   job: WorkItem;
   leftAlign: boolean;
-  isPending: boolean;
   open: (id: number) => void;
 }
 
@@ -30,12 +28,7 @@ const getBubbleAnimation = (leftAlign: boolean): Variants => {
   };
 };
 
-export const WorkBubble = ({
-  job,
-  leftAlign,
-  isPending,
-  open,
-}: WorkBubbleProps) => {
+export const WorkBubble = ({ job, leftAlign, open }: WorkBubbleProps) => {
   const bubbleAnim = getBubbleAnimation(leftAlign);
 
   return (
@@ -53,26 +46,22 @@ export const WorkBubble = ({
         whileInView="whileInView"
         viewport={{ once: true }}
       >
-        {isPending ? (
-          <LoadingWorkSkeleton leftAlign={leftAlign} />
-        ) : (
-          <button
-            className={`inline-block cursor-pointer rounded-lg border-2 p-6 transition-transform duration-200 hover:scale-105 ${
-              leftAlign
-                ? "border-primary bg-secondary text-right"
-                : "border-secondary bg-white text-left"
-            }`}
-            onClick={() => open(job.id)}
-            type="button"
-          >
-            <h2 className="mb-1 text-xl text-card-primary">{job.title}</h2>
-            <h3 className="mb-1 text-lg text-card-secondary">{job.company}</h3>
-            <p className="mb-3 text-base text-card-secondary">{job.years}</p>
-            <p className="text-sm leading-6 text-card-primary">
-              {job.description}
-            </p>
-          </button>
-        )}
+        <button
+          className={`inline-block cursor-pointer rounded-lg border-2 p-6 transition-transform duration-200 hover:scale-105 ${
+            leftAlign
+              ? "border-primary bg-secondary text-right"
+              : "border-secondary bg-white text-left"
+          }`}
+          onClick={() => open(job.id)}
+          type="button"
+        >
+          <h2 className="mb-1 text-xl text-card-primary">{job.title}</h2>
+          <h3 className="mb-1 text-lg text-card-secondary">{job.company}</h3>
+          <p className="mb-3 text-base text-card-secondary">{job.years}</p>
+          <p className="text-sm leading-6 text-card-primary">
+            {job.description}
+          </p>
+        </button>
       </motion.div>
       <HistoryCircle />
     </div>

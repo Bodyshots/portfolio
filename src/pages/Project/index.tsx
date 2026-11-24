@@ -9,7 +9,8 @@ import ProjectImageModal from "@/features/project/ProjectImageModal";
 import ProjectSkeleton from "@/features/project/ProjectSkeleton";
 import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
-import { createProjectNameOptions } from "@/tanstack/queryFns/projects";
+import { type Project as ProjectType, QueryTableType } from "@/models";
+import { createOptions } from "@/tanstack/queryFns";
 import NotFound from "../NotFound";
 
 function Project() {
@@ -20,7 +21,13 @@ function Project() {
     isPending,
     error,
   } = useQuery({
-    ...createProjectNameOptions(projectName ?? ""),
+    ...createOptions<ProjectType>({
+      query: {
+        queryTable: QueryTableType.PROJECT,
+        queryKey: "project",
+      },
+      param: projectName,
+    }),
     enabled: Boolean(projectName),
   });
 

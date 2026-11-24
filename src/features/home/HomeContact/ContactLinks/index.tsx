@@ -36,7 +36,7 @@ export const ContactLinks = () => {
         />
         <ContactLink
           ariaLabel="Email"
-          href={import.meta.env.VITE_EMAIL}
+          href={`mailto:${import.meta.env.VITE_EMAIL}?subject=sup nerd`}
           icon={IoMdMail}
         />
       </div>
