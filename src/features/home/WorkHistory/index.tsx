@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
-import { createWorkOptions } from "@/tanstack/queryFns/work";
-import { WorkQueryKey } from "@/types";
+import { useState } from "react";
+import LoadingWorkHistorySkeleton from "@/features/global/Skeletons/LoadingWorkHistorySkeleton";
+import { createOptions } from "@/tanstack/queryFns";
+import { QueryTableType, type WorkItem } from "@/types";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 
@@ -11,10 +12,14 @@ export default function WorkHistory() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const {
-    data: experience,
+    data: experiences,
     isPending,
     error,
-  } = useQuery(createWorkOptions({ key: WorkQueryKey.WORK }));
+  } = useQuery(
+    createOptions<WorkItem[]>({
+      query: { queryTable: QueryTableType.WORK, queryKey: "work" },
+    }),
+  );
 
   const open = (id: number) => {
     setIsActive(id);
@@ -22,20 +27,16 @@ export default function WorkHistory() {
   };
   const close = () => setModalOpen(false);
 
-  const experiences = useMemo(
-    () =>
-      Array.isArray(experience)
-        ? [...experience].sort((a, b) => a.id - b.id)
-        : [],
-    [experience],
-  );
-
   if (error) {
     return (
       <div className="my-12 h-full w-full text-center text-4xl text-foreground">
         Hmmm... There's nothing here!
       </div>
     );
+  }
+
+  if (isPending) {
+    return <LoadingWorkHistorySkeleton />;
   }
 
   return (
@@ -46,12 +47,11 @@ export default function WorkHistory() {
         </h1>
         <div className="relative">
           <div className="absolute left-1/2 h-full w-0.5 -translate-x-1/2 bg-muted" />
-          {experiences.map((job, index) => (
+          {experiences.map((job, i) => (
             <WorkBubble
               key={job.id}
               job={job}
-              isPending={isPending}
-              leftAlign={index % 2 === 1}
+              leftAlign={i % 2 === 1}
               open={open}
             />
           ))}

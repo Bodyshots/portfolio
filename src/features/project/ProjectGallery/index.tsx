@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import { getProjectImageUrl } from "@/lib/images";
-import { createProjectOptions } from "@/tanstack/queryFns/project";
-import { type ProjectImage, ProjectQueryKey } from "@/types";
+import { createOptions } from "@/tanstack/queryFns";
+import { type ProjectImage, QueryTableType } from "@/types";
 import ProjectSection from "../ProjectSection";
 
 interface ProjectGalleryProps {
@@ -20,9 +20,9 @@ const ProjectGallery = ({ projectName, openImage }: ProjectGalleryProps) => {
     isPending,
     isError,
   } = useQuery({
-    ...createProjectOptions<ProjectImage[]>({
-      key: ProjectQueryKey.GALLERY,
-      projectName,
+    ...createOptions<ProjectImage[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projectGallery" },
+      param: projectName,
     }),
     enabled: Boolean(projectName),
   });

@@ -13,27 +13,27 @@ export interface WorkItem {
   priority: number | null;
 }
 
-export enum WorkItemListType {
-  RESPONSIBILITY = "workResponsibility",
-  TECHNOLOGY = "workTechnology",
-  ACHIEVEMENT = "workAchievement",
-}
+// See: Constant object with a derived union type
+export const ProjectQueryKey = {
+  PROJECT: "project",
+  PROJECTS: "projects",
+  COVER: "projectCover",
+  GALLERY: "projectGallery",
+  TOOLS: "projectTools",
+  VIDEOS: "projectVideos",
+} as const;
+export type ProjectQueryKey =
+  (typeof ProjectQueryKey)[keyof typeof ProjectQueryKey];
 
-export enum ProjectQueryKey {
-  PROJECT = "project",
-  PROJECTS = "projects",
-  COVER = "projectCover",
-  GALLERY = "projectGallery",
-  TOOLS = "projectTools",
-  VIDEOS = "projectVideos",
-}
+export const WorkQueryKey = {
+  WORK: "work",
+  RESPONSIBILITIES: "workResponsibilities",
+  TECHNOLOGIES: "workTechnologies",
+  ACHIEVEMENTS: "workAchievements",
+} as const;
 
-export enum WorkQueryKey {
-  WORK = "work",
-  RESPONSIBILITIES = "workResponsibilities",
-  TECHNOLOGIES = "workTechnologies",
-  ACHIEVEMENTS = "workAchievements",
-}
+export type WorkQueryKey = (typeof WorkQueryKey)[keyof typeof WorkQueryKey];
+export type WorkItemListType = Exclude<WorkQueryKey, typeof WorkQueryKey.WORK>;
 
 export type TableQueryKey = ProjectQueryKey | WorkQueryKey;
 export interface WorkItemList {
@@ -58,6 +58,11 @@ export interface Project {
 export enum ProjectImageType {
   COVER = "cover",
   GALLERY = "gallery",
+}
+
+export enum QueryTableType {
+  WORK = "work",
+  PROJECT = "project",
 }
 
 export interface ProjectImage {

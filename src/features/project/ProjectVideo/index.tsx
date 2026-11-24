@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectVideoUrl } from "@/lib/videos";
-import { createProjectOptions } from "@/tanstack/queryFns/project";
-import {
-  ProjectQueryKey,
-  type ProjectVideo as ProjectVideoType,
-} from "@/types";
+import { createOptions } from "@/tanstack/queryFns";
+import { type ProjectVideo as ProjectVideoType, QueryTableType } from "@/types";
 
 function ProjectVideo({ projectName }: { projectName: string }) {
   const {
@@ -13,9 +10,9 @@ function ProjectVideo({ projectName }: { projectName: string }) {
     isPending,
     isError,
   } = useQuery({
-    ...createProjectOptions<ProjectVideoType[]>({
-      key: ProjectQueryKey.VIDEOS,
-      projectName,
+    ...createOptions<ProjectVideoType[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projectVideos" },
+      param: projectName,
     }),
     enabled: Boolean(projectName),
   });

@@ -1,3 +1,4 @@
+import supabase from "@/config/supabaseClient";
 import {
   type Project,
   type ProjectImage,
@@ -5,6 +6,7 @@ import {
   ProjectQueryKey,
   type ProjectTool,
   type ProjectVideo,
+  QueryTableType,
   type WorkItem,
   type WorkItemList,
   WorkQueryKey,
@@ -12,7 +14,7 @@ import {
 import { getProject, projectGetter } from "./queryOptions/project";
 import { workGetter } from "./queryOptions/work";
 
-export class QueryTable<T> {
+class QueryTable<T> {
   database: string;
   queryFn: (param?: string) => Promise<T>;
 
@@ -21,7 +23,33 @@ export class QueryTable<T> {
     this.queryFn = queryFn;
   }
 }
-export const QUERY_TABLES = Object.freeze({
+
+type ProjectQueryTypes = {
+  [ProjectQueryKey.PROJECT]: Project;
+  [ProjectQueryKey.PROJECTS]: Project[];
+  [ProjectQueryKey.COVER]: ProjectImage[];
+  [ProjectQueryKey.GALLERY]: ProjectImage[];
+  [ProjectQueryKey.TOOLS]: ProjectTool[];
+  [ProjectQueryKey.VIDEOS]: ProjectVideo[];
+};
+
+type WorkQueryTypes = {
+  [WorkQueryKey.WORK]: WorkItem[];
+  [WorkQueryKey.ACHIEVEMENTS]: WorkItemList[];
+  [WorkQueryKey.RESPONSIBILITIES]: WorkItemList[];
+  [WorkQueryKey.TECHNOLOGIES]: WorkItemList[];
+};
+
+type QueryTableMap<T> = {
+  [K in keyof T]: QueryTable<T[K]>;
+};
+
+type QueryTables = {
+  PROJECT: QueryTableMap<ProjectQueryTypes>;
+  WORK: QueryTableMap<WorkQueryTypes>;
+};
+
+export const QUERY_TABLES: QueryTables = Object.freeze({
   PROJECT: {
     [ProjectQueryKey.PROJECT]: new QueryTable<Project>({
       database: import.meta.env.VITE_PROJECT_DB as string,
@@ -92,3 +120,27 @@ export const QUERY_TABLES = Object.freeze({
     }),
   },
 });
+
+export type GetQueryTableProps =
+  | {
+      queryTable: QueryTableType.PROJECT;
+      queryKey: ProjectQueryKey;
+    }
+  | {
+      queryTable: QueryTableType.WORK;
+      queryKey: WorkQueryKey;
+    };
+
+export const getQueryTable = ({ queryTable, queryKey }: GetQueryTableProps) => {
+  switch (queryTable) {
+    case QueryTableType.PROJECT:
+      return QUERY_TABLES.PROJECT[queryKey];
+    case QueryTableType.WORK:
+      return QUERY_TABLES.WORK[queryKey];
+  }
+};
+
+export const selectFromQueryTable = (props: GetQueryTableProps) => {
+  const table = getQueryTable(props);
+  return supabase.from(table.database).select("*").order("priority");
+};

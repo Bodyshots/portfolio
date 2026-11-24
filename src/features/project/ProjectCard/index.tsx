@@ -6,12 +6,12 @@ import { ProjectConstants } from "@/constants/project";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectCoverUrl } from "@/lib/images";
 import { cn, displayCardDescription } from "@/lib/utils";
-import { createProjectOptions } from "@/tanstack/queryFns/project";
+import { createOptions } from "@/tanstack/queryFns";
 import {
   type Project,
   type ProjectImage,
-  ProjectQueryKey,
   type ProjectTool,
+  QueryTableType,
 } from "@/types";
 import Tool from "../../global/Tool";
 
@@ -136,9 +136,9 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     isPending: isCoverPending,
     isError: isCoverError,
   } = useQuery({
-    ...createProjectOptions<ProjectImage[]>({
-      key: ProjectQueryKey.COVER,
-      projectName: item.name,
+    ...createOptions<ProjectImage[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projectCover" },
+      param: item.name,
     }),
     enabled: Boolean(item.name),
   });
@@ -147,9 +147,9 @@ function ProjectCard({ item, open, className }: ProjectCardProps) {
     isPending: toolsPending,
     isError: toolsError,
   } = useQuery({
-    ...createProjectOptions<ProjectTool[]>({
-      key: ProjectQueryKey.TOOLS,
-      projectName: item.name,
+    ...createOptions<ProjectTool[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projectTools" },
+      param: item.name,
     }),
     enabled: Boolean(item.name),
   });

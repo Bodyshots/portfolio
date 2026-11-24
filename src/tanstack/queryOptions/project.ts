@@ -1,8 +1,12 @@
 import type { PostgrestError } from "@supabase/supabase-js";
-import supabase from "@/config/supabaseClient";
 import { resolveActualNameFromUrlSafeName } from "@/lib/utils";
-import { type Project, type ProjectImageType, ProjectQueryKey } from "@/types";
-import { QUERY_TABLES } from "../queries";
+import {
+  type Project,
+  type ProjectImageType,
+  type ProjectQueryKey,
+  QueryTableType,
+} from "@/types";
+import { selectFromQueryTable } from "../queries";
 import { dataOrThrow } from "./error";
 
 interface ProjectSelectFromEqProps {
@@ -22,20 +26,17 @@ interface ProjectGetterProps {
   imageType?: ProjectImageType;
 }
 
-const projectSelectAllFrom = (queryKey: ProjectQueryKey) => {
-  return supabase.from(QUERY_TABLES.PROJECT[queryKey].database).select("*");
-};
-
-const projectSelectAllFromEq = async <T>({
+const projectSelectFromName = async <T>({
   queryKey,
   projectName,
 }: ProjectSelectFromEqProps): Promise<{
   data: T[] | null;
   error: PostgrestError | null;
 }> => {
-  return await projectSelectAllFrom(queryKey)
-    .eq("project_name", projectName)
-    .order("priority");
+  return await selectFromQueryTable({
+    queryTable: QueryTableType.PROJECT,
+    queryKey,
+  }).eq("project_name", projectName);
 };
 
 const projectSelectImages = async <T>({
@@ -46,10 +47,12 @@ const projectSelectImages = async <T>({
   data: T[] | null;
   error: PostgrestError | null;
 }> => {
-  return await projectSelectAllFrom(queryKey)
+  return await selectFromQueryTable({
+    queryTable: QueryTableType.PROJECT,
+    queryKey,
+  })
     .eq("project_name", projectName)
-    .eq("type", imageType)
-    .order("priority");
+    .eq("type", imageType);
 };
 
 export const projectGetter = async <T>({
@@ -64,11 +67,14 @@ export const projectGetter = async <T>({
             projectName,
             imageType,
           })
-        : projectSelectAllFromEq<T>({
+        : projectSelectFromName<T>({
             queryKey: key,
             projectName,
           }))
-    : await projectSelectAllFrom(ProjectQueryKey.PROJECTS).order("priority");
+    : await selectFromQueryTable({
+        queryTable: QueryTableType.PROJECT,
+        queryKey: "projects",
+      });
 
   return dataOrThrow({
     data: result.data ?? [],
@@ -81,7 +87,7 @@ export const projectGetter = async <T>({
 
 export const getProject = async (projectName: string): Promise<Project> => {
   const data = await projectGetter<Project[]>({
-    key: ProjectQueryKey.PROJECTS,
+    key: "projects",
   });
 
   const actualName = resolveActualNameFromUrlSafeName(

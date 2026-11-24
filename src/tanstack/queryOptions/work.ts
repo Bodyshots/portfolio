@@ -1,6 +1,5 @@
-import supabase from "@/config/supabaseClient";
-import type { WorkQueryKey } from "@/types";
-import { QUERY_TABLES } from "../queries";
+import { QueryTableType, type WorkQueryKey } from "@/types";
+import { selectFromQueryTable } from "../queries";
 import { dataOrThrow } from "./error";
 
 interface WorkSelectFromEqProps {
@@ -13,15 +12,11 @@ interface WorkGetterProps {
   workId?: string;
 }
 
-const workSelectAllFrom = (queryKey: WorkQueryKey) => {
-  return supabase.from(QUERY_TABLES.WORK[queryKey].database).select("*");
-};
-
-export const workSelectAllFromEq = ({
-  queryKey,
-  workId,
-}: WorkSelectFromEqProps) => {
-  return workSelectAllFrom(queryKey).eq("id", workId).order("priority");
+const workSelectAllFromId = ({ queryKey, workId }: WorkSelectFromEqProps) => {
+  return selectFromQueryTable({
+    queryTable: QueryTableType.WORK,
+    queryKey,
+  }).eq("id", workId);
 };
 
 export const workGetter = async <T>({
@@ -29,8 +24,11 @@ export const workGetter = async <T>({
   workId,
 }: WorkGetterProps): Promise<T> => {
   const result = workId
-    ? await workSelectAllFromEq({ queryKey, workId: Number(workId) })
-    : await workSelectAllFrom(queryKey);
+    ? await workSelectAllFromId({ queryKey, workId: Number(workId) })
+    : await selectFromQueryTable({
+        queryTable: QueryTableType.WORK,
+        queryKey,
+      });
 
   return dataOrThrow({
     data: result.data ?? [],

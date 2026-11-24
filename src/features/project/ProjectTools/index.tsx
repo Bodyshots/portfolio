@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingTools from "@/features/global/Skeletons/LoadingTools";
-import { createProjectOptions } from "@/tanstack/queryFns/project";
-import { ProjectQueryKey, type ProjectTool } from "@/types";
+import { createOptions } from "@/tanstack/queryFns";
+import { type ProjectTool, QueryTableType } from "@/types";
 import Tool from "../../global/Tool";
 import ProjectSection from "../ProjectSection";
 
@@ -11,9 +11,9 @@ const ProjectTools = ({ projectName }: { projectName: string }) => {
     isPending,
     isError,
   } = useQuery({
-    ...createProjectOptions<ProjectTool[]>({
-      key: ProjectQueryKey.TOOLS,
-      projectName,
+    ...createOptions<ProjectTool[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projectTools" },
+      param: projectName,
     }),
     enabled: Boolean(projectName),
   });

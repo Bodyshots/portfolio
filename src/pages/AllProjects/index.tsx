@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
-import { createProjectOptions } from "@/tanstack/queryFns/project";
-import { type Project, ProjectQueryKey } from "@/types";
+import { createOptions } from "@/tanstack/queryFns";
+import { type Project, QueryTableType } from "@/types";
 
 const LOADING_PROJECT_COUNT = 4;
 const LOADING_PROJECT_IDS = createIds(
@@ -24,7 +24,9 @@ const AllProjects = () => {
     isPending,
     error,
   } = useQuery(
-    createProjectOptions<Project[]>({ key: ProjectQueryKey.PROJECTS }),
+    createOptions<Project[]>({
+      query: { queryTable: QueryTableType.PROJECT, queryKey: "projects" },
+    }),
   );
 
   const open = (name: string) => {
