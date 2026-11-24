@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { HomeSectionID } from "@/constants/home";
 import { ProjectConstants } from "@/constants/project";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
+import { type Project, QueryTableType } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type Project, QueryTableType } from "@/types";
+import { HomeSectionID } from "@/types";
 import SectionHeader from "../SectionHeader";
 
 const projectLimits = ProjectConstants.HOME;

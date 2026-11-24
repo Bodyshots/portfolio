@@ -5,7 +5,7 @@ import {
   UsersIcon,
   XIcon,
 } from "lucide-react";
-import type { WorkItem } from "@/types";
+import type { WorkItem } from "@/models";
 
 interface HeaderBulletProps {
   icon: LucideIcon;

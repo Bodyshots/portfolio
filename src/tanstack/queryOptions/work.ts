@@ -1,4 +1,4 @@
-import { QueryTableType, type WorkQueryKey } from "@/types";
+import { QueryTableType, type WorkQueryKey } from "@/models";
 import { selectFromQueryTable } from "../queries";
 import { dataOrThrow } from "./error";
 
@@ -16,7 +16,7 @@ const workSelectAllFromId = ({ queryKey, workId }: WorkSelectFromEqProps) => {
   return selectFromQueryTable({
     queryTable: QueryTableType.WORK,
     queryKey,
-  }).eq("id", workId);
+  }).eq("work_id", workId);
 };
 
 export const workGetter = async <T>({

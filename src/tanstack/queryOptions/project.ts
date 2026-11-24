@@ -5,7 +5,7 @@ import {
   type ProjectImageType,
   type ProjectQueryKey,
   QueryTableType,
-} from "@/types";
+} from "@/models";
 import { selectFromQueryTable } from "../queries";
 import { dataOrThrow } from "./error";
 

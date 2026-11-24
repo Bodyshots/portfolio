@@ -10,7 +10,7 @@ import {
   type WorkItem,
   type WorkItemList,
   WorkQueryKey,
-} from "@/types";
+} from "@/models";
 import { getProject, projectGetter } from "./queryOptions/project";
 import { workGetter } from "./queryOptions/work";
 

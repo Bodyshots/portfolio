@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingTools from "@/features/global/Skeletons/LoadingTools";
+import { type ProjectTool, QueryTableType } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type ProjectTool, QueryTableType } from "@/types";
 import Tool from "../../global/Tool";
 import ProjectSection from "../ProjectSection";
 

@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { AnimationConstants } from "@/constants/animation";
-import type { WorkItem } from "@/types";
+import type { WorkItem } from "@/models";
 import HistoryCircle from "../HistoryCircle";
 
 const EASING = AnimationConstants.EASING;

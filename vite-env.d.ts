@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_GITHUB_URL: string;
   readonly VITE_LINKEDIN_URL: string;
   readonly VITE_EMAIL: string;
+  readonly VITE_PHONE_NUMBER: string;
   readonly VITE_RESUME_URL: string;
   readonly VITE_ANON_KEY: string;
   readonly VITE_PROJECT_DB: string;

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingProjectCard from "@/features/global/Skeletons/LoadingProjectCard";
 import ProjectCard from "@/features/project/ProjectCard";
 import { createIds } from "@/lib/utils";
+import { type Project, QueryTableType } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type Project, QueryTableType } from "@/types";
 
 const LOADING_PROJECT_COUNT = 4;
 const LOADING_PROJECT_IDS = createIds(

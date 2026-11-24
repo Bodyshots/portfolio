@@ -6,13 +6,13 @@ import { ProjectConstants } from "@/constants/project";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectCoverUrl } from "@/lib/images";
 import { cn, displayCardDescription } from "@/lib/utils";
-import { createOptions } from "@/tanstack/queryFns";
 import {
   type Project,
   type ProjectImage,
   type ProjectTool,
   QueryTableType,
-} from "@/types";
+} from "@/models";
+import { createOptions } from "@/tanstack/queryFns";
 import Tool from "../../global/Tool";
 
 /* Most Card CSS from: https://www.youtube.com/watch?v=FLt2TveqHQM */

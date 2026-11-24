@@ -9,8 +9,8 @@ import ProjectImageModal from "@/features/project/ProjectImageModal";
 import ProjectSkeleton from "@/features/project/ProjectSkeleton";
 import ProjectTools from "@/features/project/ProjectTools";
 import ProjectVideo from "@/features/project/ProjectVideo";
+import { type Project as ProjectType, QueryTableType } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type Project as ProjectType, QueryTableType } from "@/types";
 import NotFound from "../NotFound";
 
 function Project() {

@@ -1,6 +1,6 @@
 import { motion, type Variants } from "framer-motion";
 import { AnimationConstants } from "@/constants/animation";
-import type { WorkItem } from "@/types";
+import type { WorkItem } from "@/models";
 import WorkContent from "./WorkContent";
 import WorkHeader from "./WorkHeader";
 
@@ -73,7 +73,7 @@ export function WorkHistoryModal({
           onKeyDown={(e) => e.stopPropagation()}
         >
           <WorkHeader selectedJob={selectedJob} close={close} />
-          <WorkContent selectedJob={selectedJob} />
+          <WorkContent selectedJobId={selectedJob.id} />
         </motion.div>
       </div>
     </motion.div>

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingGallery from "@/features/global/Skeletons/LoadingGallery";
 import { getProjectImageUrl } from "@/lib/images";
+import { type ProjectImage, QueryTableType } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type ProjectImage, QueryTableType } from "@/types";
 import ProjectSection from "../ProjectSection";
 
 interface ProjectGalleryProps {

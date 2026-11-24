@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import LoadingWorkHistorySkeleton from "@/features/global/Skeletons/LoadingWorkHistorySkeleton";
+import { QueryTableType, type WorkItem } from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { QueryTableType, type WorkItem } from "@/types";
 import { WorkBubble } from "./WorkBubble";
 import { WorkHistoryModal } from "./WorkHistoryModal";
 

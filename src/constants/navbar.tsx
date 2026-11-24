@@ -1,4 +1,4 @@
-import { HomeSectionID } from "./home";
+import { HomeSectionID } from "@/types";
 
 interface NavItem {
   label: string;

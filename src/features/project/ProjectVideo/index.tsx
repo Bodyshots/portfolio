@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import LoadingSkeleton from "@/features/global/Skeletons/LoadingSkeleton";
 import { getProjectVideoUrl } from "@/lib/videos";
+import {
+  type ProjectVideo as ProjectVideoType,
+  QueryTableType,
+} from "@/models";
 import { createOptions } from "@/tanstack/queryFns";
-import { type ProjectVideo as ProjectVideoType, QueryTableType } from "@/types";
 
 function ProjectVideo({ projectName }: { projectName: string }) {
   const {
