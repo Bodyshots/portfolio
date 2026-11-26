@@ -123,11 +123,11 @@ export const QUERY_TABLES: QueryTables = Object.freeze({
 
 export type GetQueryTableProps =
   | {
-      queryTable: QueryTableType.PROJECT;
+      queryTable: typeof QueryTableType.PROJECT;
       queryKey: ProjectQueryKey;
     }
   | {
-      queryTable: QueryTableType.WORK;
+      queryTable: typeof QueryTableType.WORK;
       queryKey: WorkQueryKey;
     };
 

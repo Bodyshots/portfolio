@@ -88,6 +88,7 @@ export interface ProjectTool {
 export const QueryTableType = {
   WORK: "work",
   PROJECT: "project",
-};
+} as const;
+
 export type QueryTableType =
   (typeof QueryTableType)[keyof typeof QueryTableType];
